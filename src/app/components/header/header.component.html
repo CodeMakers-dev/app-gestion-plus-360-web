@@ -1,0 +1,89 @@
+<header>
+  <div class="left-container">
+    <div class="menu-container" (click)="toggleSidebar()">
+      <span class="menu-icon">&#9776;</span>
+    </div>
+    <div class="logo">
+      <img src="log.png" alt="Logo">
+    </div>
+  </div>
+
+  <div class="search-container">
+    <input type="text"  [(ngModel)]="searchQuery" placeholder="Buscar..." (keyup.enter)="onSearch()">
+    <button type="button" (click)="onSearch()">
+      <img src="search.png" alt="Buscar">
+    </button>
+  </div>
+
+  <div class="notification">
+    <button type="submit">
+      <img src="notifi.png">
+    </button>
+  </div>
+
+  <div class="perfil">
+    <button type="button" (click)="openProfileModal()">
+      <img [src]="userImage" alt="Icono de Perfil">
+    </button>
+  </div>
+
+  <div class="close">
+    <button type="button" (click)="logout()">
+      <img src="close.png" alt="Cerrar sesión">
+    </button>
+  </div>  
+</header>
+
+
+<div class="sidebar" [class.active]="sidebarOpen">
+  <div class="sidebar-logo">
+    <img src="log.png" alt="Logo">
+  </div>
+  <ul>
+    <li (click)="goTo('/home')">
+      <img src="inicio.png" class="inicio">
+      <span>Inicio</span>
+    </li>
+    <li (click)="goTo('/marketing')">
+      <img src="marketing.png" class="marketing">
+      <span>Marketing</span>
+    </li>
+  </ul>
+</div>
+
+<!-- MODAL DE PERFIL -->
+<div class="modal-overlay" *ngIf="isProfileModalOpen">
+  <div class="modal-content">
+    <span class="close-modal" (click)="closeProfileModal()">&times;</span>
+    <h2>Editar Perfil</h2>
+    <div class="profile-container">
+      <div class="profile-image-wrapper">
+        <img
+          [src]="userImage"
+          alt="Imagen de Perfil"
+          class="profile-image"
+          (click)="openImagePreview()"
+        />
+        <div class="edit-icon" (click)="onFileInputClick($event)">
+          <img src="pencil.png" alt="Editar" />
+        </div>
+      </div>
+      <input
+        #fileInput
+        type="file"
+        (change)="onFileSelected($event)"
+        style="display: none;"
+      />
+    </div>
+
+    <input type="text" [(ngModel)]="userName" placeholder="Nombre de usuario">
+    <button (click)="saveProfile()">Guardar</button>
+  </div>
+</div>
+
+<div class="preview-modal" *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
+  <div class="preview-content" (click)="$event.stopPropagation()">
+    <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="preview-image">
+    <span class="close-preview" (click)="closeImagePreview()">&times;</span>
+  </div>
+</div>
