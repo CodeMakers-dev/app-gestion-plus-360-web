@@ -1,3 +1,4 @@
+import { ApiResponse } from '@core/interfaces/Iresponse';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -8,19 +9,18 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/v1/Usuario/validar'; 
+  private apiUrl = 'http://localhost:8080/api/v1/Usuario/validar';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
-  login(usuario: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { usuario, password }).pipe(
-      tap(response => {
-        if (response.response && response.response.token) {
+  login(usuario: string, password: string): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(this.apiUrl, { usuario, password }).pipe(
+      tap((response: ApiResponse) => {
+        if (response.success) {
           localStorage.setItem('token', response.response.token);
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/home']);
         }
-      })
-    );
+      }));
   }
 
   logout(): void {
@@ -29,7 +29,7 @@ export class AuthService {
     // Limpia sessionStorage
     sessionStorage.clear();
     // Redirige al login
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
   }
 
 

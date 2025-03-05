@@ -1,11 +1,11 @@
-<div class="container"> 
+<div class="container">
     <div class="img1">
-        <img src="logoblanco.png" alt="imagen fondo" width="100">
+        <img src="logoblanco.png" alt="imagen fondo">
     </div>
     <div class="box">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="input-box">
-                <h2>BIENVENIDO</h2>
+                <h2 class="text-cyan-400 text-4xl">BIENVENIDO</h2>
                 <br>
                 <input type="text" formControlName="usuario" required>
                 <span>Usuario</span>
