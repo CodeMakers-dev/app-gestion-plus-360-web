@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '@services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,8 +13,8 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   sidebarOpen = false;
   searchQuery = '';
-  userImage: string = 'perfil.png'; 
-  userName: string = 'Usuario'; 
+  userImage: string = 'perfil.png';
+  userName: string = 'Usuario';
   isProfileModalOpen: boolean = false;
   isImagePreviewOpen: boolean = false; // Variable para la vista previa
 
@@ -59,7 +59,7 @@ export class HeaderComponent {
   onSearch() {
     console.log('Buscando:', this.searchQuery);
   }
-  
+
   onFileInputClick(event: MouseEvent) {
     event.stopPropagation();
     this.fileInput.nativeElement.click();
@@ -68,7 +68,7 @@ export class HeaderComponent {
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const target = event.target as HTMLElement;
-    if (this.sidebarOpen && 
+    if (this.sidebarOpen &&
         !target.closest('.sidebar') &&
         !target.closest('.menu-container')) {
       this.sidebarOpen = false;

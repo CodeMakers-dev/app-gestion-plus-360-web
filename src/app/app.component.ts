@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { FooterComponent } from "./components/footer/footer.component";
+import { LoginComponent } from './modules/auth/pages/login/login.component';
+import { FooterComponent } from "./core/components/footer/footer.component";
 
 @Component({
   selector: 'app-root',
@@ -12,5 +12,5 @@ import { FooterComponent } from "./components/footer/footer.component";
 })
 export class AppComponent {
   title = 'app-gestion-plus-360-web';
-  
+
 }

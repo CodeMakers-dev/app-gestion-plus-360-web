@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -29,9 +29,10 @@ export class LoginComponent{
   onSubmit() {
     if (this.loginForm.valid) {
       const { usuario, password } = this.loginForm.value;
+      console.log({usuario, password});
       this.authService.login(usuario, password).subscribe(
         (response) => {
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('token', response.response.token);
           this.router.navigate(['/home']);
         },
         (error) => {
