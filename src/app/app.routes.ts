@@ -5,10 +5,11 @@ import { HomeComponent } from './modules/dashboard/components/home/home.componen
 import { MarketingComponent } from './pages/marketing/marketing.component';
 import { NgModule } from '@angular/core';
 import { LoginGuard } from './core/guards/login.guards';
+import { RecoverPasswordComponent } from '@modules/auth/pages/recover-password/recover-password.component';
 
 
 export const routes: Routes = [
-
+  { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },

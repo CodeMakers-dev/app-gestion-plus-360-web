@@ -12,7 +12,6 @@ body, html {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("../../../../../../public/12345.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -53,7 +52,7 @@ body, html {
     left: -50%;
     width: 370px;
     height: 450px;
-    background: linear-gradient(60deg, transparent, #45f3ff, #45f3ff);
+    background: linear-gradient(60deg, transparent, #45f3ff); 
     transform-origin: bottom right;
     animation: animate 6s linear infinite;
   }
@@ -142,10 +141,10 @@ body, html {
   .input-box input:valid ~ span,
   .input-box input:focus ~ span{
     color: #45f3ff;
-    transform: translateX(-10px) translateY(-30px);
-    font-size: .75em;
+    transform: translateX(-10px) translateY(-40px);
+    font-size: .80em;
   }
-
+ 
   .input-box i{
     position: absolute;
     left: 0;
@@ -180,6 +179,7 @@ body, html {
   .links a:hover,
   .links a:nth-child(2){
     color: #45f3ff;
+    cursor: pointer;
   }
 
   .links a:nth-child(2):hover{
