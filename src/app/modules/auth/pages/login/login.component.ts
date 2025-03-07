@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
 
 
 @Component({
@@ -14,7 +15,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent{
   loginForm: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -42,5 +42,7 @@ export class LoginComponent{
       );
     }
   }
-
+  goTo(route: string) {
+    this.router.navigate([route]);
+  }
 }

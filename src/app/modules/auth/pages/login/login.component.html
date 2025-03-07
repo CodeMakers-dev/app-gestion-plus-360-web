@@ -1,6 +1,8 @@
+<body class="w-screen h-screen bg-cover bg-center bg-no-repeat"
+ style="background-image: url('/12345.jpg');">
 <div class="container">
     <div class="img1">
-        <img src="logoblanco.png" alt="imagen fondo">
+        <img src="logoblanco.png" alt="logo">
     </div>
     <div class="box">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -18,8 +20,9 @@
             </div>
             <input type="submit" value="Ingresar" [disabled]="loginForm.invalid">
             <div class="links">
-                <a href="#">¿a olvidado su contraseña?</a>
-            </div>
+                <a (click)="goTo('/recover-password')">¿Olvidaste tu contraseña?</a>
+              </div>
         </form>
     </div>
 </div>
+</body>
