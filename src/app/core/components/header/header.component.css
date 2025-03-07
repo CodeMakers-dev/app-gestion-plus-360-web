@@ -1,195 +1,78 @@
-header {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem; 
-    background-color: #05eaab; 
-    height: 40px;  
-  }
-  
-  .left-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo img {
-    max-height: 100px;
-    margin-top: 10px; 
-    margin-right: 100px;
-  }
-  .menu-container{
-    margin-right: 30px;
-    max-height: 100px;
-  }
-
-  .menu-icon{
-    font-size: 25px;
-    margin-right: 20px;
-  }
-  .search-container {
-    display: flex;
-    align-items: center;
-    position: relative; /* Añadido para posicionar la lupa */
-}
-
-.search-container input {
-    padding: 10px 40px 10px 10px; /* Ajustado el padding para dejar espacio a la lupa */
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    width: 500px; /* Ancho deseado para el input */
-    margin-right: 250px;
-}
-
-.search-container button {
-    position: absolute; /* Posiciona la lupa dentro del input */
-    right: -110px; /* Ajusta la posición de la lupa */
-    top: 50%; /* Centra la lupa verticalmente */
-    transform: translateY(-50%); /* Centra la lupa verticalmente */
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-right: 250px;
-}
-
-.search-container button img {
-    height: 20px;
-}
-
-  .notification button{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    width: 50px;
-  }
-
-  .notification button img{
-    height: 20px; 
-  }
-
-  
-
-  .close {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center;
-    width: 100px;
-}
-
-.close button {
-    background-color: transparent;
-    border: none;
-    padding: 8px;
-    cursor: pointer;
-}
-
-.close button img {
-    height: 20px; 
-}
-
-.sidebar {
-  position: fixed;
-  left: -250px;
-  top: 0;
-  width: 250px;
-  height: 100%;
-  background: #FFFFFF;
-  padding-top: 20px;
-  transition: left 0.3s ease;
-  box-shadow: 2px 0 5px rgba(20, 1, 1, 0.1);
-  z-index: 1000;
-}
-
-.sidebar.active {
-  left: 0;
+.logo img {
+  height: 130px; /* Ajusta el tamaño del logo */
+  position: absolute; /* Posiciona el logo de manera absoluta */
+  top: -20px; /* Ajusta la posición vertical del logo */
+  left: 80px;
 }
 
 .sidebar-logo {
-  text-align: center;
-  margin-bottom: 10px;
-  height: 80px;
-  background: #05eaab;
-  margin-top: -20px;
-  position: relative;
+  position: relative; /* Asegura que el logo esté posicionado relativamente */
+  height: 0;
 }
 
 .sidebar-logo img {
-  max-width: 70%;
-  margin-top: -45px;
+  height: 130px; /* Ajusta el tamaño del logo */
+  display: block;
+  margin: 0 auto; /* Centra el logo horizontalmente */
+  position: relative; /* Cambia a relative para evitar que se superponga */
+  top: -40px; /* Ajusta la posición vertical del logo */
+  left: -10px; /* Ajusta la posición horizontal del logo */
+  z-index: -1; /* Asegura que el logo esté por encima de otros elementos */
 }
 
 .sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
+  margin-top: 53px; /* Ajusta el margen superior para que las etiquetas queden debajo del logo */
 }
 
-.sidebar ul li {
-  position: relative;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-  transition: background 0.3s ease;
-  cursor: pointer;
-}
-.sidebar ul li:hover::after {
-  content: '→';
-  position: absolute;
-  right: 20px;     
-  top: 50%;       
-  transform: translateY(-50%);
-  color: #0e0d0d;   
-  font-size: 1.2rem;
-  transition: opacity 0.3s ease;
-}
-.sidebar ul li::after {
-  content: '';
-}
-li {
-  display: flex;
-  align-items: center; 
-  gap: 8px; 
-  margin-bottom: 8px;
-  border-radius: 10%;
-}
-
-.sidebar ul li:last-child {
-  border-bottom: none;
-}
-
-.sidebar ul li a {
-  color: #4e4848;
-  text-decoration: none;
-  display: block;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.sidebar ul li:hover {
-  background: #dedede;
-}
-
-.sidebar ul li:hover a {
-  color: #000;
-}
-
-.close-sidebar {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #333;
-  cursor: pointer;
-}
- .menu-container {
-    cursor: pointer;
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%; /* Ajusta el ancho del sidebar en pantallas pequeñas */
   }
-.inicio{
-  height: 30px;
-  margin-right: 15px;
-}
-.marketing{
-  height: 30px;
-  margin-right: 15px;
+
+  .sidebar-logo img {
+    height: 80px; /* Ajusta el tamaño del logo en pantallas pequeñas */
+  }
+
+  .sidebar ul {
+    margin-top: 100px; /* Ajusta el margen superior en pantallas pequeñas */
+  }
+
+  header {
+    flex-direction: column; /* Cambia la dirección del flex en pantallas pequeñas */
+    align-items: center; /* Centra los elementos en pantallas pequeñas */
+  }
+
+  .left-container {
+    justify-content: center; /* Centra el contenido en pantallas pequeñas */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    text-align: center; /* Centra el contenido horizontalmente */
+  }
+
+  .menu-container {
+    margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+  }
+
+  .logo {
+    position: relative; /* Cambia a relative para evitar problemas de posicionamiento */
+    top: 0; /* Restablece la posición vertical */
+    left: 0; /* Restablece la posición horizontal */
+    margin-top: 10px; /* Agrega un margen superior */
+  }
+
+  .flex.items-center.space-x-4 {
+    justify-content: center; /* Centra el contenido en pantallas pequeñas */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    text-align: center; /* Centra el contenido horizontalmente */
+  }
+
+  .flex.items-center.space-x-4 > div {
+    margin: 0 10px; /* Agrega un margen horizontal a los íconos */
+  }
+
+  .relative.w-full {
+    width: 90%; /* Ajusta el ancho del campo de búsqueda en pantallas pequeñas */
+    margin-top: 10px; /* Agrega un margen superior */
+  }
 }
 
 .modal-overlay {
@@ -198,129 +81,17 @@ li {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: rgba(17, 24, 39, 0.75); /* Tailwind's bg-gray-900 with 75% opacity */
+  z-index: 1000; /* Asegúrate de que el z-index sea alto */
 }
+
 .modal-content {
-  background: white;
+  position: relative;
+  margin: auto;
   padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  position: relative;
-}
-
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  cursor: pointer;
-}
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 15px;
-}
-.profile-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-input[type="text"], button {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-}
-.perfil img {
-  width: 40px; 
-  height: 40px;
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-.perfil button {
-  padding: 5px; 
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-.preview-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.preview-content {
-  position: relative;
-}
-
-.preview-image {
-  max-width: 90vw;
-  max-height: 90vh;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  
-}
-
-.close-preview {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: #fff;
-  border-radius: 50%;
-  font-size: 24px;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
-  cursor: pointer;
-}
-.profile-image-wrapper {
-  position: relative; 
-  display: inline-block; 
-}
-
-.profile-image {
-  width: 100px; 
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.edit-icon {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 24px; 
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: transparent;       
-  transform: translate(20%, 20%);
-}
-
-.edit-icon img {
-  width: 40px;
-  height: 20px;
-  pointer-events: none;
+  background: white;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 600px;
+  z-index: 1001; /* Asegúrate de que el z-index sea alto */
 }

@@ -1,0 +1,27 @@
+.custom-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 20px;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+.icon-img {
+  width: 150px;
+  height: 150px;
+}
+
+.mensajes-masivos-container {
+  position: relative;
+}
+
+.relative {
+  position: relative;
+  z-index: 0; /* Asegúrate de que el z-index sea bajo */
+}

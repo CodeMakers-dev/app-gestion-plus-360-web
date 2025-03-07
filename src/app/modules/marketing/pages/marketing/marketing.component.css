@@ -8,20 +8,20 @@
     cursor: pointer;
     padding: 0;
     margin: 10px;
-    margin-top: 70px;
+    margin-top: 30px;
     margin-left: 50px;
 }
-  
-  
+
+
 .icon-img {
-    width: 150px;   
-    height: 150px;  
+    width: 150px;
+    height: 150px;
 }
 
 .label-text {
-    margin-top: 8px;       
-    font-size: 16px;       
-    font-weight: 600;      
-    color: #000;           
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
     text-align: center;
 }
