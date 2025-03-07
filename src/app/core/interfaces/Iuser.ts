@@ -1,5 +1,5 @@
 export interface Iuser {
-    id: number;
+    id: string;
     correo: string;
     password: string; // Omitir en la interfaz del front si no lo usarás
     usuarioCreacion: string;

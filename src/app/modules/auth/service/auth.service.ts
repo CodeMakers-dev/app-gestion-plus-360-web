@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Iuser } from '@core/interfaces/Iuser';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(usuario: string, password: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.apiUrl, { usuario, password }).pipe(
-      tap((response: ApiResponse) => {
-        if (response.success) {
+  login(usuario: string, password: string): Observable<ApiResponse<Iuser>> {
+    return this.http.post<ApiResponse<Iuser>>(this.apiUrl, { usuario, password }).pipe(
+      tap((response: ApiResponse<Iuser>) => {
+        console.log('Response:', response.response.id);
+        if (response.code === 200) {
+          console.log('Ingreso a el sucess')
           localStorage.setItem('token', response.response.token);
+          localStorage.setItem('userId', response.response.id);
           this.router.navigate(['/home']);
         }
       }));
@@ -26,6 +30,7 @@ export class AuthService {
   logout(): void {
     // Elimina el token de localStorage
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     // Limpia sessionStorage
     sessionStorage.clear();
     // Redirige al login
@@ -35,5 +40,10 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  getUserId(): number | null {
+    const userId = localStorage.getItem('userId');
+    return userId ? parseInt(userId, 10) : null;
   }
 }
