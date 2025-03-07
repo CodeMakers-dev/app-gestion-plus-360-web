@@ -1,89 +1,118 @@
-<header>
-  <div class="left-container">
-    <div class="menu-container" (click)="toggleSidebar()">
-      <span class="menu-icon">&#9776;</span>
+<header class="flex items-center justify-between p-4 bg-[#05eaab] text-white">
+  <div class="left-container flex items-center">
+    <div class="menu-container cursor-pointer mr-4" (click)="toggleSidebar()">
+      <span class="menu-icon text-2xl">&#9776;</span>
     </div>
     <div class="logo">
-      <img src="log.png" alt="Logo">
+      <img src="log.png" alt="Logo" class="h-10">
     </div>
   </div>
 
-  <div class="search-container">
-    <input type="text"  [(ngModel)]="searchQuery" placeholder="Buscar..." (keyup.enter)="onSearch()">
-    <button type="button" (click)="onSearch()">
-      <img src="search.png" alt="Buscar">
-    </button>
-  </div>
 
-  <div class="notification">
-    <button type="submit">
-      <img src="notifi.png">
-    </button>
-  </div>
+  <form class="flex items-center max-w-md mx-auto w-full">
+    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+    <div class="relative w-full">
+      <input type="search" id="default-search"
+        class="block w-full p-4 pr-16 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search Gestión Plus..." required />
+      <button type="submit"
+        class="absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+        </svg>
+      </button>
+    </div>
+  </form>
 
-  <div class="perfil">
-    <button type="button" (click)="openProfileModal()">
-      <img [src]="userImage" alt="Icono de Perfil">
-    </button>
-  </div>
 
-  <div class="close">
-    <button type="button" (click)="logout()">
-      <img src="close.png" alt="Cerrar sesión">
-    </button>
-  </div>  
+  <div class="flex items-center space-x-4">
+    <div class="notification">
+      <button type="button">
+        <img src="notifi.png" class="h-6">
+      </button>
+    </div>
+
+    <div class="perfil flex items-center">
+      <button type="button" (click)="openProfileModal()" class="flex items-center">
+        <img [src]="userImage" alt="Icono de Perfil" class="h-8 rounded-full mr-2">
+        <span>{{ userName }}</span>
+      </button>
+    </div>
+
+    <div class="close">
+      <button type="button" (click)="logout()">
+        <img src="close.png" alt="Cerrar sesión" class="h-6">
+      </button>
+    </div>
+  </div>
 </header>
 
-
-<div class="sidebar" [class.active]="sidebarOpen">
-  <div class="sidebar-logo">
-    <img src="log.png" alt="Logo">
+<div
+  class="sidebar fixed top-0 left-0 w-64 h-full bg-[#05eaab] text-white transform -translate-x-full transition-transform duration-300 shadow-2xl shadow-gray-950 z-50"
+  [class.translate-x-0]="sidebarOpen">
+  <div class="sidebar-logo p-4">
+    <img src="log.png" alt="Logo" class="h-10 mx-auto">
   </div>
-  <ul>
-    <li (click)="goTo('/home')">
-      <img src="inicio.png" class="inicio">
+  <ul class="space-y-2">
+    <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')">
+      <img src="inicio.png" class="h-6 inline-block mr-2">
       <span>Inicio</span>
     </li>
-    <li (click)="goTo('/marketing')">
-      <img src="marketing.png" class="marketing">
+    <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')">
+      <img src="marketing.png" class="h-6 inline-block mr-2">
       <span>Marketing</span>
     </li>
   </ul>
 </div>
 
 <!-- MODAL DE PERFIL -->
-<div class="modal-overlay" *ngIf="isProfileModalOpen">
-  <div class="modal-content">
-    <span class="close-modal" (click)="closeProfileModal()">&times;</span>
-    <h2>Editar Perfil</h2>
-    <div class="profile-container">
-      <div class="profile-image-wrapper">
-        <img
-          [src]="userImage"
-          alt="Imagen de Perfil"
-          class="profile-image"
-          (click)="openImagePreview()"
-        />
-        <div class="edit-icon" (click)="onFileInputClick($event)">
-          <img src="pencil.png" alt="Editar" />
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isProfileModalOpen">
+  <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
+    <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeProfileModal()">&times;</span>
+    <div class="flex flex-col items-center">
+      <div class="relative">
+        <img [src]="userImage" alt="Imagen de Perfil" class="h-24 w-24 rounded-full cursor-pointer" (click)="openImagePreview()" />
+        <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer" (click)="onFileInputClick($event)">
+          <img src="pencil.png" alt="Editar" class="h-4 w-4" />
         </div>
       </div>
-      <input
-        #fileInput
-        type="file"
-        (change)="onFileSelected($event)"
-        style="display: none;"
-      />
     </div>
-
-    <input type="text" [(ngModel)]="userName" placeholder="Nombre de usuario">
-    <button (click)="saveProfile()">Guardar</button>
+    <p class="mt-4 text-lg font-semibold text-center">{{ userName }}</p>
+    <p class="mt-2 text-sm text-gray-600 text-center">{{ userEmail }}</p>
+    <div class="flex justify-center w-full">
+      <button (click)="openEditUserModal()" class="mt-4 bg-blue-500 text-white p-2 rounded">Editar Usuario</button>
+    </div>
   </div>
 </div>
 
-<div class="preview-modal" *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
-  <div class="preview-content" (click)="$event.stopPropagation()">
-    <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="preview-image">
-    <span class="close-preview" (click)="closeImagePreview()">&times;</span>
+<!-- MODAL DE EDITAR USUARIO -->
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isEditUserModalOpen">
+  <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
+    <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeEditUserModal()">&times;</span>
+    <h2 class="text-xl font-semibold mb-4 text-center">Editar Usuario</h2>
+    <div class="flex flex-col items-center">
+      <label for="userEmail" class="self-start mt-4">Usuario</label>
+      <input id="userEmail" type="email" [(ngModel)]="userEmail" placeholder="Nombre de usuario" class="mt-1 p-2 border rounded w-full">
+
+      <label for="userPassword" class="self-start mt-4">Contraseña</label>
+      <div class="relative w-full">
+        <input id="userPassword" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userPassword" placeholder="Contraseña" class="mt-1 p-2 border rounded w-full">
+        <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="togglePasswordVisibility()">
+          <img [src]="showPassword ? 'eye-open.png' : 'eye-closed.png'" alt="Toggle Password Visibility" class="h-5 w-5">
+        </span>
+      </div>
+
+      <button (click)="saveUserChanges()" class="mt-4 bg-blue-500 text-white p-2 rounded">Guardar Cambios</button>
+    </div>
+  </div>
+</div>
+
+<div class="preview-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+  *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
+  <div class="preview-content bg-white p-6 rounded-lg relative" (click)="$event.stopPropagation()">
+    <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="preview-image max-w-full max-h-80vh">
+    <span class="close-preview absolute top-2 right-2 cursor-pointer" (click)="closeImagePreview()">&times;</span>
   </div>
 </div>
