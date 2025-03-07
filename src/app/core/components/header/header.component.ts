@@ -5,6 +5,9 @@ import { AuthService } from '@services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { response } from 'express';
+import { ApiResponse } from '@core/interfaces/Iresponse';
+import { MensajeService } from '@modules/marketing/services/messages.service';
+import { MessageNotifications } from '@core/interfaces/ImessageNotifications';
 
 @Component({
   selector: 'app-header',
@@ -22,12 +25,17 @@ export class HeaderComponent implements OnInit {
   userPassword: string = '';
   isProfileModalOpen: boolean = false;
   isEditUserModalOpen: boolean = false;
-  isImagePreviewOpen: boolean = false; // Variable para la vista previa
+  isImagePreviewOpen: boolean = false;
+  isAlertModalOpen: boolean = false; // Variable para el modal de alerta
+  alertTitle: string = ''; // Título del modal de alerta
+  alertMessage: string = '';
+  isNotificationModalOpen: boolean = false; // Variable para el modal de notificaciones
+  notifications: MessageNotifications[] = []; // Lista de notificaciones
 
    // ViewChild para acceder al input de archivo
    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-   constructor(private authService: AuthService, private router: Router, private userService: UserService) {}
+   constructor(private authService: AuthService, private router: Router, private userService: UserService, private messageService: MensajeService) {}
 
    ngOnInit(): void {
     const userId = this.authService.getUserId();
@@ -35,8 +43,8 @@ export class HeaderComponent implements OnInit {
     if (userId !== null) {
       this.userService.getUserById(userId).subscribe(user => {
         console.log('ResponseGetPerson:', user.response.persona.nombre);
-        this.userName = user.response.persona.nombre; // Ajusta esto según la estructura de tu respuesta
-        this.userEmail = user.response.usuario; // Ajusta esto según la estructura de tu respuesta
+        this.userName = user.response.persona.nombre;
+        this.userEmail = user.response.usuario;
       });
     }
   }
@@ -56,6 +64,11 @@ export class HeaderComponent implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  cancelEditUser() {
+    this.closeEditUserModal();
+    this.openProfileModal();
   }
 
   closeEditUserModal() {
@@ -87,8 +100,57 @@ export class HeaderComponent implements OnInit {
   }
 
   saveUserChanges() {
-    console.log('Cambios guardados:', this.userName, this.userEmail);
-    this.closeEditUserModal();
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+      this.userService.updatePassword(userId, this.userPassword).subscribe((response: ApiResponse<null>) => {
+        console.log('Password updated successfully:', response);
+        this.alertTitle = 'Éxito';
+        this.alertMessage = response.message;
+        this.isAlertModalOpen = true;
+        this.closeEditUserModal();
+      }, error => {
+        console.error('Error updating password:', error);
+        this.alertTitle = 'Error';
+        this.alertMessage = error.error.message;
+        this.isAlertModalOpen = true;
+      });
+    }
+  }
+
+  closeAlertModal() {
+    this.isAlertModalOpen = false;
+  }
+
+  openNotificationModal() {
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+      this.messageService.getMessagesByUserId(userId).subscribe((response: ApiResponse<MessageNotifications[]>) => {
+        this.notifications = response.response;
+        this.isNotificationModalOpen = true;
+      }, error => {
+        console.error('Error fetching notifications:', error);
+        if (error.status === 401 || error.status === 403) {
+          this.router.navigate(['/login']);
+        }
+      });
+    }
+  }
+
+  closeNotificationModal() {
+    this.isNotificationModalOpen = false;
+  }
+
+  markNotificationAsInactive(notification: MessageNotifications) {
+    const updatedNotification = {
+      ...notification,
+      activo: false
+    };
+
+    this.messageService.updateNotificationStatus(updatedNotification).subscribe(() => {
+      this.notifications = this.notifications.filter(n => n.id !== notification.id);
+    }, error => {
+      console.error('Error updating notification status:', error);
+    });
   }
 
   toggleSidebar() {
@@ -115,8 +177,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout(); // Llama al servicio para cerrar sesión
-    this.router.navigate(['/login']); // Redirige al login
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   goTo(route: string) {

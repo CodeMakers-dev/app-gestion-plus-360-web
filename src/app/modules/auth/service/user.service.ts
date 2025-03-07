@@ -15,4 +15,9 @@ export class UserService {
   getUserById(id: number): Observable<ApiResponse<IUserById>> {
     return this.http.get<ApiResponse<IUserById>>(`${this.apiUrl}/${id}`);
   }
+
+  updatePassword(id: number, password: string): Observable<ApiResponse<null>> {
+    const body = { id, password };
+    return this.http.put<ApiResponse<null>>(`${this.apiUrl}/password`, body);
+  }
 }
