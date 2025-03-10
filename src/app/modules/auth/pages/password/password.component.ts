@@ -14,6 +14,8 @@ export class PasswordComponent {
   resetForm: FormGroup;
   token: string | null = null;
   apiUrl = 'http://localhost:8080/api/v1/Usuario/password';
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +27,14 @@ export class PasswordComponent {
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordsMatch });
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   ngOnInit(): void {
