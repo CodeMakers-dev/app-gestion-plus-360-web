@@ -55,12 +55,14 @@
     <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeNotificationModal()">&times;</span>
     <h2 class="text-xl font-semibold mb-4 text-center">Notificaciones</h2>
     <div class="notification-list space-y-4 max-h-96 overflow-y-auto">
-      <div *ngFor="let notification of notifications" class="notification-item p-4 border rounded-lg shadow-sm relative">
-        <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="markNotificationAsInactive(notification)">&times;</span>
-        <h3 class="font-semibold">{{ notification.titulo }}</h3>
-        <p>{{ notification.descripcion }}</p>
-        <small class="text-gray-500">{{ notification.fechaEnvio | date:'short' }}</small>
-      </div>
+      <ng-container *ngFor="let notification of notifications">
+        <div class="notification-item p-4 border rounded-lg shadow-sm relative">
+          <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="markNotificationAsInactive(notification)">&times;</span>
+          <h3 class="font-semibold">{{ notification.titulo }}</h3>
+          <p>{{ notification.descripcion }}</p>
+          <small class="text-gray-500">{{ notification.fechaEnvio | date:'short' }}</small>
+        </div>
+      </ng-container>
     </div>
     <div class="flex justify-center mt-4">
       <button (click)="closeNotificationModal()" class="bg-red-500 text-white p-2 rounded">Cerrar</button>
@@ -106,6 +108,17 @@
   </div>
 </div>
 
+<!-- Image Preview Modal -->
+<div class="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+     *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
+  <div class="modal-content bg-white p-4 rounded-lg relative max-w-4xl mx-auto" (click)="$event.stopPropagation()">
+    <span class="absolute top-2 right-2 text-2xl cursor-pointer text-gray-500" (click)="closeImagePreview()">&times;</span>
+    <div class="flex justify-center">
+      <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="max-h-[80vh] max-w-full object-contain">
+    </div>
+  </div>
+</div>
+
 <!-- MODAL DE EDITAR USUARIO -->
 <div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isEditUserModalOpen">
   <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
@@ -139,13 +152,5 @@
     <div class="flex justify-center mt-4">
       <button (click)="closeAlertModal()" class="bg-red-500 text-white p-2 rounded">Cerrar</button>
     </div>
-  </div>
-</div>
-
-<div class="preview-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-  *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
-  <div class="preview-content bg-white p-6 rounded-lg relative" (click)="$event.stopPropagation()">
-    <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="preview-image max-w-full max-h-80vh">
-    <span class="close-preview absolute top-2 right-2 cursor-pointer" (click)="closeImagePreview()">&times;</span>
   </div>
 </div>
