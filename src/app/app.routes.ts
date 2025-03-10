@@ -6,9 +6,11 @@ import { NgModule } from '@angular/core';
 import { LoginGuard } from './core/guards/login.guards';
 import { RecoverPasswordComponent } from '@modules/auth/pages/recover-password/recover-password.component';
 import { MarketingComponent } from '@modules/marketing/pages/marketing/marketing.component';
+import { PasswordComponent } from '@modules/auth/pages/password/password.component';
 
 
 export const routes: Routes = [
+  { path: 'password', component: PasswordComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

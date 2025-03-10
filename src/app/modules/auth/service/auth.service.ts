@@ -46,4 +46,14 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
     return userId ? parseInt(userId, 10) : null;
   }
+
+  recoverPassword(usuario: string): Observable<ApiResponse<any>> {
+    const url = `http://localhost:8080/api/v1/Usuario/recover-password?usuario=${encodeURIComponent(usuario)}`;
+    return this.http.post<ApiResponse<any>>(url, {}).pipe(
+      tap((response: ApiResponse<any>) => {
+        console.log('Recuperación de contraseña:', response);
+        alert('Correo de recuperación enviado.');
+      })
+    );
+  }
 }
