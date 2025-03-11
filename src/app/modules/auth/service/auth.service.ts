@@ -28,12 +28,9 @@ export class AuthService {
   }
 
   logout(): void {
-    // Elimina el token de localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    // Limpia sessionStorage
     sessionStorage.clear();
-    // Redirige al login
     this.router.navigate(['/login']);
   }
 
@@ -51,8 +48,6 @@ export class AuthService {
     const url = `http://localhost:8080/api/v1/Usuario/recover-password?usuario=${encodeURIComponent(usuario)}`;
     return this.http.post<ApiResponse<any>>(url, {}).pipe(
       tap((response: ApiResponse<any>) => {
-        console.log('Recuperación de contraseña:', response);
-        alert('Correo de recuperación enviado.');
       })
     );
   }

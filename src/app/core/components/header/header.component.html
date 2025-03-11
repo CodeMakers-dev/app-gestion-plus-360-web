@@ -11,14 +11,14 @@
 
   <form class="flex items-center max-w-md mx-auto w-full">
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-    <div class="relative w-full">
+    <div class="relative w-full" >
       <input type="search" id="default-search"
         class="block w-full p-4 pr-16 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search Gestión Plus..." required />
-      <button type="submit"
+      <button type="submit" style="cursor: pointer;"
         class="absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center gap-2">
         <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 20 20">
+          viewBox="0 0 20 20" >
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
@@ -28,21 +28,21 @@
 
 
   <div class="flex items-center space-x-4">
-    <div class="notification">
-      <button type="button" (click)="openNotificationModal()">
+    <div class="notification" >
+      <button type="button" (click)="openNotificationModal()" style="cursor: pointer;">
         <img src="notifi.png" class="h-6">
       </button>
     </div>
 
     <div class="perfil flex items-center">
-      <button type="button" (click)="openProfileModal()" class="flex items-center">
+      <button type="button" (click)="openProfileModal()" class="flex items-center" style="cursor: pointer;"> 
         <img [src]="userImage" alt="Icono de Perfil" class="h-8 rounded-full mr-2">
         <span>{{ userName }}</span>
       </button>
     </div>
 
     <div class="close">
-      <button type="button" (click)="logout()">
+      <button type="button" (click)="logout()" style="cursor: pointer;">
         <img src="close.png" alt="Cerrar sesión" class="h-6">
       </button>
     </div>
@@ -65,7 +65,7 @@
       </ng-container>
     </div>
     <div class="flex justify-center mt-4">
-      <button (click)="closeNotificationModal()" class="bg-red-500 text-white p-2 rounded">Cerrar</button>
+      <button (click)="closeNotificationModal()" class="bg-red-500 text-white p-2 rounded" style="cursor: pointer;">Cerrar</button>
     </div>
   </div>
 </div>
@@ -103,7 +103,7 @@
     <p class="mt-4 text-lg font-semibold text-center">{{ userName }}</p>
     <p class="mt-2 text-sm text-gray-600 text-center">{{ userEmail }}</p>
     <div class="flex justify-center w-full">
-      <button (click)="openEditUserModal()" class="mt-4 bg-blue-500 text-white p-2 rounded">Editar Usuario</button>
+      <button (click)="openEditUserModal()" class="mt-4 bg-blue-500 text-white p-2 rounded" style="cursor: pointer;">Editar Usuario</button>
     </div>
   </div>
 </div>
@@ -121,9 +121,9 @@
 
 <!-- MODAL DE EDITAR USUARIO -->
 <div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isEditUserModalOpen">
-  <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
-    <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeEditUserModal()">&times;</span>
-    <h2 class="text-xl font-semibold mb-4 text-center">Editar Usuario</h2>
+  <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto" >
+    <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeEditUserModal()" >&times;</span>
+    <h2 class="text-xl font-semibold mb-4 text-center" >Editar Usuario</h2>
     <div class="flex flex-col items-center">
       <label for="userEmail" class="self-start mt-4">Usuario</label>
       <input id="userEmail" type="email" [(ngModel)]="userEmail" placeholder="Nombre de usuario" class="mt-1 p-2 border rounded w-full">
@@ -137,8 +137,8 @@
       </div>
 
       <div class="flex space-x-4 mt-4">
-        <button (click)="saveUserChanges()" class="bg-blue-500 text-white p-2 rounded">Guardar</button>
-        <button (click)="cancelEditUser()" class="bg-red-500 text-white p-2 rounded">Cancelar</button>
+        <button (click)="saveUserChanges()" class="bg-blue-500 text-white p-2 rounded" style="cursor: pointer;">Guardar</button>
+        <button (click)="cancelEditUser()" class="bg-red-500 text-white p-2 rounded" style="cursor: pointer;">Cancelar</button>
       </div>
     </div>
   </div>
