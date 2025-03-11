@@ -1,5 +1,5 @@
 import { UserService } from './../../../modules/auth/service/user.service';
-import { Component, ElementRef, HostListener, OnInit, ViewChild  } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@services/auth.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,9 @@ import { response } from 'express';
 import { ApiResponse } from '@core/interfaces/Iresponse';
 import { MensajeService } from '@modules/marketing/services/messages.service';
 import { MessageNotifications } from '@core/interfaces/ImessageNotifications';
+import { initFlowbite } from 'flowbite';
+import { parse } from 'path';
+import { title } from 'process';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +18,7 @@ import { MessageNotifications } from '@core/interfaces/ImessageNotifications';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   sidebarOpen = false;
   searchQuery = '';
   userImage: string = 'perfil.png';
@@ -48,6 +51,11 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
+
+  ngAfterViewInit() {
+    initFlowbite();
+  }
+
 
   openProfileModal() {
     this.isProfileModalOpen = true;
@@ -125,7 +133,8 @@ export class HeaderComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId !== null) {
       this.messageService.getMessagesByUserId(userId).subscribe((response: ApiResponse<MessageNotifications[]>) => {
-        this.notifications = response.response;
+        // Filtrar solo las notificaciones activas
+        this.notifications = response.response.filter(notification => notification.activo);
         this.isNotificationModalOpen = true;
       }, error => {
         console.error('Error fetching notifications:', error);
@@ -140,17 +149,42 @@ export class HeaderComponent implements OnInit {
     this.isNotificationModalOpen = false;
   }
 
+  // markNotificationAsInactive(notification: MessageNotifications) {
+  //   const updatedNotification = {
+  //     ...notification,
+  //     activo: false
+  //   };
+  //   console.log('Updating notification status______________________________:', JSON.stringify(updatedNotification));
+
+  //   this.messageService.updateNotificationStatus(updatedNotification).subscribe(() => {
+  //     this.notifications = this.notifications.filter(n => n.id !== notification.id);
+  //     console.log('Notification status updated successfully', updatedNotification);
+  //   }, error => {
+  //     console.error('Error updating notification status:', error);
+  //   });
+  // }
+
   markNotificationAsInactive(notification: MessageNotifications) {
-    const updatedNotification = {
-      ...notification,
+    const userId = this.authService.getUserId();
+    const mensaje: MessageNotifications = {
+      id: notification.id,
+      usuario: userId,
+      titulo: notification.titulo,
+      descripcion: notification.descripcion,
+      usuarioCreacion: notification.usuarioCreacion,
+      fechaEnvio: notification.fechaEnvio,
+      fechaCreacion: notification.fechaCreacion,
+      usuarioModificacion: userId ? userId.toString() : null,
+      fechaModificacion: new Date().toISOString(),
       activo: false
     };
-
-    this.messageService.updateNotificationStatus(updatedNotification).subscribe(() => {
-      this.notifications = this.notifications.filter(n => n.id !== notification.id);
-    }, error => {
-      console.error('Error updating notification status:', error);
-    });
+    console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
+    this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
+        this.notifications = this.notifications.filter(n => n.id !== notification.id);
+        console.log('Notification status updated successfully', mensaje);
+      }, error => {
+        console.error('Error updating notification status:', error);
+      });
   }
 
   toggleSidebar() {

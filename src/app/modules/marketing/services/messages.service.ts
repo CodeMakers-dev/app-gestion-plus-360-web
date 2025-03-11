@@ -23,12 +23,17 @@ export class MensajeService {
 
   updateNotificationStatus(notification: MessageNotifications): Observable<ApiResponse<MessageNotifications>> {
     const body = {
+      id: notification.id,
       usuario: { id: notification.usuario },
       titulo: notification.titulo,
       descripcion: notification.descripcion,
       usuarioCreacion: notification.usuarioCreacion,
+      fechaEnvio: notification.fechaEnvio,
+      fechaCreacion: notification.fechaCreacion,
+      usuarioModificacion: notification.usuarioModificacion,
+      fechaModificacion: new Date().toISOString(),
       activo: notification.activo
     };
-    return this.http.post<ApiResponse<MessageNotifications>>(`${this.apiUrl}/send`, body);
+    return this.http.post<ApiResponse<MessageNotifications>>(`http://localhost:8080/api/v1/Mensaje/send`, body);
   }
 }

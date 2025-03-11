@@ -24,6 +24,11 @@
   margin-top: 53px; /* Ajusta el margen superior para que las etiquetas queden debajo del logo */
 }
 
+.notification, .perfil, .close {
+  display: flex;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 100%; /* Ajusta el ancho del sidebar en pantallas pequeñas */
