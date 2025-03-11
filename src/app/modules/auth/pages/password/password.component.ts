@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup,  ReactiveFormsModule,  Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-password',
@@ -58,15 +59,27 @@ export class PasswordComponent {
         { headers: { 'Content-Type': 'application/json' } }
       ).subscribe({
         next: (response) => {
-          alert('Contraseña actualizada con éxito');
-          this.router.navigate(['/login']);
+          Swal.fire({
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            title: '¡Éxito!',
+            text: 'Contraseña actualizada con éxito',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            this.router.navigate(['/login']);
+          });
         },
         error: (err) => {
           console.error('Error al actualizar la contraseña', err);
-          alert('Error: ' + (err.error.message || 'No se pudo actualizar la contraseña'));
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: err.error.message || 'No se pudo actualizar la contraseña',
+            confirmButtonText: 'Intentar de nuevo'
+          });
         }
       });
     }
   }
-  
 }

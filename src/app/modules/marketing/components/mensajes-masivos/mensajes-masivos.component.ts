@@ -31,7 +31,7 @@ export class MensajesMasivosComponent implements OnInit {
   }
 
   navegarCrearMensajes() {
-    this.router.navigate(['marketing/mensajes-masivos']);
+    this.router.navigate(['marketing/create-message']);
   }
 
   navegarHistorial() {
