@@ -1,14 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from "../../../../core/components/header/header.component";
+import { FooterComponent } from "../../../../core/components/footer/footer.component";
 
 @Component({
   selector: 'app-create-messages',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, FooterComponent],
   templateUrl: './create-messages.component.html',
   styleUrl: './create-messages.component.css'
 })
 export class CreateMessagesComponent {
+  showInput = false; 
+  newButtonText = ''; 
+  currentTime: string = '';
   messageForm: FormGroup;
   buttons: string[] = [];
   filePreviews: { name: string; url: string; type: string }[] = [];
@@ -18,6 +23,17 @@ export class CreateMessagesComponent {
       title: new FormControl(''),
       description: new FormControl('')
     });
+
+    this.description.valueChanges.subscribe(value => {
+      if (value.trim()) {
+        this.updateTime();
+      }
+    });
+  }
+
+  updateTime() {
+    const now = new Date();
+    this.currentTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   get title(): FormControl {
@@ -29,15 +45,15 @@ export class CreateMessagesComponent {
   }
 
   addButton() {
-    const newButton = prompt("Ingrese el texto del botón:");
-    if (newButton) {
-      this.buttons = [...this.buttons, newButton];
+    if (this.newButtonText.trim()) {
+      this.buttons.push(this.newButtonText);
+      this.newButtonText = '';
+      this.showInput = false; 
     }
   }
 
   removeButton(index: number) {
     this.buttons.splice(index, 1);
-    this.buttons = [...this.buttons];
   }
 
   onFilesSelected(event: any) {
