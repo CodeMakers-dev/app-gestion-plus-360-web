@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [HeaderComponent],
   templateUrl: './marketing.component.html',
-  styleUrl: './marketing.component.css'
+  styleUrls: ['./marketing.component.css']
 })
 export class MarketingComponent {
   constructor(private router: Router) {}

@@ -7,6 +7,7 @@ import { LoginGuard } from './core/guards/login.guards';
 import { RecoverPasswordComponent } from '@modules/auth/pages/recover-password/recover-password.component';
 import { MarketingComponent } from '@modules/marketing/pages/marketing/marketing.component';
 import { PasswordComponent } from '@modules/auth/pages/password/password.component';
+import { UsersComponent } from './modules/users/pages/users/users.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'marketing', loadChildren: () => import('./modules/marketing/marketing.module').then(m => m.MarketingModule), canActivate: [AuthGuard] },
+  { path: 'users', loadChildren: () => import('./modules/users/user.module').then(m => m.UsersModule) },
   { path: '**', redirectTo: 'login' },
 ];
 
