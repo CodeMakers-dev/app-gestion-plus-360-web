@@ -54,7 +54,7 @@ export interface ICiudad {
 }
 
 export interface IPersona {
-  id: number;
+  id?: number;
   tipoPersona: ITipoPersona;
   nombre: string;
   tipoDocumento: ITipoDocumento;
