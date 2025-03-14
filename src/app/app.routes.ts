@@ -7,9 +7,11 @@ import { LoginGuard } from './core/guards/login.guards';
 import { RecoverPasswordComponent } from '@modules/auth/pages/recover-password/recover-password.component';
 import { MarketingComponent } from '@modules/marketing/pages/marketing/marketing.component';
 import { PasswordComponent } from '@modules/auth/pages/password/password.component';
+import { CreatePasswordComponent } from '@modules/auth/pages/create-password/create-password.component';
 
 
 export const routes: Routes = [
+  { path: 'create-password', component: CreatePasswordComponent},
   { path: 'password', component: PasswordComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
