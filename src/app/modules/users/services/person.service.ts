@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '@core/interfaces/Iresponse';
-import { IPersona } from '@core/interfaces/IuserById';
+import { IPersona, IPersonCreate } from '@core/interfaces/IuserById';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class PersonService {
     return this.http.get<ApiResponse<IPersona[]>>(this.apiUrl);
   }
 
-  createPersona(persona: IPersona): Observable<IPersona> {
-    return this.http.post<IPersona>("http://localhost:8080/api/v1/Persona", persona);
+  createPersona(persona: IPersonCreate): Observable<ApiResponse<IPersona>> {
+    return this.http.post<ApiResponse<IPersona>>("http://localhost:8080/api/v1/Persona", persona);
   }
 }

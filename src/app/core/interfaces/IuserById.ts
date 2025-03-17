@@ -74,6 +74,27 @@ export interface IPersona {
   activo: boolean;
 }
 
+export interface IPersonCreate {
+  id?: number;
+  tipoPersona: { id: number };
+  nombre: string;
+  tipoDocumento: { id: number };
+  numeroDocumento: string;
+  pais: { id: number };
+  departamento: { id: number };
+  ciudad: { id: number };
+  direccion: string;
+  actividadEconomica: string;
+  telefono: string;
+  correo: string;
+  imagen: string | null;
+  usuarioCreacion: string;
+  fechaCreacion: string;
+  usuarioModificacion: string | null;
+  fechaModificacion: string | null;
+  activo: boolean;
+}
+
 export interface IUserById {
   id: number;
   usuario: string;
