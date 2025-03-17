@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-password',
+  standalone: true,
   imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './password.component.html',
   styleUrl: './password.component.css'
