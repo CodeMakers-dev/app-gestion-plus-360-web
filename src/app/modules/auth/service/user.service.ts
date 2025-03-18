@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { IUsuario } from "@core/interfaces/Ipayments";
 import { ApiResponse } from "@core/interfaces/Iresponse";
 import { IUserById } from "@core/interfaces/IuserById";
 import { Observable } from "rxjs";
@@ -19,5 +20,13 @@ export class UserService {
   updatePassword(id: number, password: string): Observable<ApiResponse<null>> {
     const body = { id, password };
     return this.http.put<ApiResponse<null>>(`${this.apiUrl}/password`, body);
+  }
+
+   getUsers(): Observable<ApiResponse<IUsuario[]>> {
+    return this.http.get<ApiResponse<IUsuario[]>>('http://localhost:8080/api/v1/Usuario/all');
+  }
+
+  obtenerUsuario(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 }
