@@ -1,0 +1,87 @@
+<app-header></app-header>
+
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-6 ">
+    <h2 class="text-2xl font-semibold text-center text-gray-700">
+        Portal de Pagos
+    </h2>
+    <form [formGroup]="pagoForm" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-4 mt-4">
+        <div>
+            <label class="block text-gray-600">Seleccionar usuario:</label>
+            <select formControlName="usuario" id="usuario" class="border p-2 w-full rounded">
+                <option value="">Selecciona usuario...</option>
+                <option *ngFor="let usuario of usuarios" [value]="usuario.persona.id">
+                    {{ usuario.persona.nombre }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-gray-600">Tipo de plan:</label>
+            <select formControlName="tipoPlan" class="border p-2 w-full rounded">
+                <option value="">Seleccionar tipo...</option>
+                <option *ngFor="let typePlan of typePlan" [value]="typePlan.id">
+                    {{ typePlan.nombre }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-gray-600">Valor de pago:</label>
+            <input type="number" formControlName="valorPago" class="border p-2 w-full rounded"
+                placeholder="Valor de pago..." />
+        </div>
+        <div>
+            <label class="block text-gray-600">Origen de pago:</label>
+            <select formControlName="origenPago" class="border p-2 w-full rounded">
+                <option value="">Seleccione...</option>
+                <option *ngFor="let origenPago of originPayment" [value]="origenPago.id">
+                    {{ origenPago.nombre }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-gray-600">Destino de pago:</label>
+            <select formControlName="destinoPago" class="border p-2 w-full rounded">
+                <option value="">Seleccione...</option>
+                <option *ngFor="let destinoPago of destinationPayment" [value]="destinoPago.id">
+                    {{ destinoPago.nombre }}
+                </option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-gray-600">Referencia:</label>
+            <input type="text" formControlName="referencia" class="border p-2 w-full rounded"
+                placeholder="Referencia..." />
+        </div>
+
+        <div>
+            <label class="block text-gray-600">Fecha de pago:</label>
+            <input type="date" formControlName="fechaPago" class="border p-2 w-full rounded" />
+        </div>
+
+        <div class="col-span-2 text-center font-semibold text-gray-700">VIGENCIA</div>
+
+        <div>
+            <label class="block text-gray-600">Desde:</label>
+            <input type="date" formControlName="vigenciaDesde" class="border p-2 w-full rounded">
+        </div>
+
+        <div>
+            <label class="block text-gray-600">Hasta:</label>
+            <input type="date" formControlName="vigenciaHasta" class="border p-2 w-full rounded">
+        </div>
+
+        <div class="col-span-2">
+            <label class="block text-gray-600">Días de vigencia:</label>
+            <input type="text" formControlName="diasVigencia" class="border p-2 w-full rounded bg-gray-100"
+                [readonly]="true">
+        </div>
+
+        <div class="col-span-2 text-center mt-4">
+            <button style="cursor: pointer;" type="submit"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                GUARDAR
+            </button>
+        </div>
+    </form>
+</div>
+
+<app-footer></app-footer>

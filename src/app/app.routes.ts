@@ -19,6 +19,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'marketing', loadChildren: () => import('./modules/marketing/marketing.module').then(m => m.MarketingModule), canActivate: [AuthGuard] },
+  {path: 'payments', loadChildren: () => import('./modules/payments/payments.module').then(m => m.PaymentsModule) },
   { path: 'users', loadChildren: () => import('./modules/users/user.module').then(m => m.UsersModule) },
   { path: '**', redirectTo: 'login' },
 ];
