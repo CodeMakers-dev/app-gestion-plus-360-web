@@ -12,7 +12,7 @@ import { HeaderComponent } from '@components/header/header.component';
 })
 export class MessageHistoryComponent implements OnInit{
   navigationItems = [
-    { label: 'Home', url: '/' },
+    { label: 'Inicio', url: '/' },
     { label: 'Marketing', url: '/marketing' },
     { label: 'Mensajes Masivos', url: '/marketing/mensajes-masivos' },
     { label: 'Historial de Mensajes', url: '/marketing/message-history' }

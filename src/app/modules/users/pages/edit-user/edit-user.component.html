@@ -1,0 +1,91 @@
+<app-header></app-header>
+
+<div class="mt-8 mx-8">
+  <app-navigation [navigationItems]="navigationItems"></app-navigation>
+  <h2 class="text-2xl font-bold mb-4">Editar Usuario</h2>
+</div>
+
+<div class="container mx-auto p-4">
+  <form class="max-w-md mx-auto" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="relative z-0 w-full mb-5 group">
+        <label for="tipoPersona" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Tipo de Persona</label>
+        <select id="tipoPersona" formControlName="tipoPersona" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+          <option value="" disabled>Selecciona un tipo de persona</option>
+          <option *ngFor="let tipo of tiposPerson" [value]="tipo.id">{{ tipo.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" id="nombre" formControlName="nombre" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="nombre" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Nombre</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <label for="tipoDocumento" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Tipo de Documento</label>
+        <select id="tipoDocumento" formControlName="tipoDocumento" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+          <option value="" disabled>Selecciona un tipo de documento</option>
+          <option *ngFor="let tipo of typeDocument" [value]="tipo.id">{{ tipo.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" id="numeroDocumento" formControlName="numeroDocumento" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="numeroDocumento" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Número de Documento</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="email" id="correo" formControlName="correo" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="correo" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Correo</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <label for="pais" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">País</label>
+        <select id="pais" formControlName="pais" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+          <option value="" disabled>Selecciona un país</option>
+          <option *ngFor="let pais of country" [value]="pais.id">{{ pais.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <label for="departamento" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Departamento</label>
+        <select id="departamento" formControlName="departamento" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+          <option value="" disabled>Selecciona un departamento</option>
+          <option *ngFor="let depto of departamento" [value]="depto.id">{{ depto.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <label for="ciudad" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Ciudad</label>
+        <select id="ciudad" formControlName="ciudad" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+          <option value="" disabled>Selecciona una ciudad</option>
+          <option *ngFor="let ciudad of ciudad" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" id="direccion" formControlName="direccion" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="direccion" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Dirección</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="text" id="actividadEconomica" formControlName="actividadEconomica" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="actividadEconomica" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Actividad Económica</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="tel" id="telefono" formControlName="telefono" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="telefono" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Teléfono</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <input type="email" id="correo" formControlName="correo" required class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+        <label for="correo" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]">Correo</label>
+      </div>
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Actualizar</button>
+
+  </form>
+</div>

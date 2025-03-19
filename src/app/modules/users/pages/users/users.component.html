@@ -1,8 +1,14 @@
 <app-header></app-header>
 
-<div class="flex justify-between items-center mb-4">
-    <img src="log.png" alt="Logo" class="logo">
-    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" routerLink="/users/create-user">Crear Usuario</button>
+<div class="relative">
+    <div class="mt-8 mx-8 absolute top-[-65px] left-0 w-full z-10 mb-4">
+        <app-navigation [navigationItems]="navigationItems"></app-navigation>
+    </div>
+
+    <div class="flex justify-between items-center mb-4 relative z-0 mt-16">
+        <img src="log.png" alt="Logo" class="logo">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" routerLink="/users/create-user">Crear Usuario</button>
+    </div>
 </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -146,7 +152,7 @@
                     {{ user.tipoDocumento.descripcion }}
                 </td>
                 <td class="px-6 py-4" *ngIf="isColumnSelected('tipoPersona')">
-                    {{ user.tipoPersona.descripcion }}
+                    {{ user.tipoPersona.nombre }}
                 </td>
                 <td class="px-6 py-4" *ngIf="isColumnSelected('pais')">
                     {{ user.pais.nombre }}
@@ -169,10 +175,13 @@
                 <td class="px-6 py-4" *ngIf="isColumnSelected('correo')">
                     {{ user.correo }}
                 </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('operacion')">
-                    <button class="text-blue-600 hover:underline">Editar</button>
-                    <button class="text-yellow-600 hover:underline">Bloquear</button>
-                    <button class="text-red-600 hover:underline">Eliminar</button>
+                <td class="px-6 py-4 text-center" *ngIf="isColumnSelected('operacion')">
+                    <a [routerLink]="['/users/edit-user', user.id]" class="text-blue-600 hover:underline mr-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <button class="text-red-600 hover:underline cursor-pointer" (click)="confirmBlockUser(user)">
+                        <i class="fa-solid fa-lock"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>
