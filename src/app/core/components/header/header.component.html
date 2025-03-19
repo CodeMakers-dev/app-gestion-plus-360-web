@@ -98,6 +98,16 @@
                 <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer" (click)="onFileInputClick($event)">
                     <img src="pencil.png" alt="Editar" class="h-4 w-4" />
                 </div>
+                <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*">
+            </div>
+            <div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="showConfirmModal">
+                <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
+                    <p class="text-lg font-semibold mb-4">¿Desea establecer esta imagen como su imagen de perfil?</p>
+                    <div class="flex justify-center">
+                        <button class="bg-gray-400 text-white p-2 rounded mr-2" (click)="closeConfirmModal()">Cancelar</button>
+                        <button class="bg-blue-500 text-white p-2 rounded" (click)="confirmUpload()">Confirmar</button>
+                    </div>
+                </div>
             </div>
         </div>
         <p class="mt-4 text-lg font-semibold text-center">{{ userName }}</p>

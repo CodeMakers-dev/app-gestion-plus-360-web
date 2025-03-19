@@ -11,6 +11,7 @@ import { Iuser } from '@core/interfaces/Iuser';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/v1/Usuario/validar';
+  private profileImageUrl: string | null = null;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -38,6 +39,14 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  setProfileImageUrl(url: string | null) {
+    this.profileImageUrl = url;
+  }
+  
+  getProfileImageUrl(): string | null {
+    return this.profileImageUrl;
+  }  
 
   getUserId(): number | null {
     const userId = localStorage.getItem('userId');

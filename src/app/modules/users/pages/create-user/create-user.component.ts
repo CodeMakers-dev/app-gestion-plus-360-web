@@ -16,15 +16,24 @@ import { IPersona } from '../../../../core/interfaces/IuserById';
 import { UserService } from '@modules/auth/service/user.service';
 import { AuthService } from '@modules/auth/service/auth.service';
 import Swal from 'sweetalert2';
+import { NavigationComponent } from '@components/navigation/navigation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule],
+  imports: [HeaderComponent, CommonModule, FormsModule, NavigationComponent],
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
 })
 export class CreateUserComponent implements OnInit {
+
+  navigationItems = [
+    { label: 'Inicio', url: '/' },
+    { label: 'Usuarios', url: '/users' },
+    { label: 'Crear Usuario', url: '/users/create-user' }
+  ];
+
   tiposPersonName: string[] = [];
   tiposPerson: ITipoPersona[] = [];
   typeDocumentName: string[] = [];
@@ -51,7 +60,7 @@ export class CreateUserComponent implements OnInit {
     private countryService: CountryService,
     private personService: PersonService,
     private userService: UserService,
-    private authService: AuthService
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -149,6 +158,7 @@ export class CreateUserComponent implements OnInit {
               showConfirmButton: false,
               timer: 2000
             });
+            this.router.navigate(['/users']);
           },
           error: (error) => {
             const errorMessage = error.error?.mensaje || "Hubo un problema al crear la persona.";

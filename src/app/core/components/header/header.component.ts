@@ -1,5 +1,5 @@
 import { UserService } from './../../../modules/auth/service/user.service';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild  } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@services/auth.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,9 @@ import { MessageNotifications } from '@core/interfaces/ImessageNotifications';
 import { initFlowbite } from 'flowbite';
 import { parse } from 'path';
 import { title } from 'process';
+import { PersonService } from '@modules/users/services/person.service';
+import Swal from 'sweetalert2';
+import { IPersona } from '@core/interfaces/IuserById';
 
 @Component({
   selector: 'app-header',
@@ -29,18 +32,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isProfileModalOpen: boolean = false;
   isEditUserModalOpen: boolean = false;
   isImagePreviewOpen: boolean = false;
-  isAlertModalOpen: boolean = false; // Variable para el modal de alerta
-  alertTitle: string = ''; // Título del modal de alerta
+  isAlertModalOpen: boolean = false;
+  alertTitle: string = '';
   alertMessage: string = '';
-  isNotificationModalOpen: boolean = false; // Variable para el modal de notificaciones
-  notifications: MessageNotifications[] = []; // Lista de notificaciones
+  isNotificationModalOpen: boolean = false;
+  notifications: MessageNotifications[] = [];
 
-   // ViewChild para acceder al input de archivo
-   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  selectedFile: File | null = null;
+  showConfirmModal = false;
 
-   constructor(private authService: AuthService, private router: Router, private userService: UserService, private messageService: MensajeService) {}
+  // ViewChild para acceder al input de archivo
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-   ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router, private userService: UserService, private messageService: MensajeService, private personService: PersonService) { }
+
+  ngOnInit(): void {
     const userId = this.authService.getUserId();
     console.log('UserId:', userId);
     if (userId !== null) {
@@ -50,6 +56,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         this.userEmail = user.response.usuario;
       });
     }
+    this.loadProfileImage();
   }
 
   ngAfterViewInit() {
@@ -92,14 +99,132 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.userImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      this.showConfirmModal = true;
     }
+  }
+
+  closeConfirmModal() {
+    this.showConfirmModal = false;
+    this.selectedFile = null;
+  }
+
+  confirmUpload() {
+    this.showConfirmModal = false;
+    this.uploadImage();
+  }
+
+  uploadImage() {
+    if (!this.selectedFile) {
+      console.error('No se ha seleccionado ningún archivo.');
+      return;
+    }
+
+    const userId = this.authService.getUserId();
+
+    if (userId === null) {
+      console.error('No se pudo obtener el ID del usuario.');
+      return;
+    }
+
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        const personaId = user.response.persona.id;
+
+        if (personaId === undefined) {
+          console.error('No se pudo obtener el ID de la persona.');
+          return;
+        }
+
+        if (this.selectedFile) {
+          const file: File = this.selectedFile;
+
+          this.personService.uploadProfileImage(personaId, file).subscribe({
+            next: (response) => {
+              Swal.fire({
+                title: "Imagen Actualizada",
+                text: response.message,
+                icon: "success"
+              });
+              this.userImage = URL.createObjectURL(file);
+              this.selectedFile = null;
+              this.closeProfileModal();
+            },
+            error: (err) => {
+              console.error("Error al actualizar imagen:", err);
+              Swal.fire({
+                title: "Error",
+                text: err.message,
+                icon: "error"
+              });
+            }
+          });
+        } else {
+          console.error('El archivo seleccionado es nulo después de la verificación inicial.');
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener la información del usuario', error);
+      }
+    });
+  }
+
+  loadProfileImage() {
+    const storedImageUrl = this.authService.getProfileImageUrl();
+    console.log('Retrieved Image URL:', storedImageUrl);
+
+    if (storedImageUrl) {
+      this.userImage = storedImageUrl;
+      console.log('Image URL from AuthService:', this.userImage);
+      return;
+    }
+
+    const userId = this.authService.getUserId();
+
+    if (userId === null) {
+      console.error('No se pudo obtener el ID del usuario.');
+      return;
+    }
+
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        const persona: IPersona = user.response.persona;
+
+        if (persona && persona.imagen) {
+          try {
+            const byteArray = new Uint8Array(this.base64ToArrayBuffer(persona.imagen));
+            const blob = new Blob([byteArray], { type: 'image/jpeg' });
+            this.userImage = URL.createObjectURL(blob);
+            console.log();
+          } catch (error) {
+            console.error('Error al convertir la imagen:', error);
+            this.userImage = 'public/perfil.png';
+          }
+          if (this.userImage) {
+            console.log('Stored Image URL:', this.userImage);
+            this.authService.setProfileImageUrl(this.userImage);
+          }
+
+        } else {
+          this.userImage = 'public/perfil.png';
+        }
+      },
+      error: (error) => {
+        console.error('Error al obtener la información del usuario', error);
+        this.userImage = 'public/perfil.png';
+      }
+    });
+  }
+
+  base64ToArrayBuffer(base64: string): ArrayBuffer {
+    const binary_string = window.atob(base64);
+    const len = binary_string.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes.buffer;
   }
 
   saveProfile() {
@@ -133,7 +258,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const userId = this.authService.getUserId();
     if (userId !== null) {
       this.messageService.getMessagesByUserId(userId).subscribe((response: ApiResponse<MessageNotifications[]>) => {
-        // Filtrar solo las notificaciones activas
         this.notifications = response.response.filter(notification => notification.activo);
         this.isNotificationModalOpen = true;
       }, error => {
@@ -180,11 +304,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     };
     console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
     this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
-        this.notifications = this.notifications.filter(n => n.id !== notification.id);
-        console.log('Notification status updated successfully', mensaje);
-      }, error => {
-        console.error('Error updating notification status:', error);
-      });
+      this.notifications = this.notifications.filter(n => n.id !== notification.id);
+      console.log('Notification status updated successfully', mensaje);
+    }, error => {
+      console.error('Error updating notification status:', error);
+    });
   }
 
   toggleSidebar() {
@@ -195,17 +319,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     console.log('Buscando:', this.searchQuery);
   }
 
-  onFileInputClick(event: MouseEvent) {
+  onFileInputClick(event: Event) {
     event.stopPropagation();
-    this.fileInput.nativeElement.click();
+    if (this.fileInput) {
+      this.fileInput.nativeElement.click();
+    } else {
+      console.error('fileInput no está inicializado.');
+    }
   }
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const target = event.target as HTMLElement;
     if (this.sidebarOpen &&
-        !target.closest('.sidebar') &&
-        !target.closest('.menu-container')) {
+      !target.closest('.sidebar') &&
+      !target.closest('.menu-container')) {
       this.sidebarOpen = false;
     }
   }

@@ -15,7 +15,7 @@ import { MensajeService } from '@modules/marketing/services/messages.service';
 })
 export class MensajesMasivosComponent implements OnInit {
   navigationItems = [
-    { label: 'Home', url: '/' },
+    { label: 'Inicio', url: '/' },
     { label: 'Marketing', url: '/marketing' },
     { label: 'Mensajes Masivos', url: '/marketing/mensajes-masivos' }
   ];
