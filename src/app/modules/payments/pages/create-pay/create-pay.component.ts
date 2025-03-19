@@ -14,6 +14,8 @@ import { PaymentService } from '@modules/payments/services/payment.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '@modules/auth/service/auth.service';
 import { UserService } from '@modules/auth/service/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-create-pay',
@@ -38,6 +40,7 @@ export class CreatePayComponent {
     private originPaymentService: OriginPaymentService,
     private destinationPaymentService: DestinationPaymentService,
     private paymentService: PaymentService,
+    private router: Router,
      ) {}
 
   ngOnInit() {
@@ -145,7 +148,7 @@ export class CreatePayComponent {
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'Aceptar'
             }).then(() => {
-              this.pagoForm.reset();
+              this.router.navigate(['/payments']);
             });
           },
           error: (err) => {
