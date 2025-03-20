@@ -15,12 +15,13 @@ import Swal from 'sweetalert2';
 import { AuthService } from '@modules/auth/service/auth.service';
 import { UserService } from '@modules/auth/service/user.service';
 import { Router } from '@angular/router';
+import { NavigationComponent } from '@components/navigation/navigation.component';
 
 
 @Component({
   selector: 'app-create-pay',
   standalone: true,
-  imports: [ReactiveFormsModule, HeaderComponent, FooterComponent, CommonModule],
+  imports: [ReactiveFormsModule, HeaderComponent, FooterComponent,NavigationComponent, CommonModule],
   templateUrl: './create-pay.component.html',
   styleUrl: './create-pay.component.css'
 }) 
@@ -31,7 +32,11 @@ export class CreatePayComponent {
   originPayment: IOrigenPago[] = [];
   destinationPayment: IDestinoPago[] = [];
   
-
+  navigationItems = [
+    { label: 'Inicio', url: '/' },
+    { label: 'Portal de pagos', url: '/payments' },
+    { label: 'crear pago', url: '/create-pay'}
+  ];
 
   constructor(
     private fb: FormBuilder,

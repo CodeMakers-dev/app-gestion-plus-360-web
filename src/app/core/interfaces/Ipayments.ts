@@ -25,4 +25,21 @@ export interface IUsuario {
     nombre: string;
   }
 
-  
+  export interface IPagos{
+    id: number;
+    persona: IPersona;
+    tipoPlan: ITipoPlan;
+    origenPago: IOrigenPago;
+    destinoPago: IDestinoPago;
+    valorPago: number;
+    referencia: string;
+    fechaPago: Date;
+    vigenciaDesde:Date;
+    vigenciaHasta:Date;
+    diasVigencia:string;
+    usuarioCreacion: string;
+    fechaCreacion: string;
+    usuarioModificacion: string | null;
+    fechaModificacion: string | null;
+    activo: boolean;
+  }
