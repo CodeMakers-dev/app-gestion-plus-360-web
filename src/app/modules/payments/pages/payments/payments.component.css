@@ -1,0 +1,18 @@
+#dropdownAction {
+    z-index: 20;
+    display: none;
+}
+
+#dropdownAction.show {
+    display: block;
+}
+
+.logo {
+    height: 200px;
+    width: auto;
+    transform: scale(2);
+    transform-origin: left top;
+    position: relative;
+    top: -80px;
+    left: 50px;
+}

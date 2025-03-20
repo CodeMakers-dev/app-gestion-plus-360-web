@@ -17,7 +17,6 @@ export class PersonService {
   }
 
   getPersonById(id: number): Observable<ApiResponse<IPersona>> {
-    // return this.http.get<ApiResponse<IPersona>>(`${this.apiUrl}/${id}`);
     return this.http.get<ApiResponse<IPersona>>(`${"http://localhost:8080/api/v1/Persona"}/${id}`)
   }
 

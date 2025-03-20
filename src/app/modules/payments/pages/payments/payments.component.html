@@ -1,7 +1,252 @@
 <app-header></app-header>
-<div class="flex justify-between items-center mb-4">
-    <img src="log.png" alt="Logo" class="logo">
-    <button style="cursor: pointer;" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" routerLink="/payments/create-pay">Crear Pago</button>
+
+<div class="relative">
+    <div class="mt-8 mx-8 absolute top-[-16px] left-0 w-full z-10 mb-4">
+        <app-navigation [navigationItems]="navigationItems"></app-navigation>
+    </div>
+
+    <div class="flex justify-between items-center ">
+        <img src="port.png" alt="Logo" class="logo">
+        <button style="cursor: pointer;" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            routerLink="/payments/create-pay">Crear Pago</button>
+    </div>
+
 </div>
 
-<app-footer></app-footer>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div
+        class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+        <div class="relative">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+            </div>
+            <input type="text" id="table-search-payments"
+                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search for payments" (input)="applyFilter($event)">
+        </div>
+        <div class="relative">
+            <button id="dropdownActionButton" (click)="toggleDropdown()"
+                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                type="button">
+                <span class="sr-only">Action button</span>
+                Select Columns
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdownAction"
+                class="fixed z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            disabled>
+                            <input type="checkbox" checked class="mr-2" disabled> Usuario
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            disabled>
+                            <input type="checkbox" checked class="mr-2" disabled> Tipo de plan
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('valorPago', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('valorPago')" class="mr-2"> Valor de pago
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('fechaPago', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('fechaPago')" class="mr-2"> Fecha de pago
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('origenPago', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('origenPago')" class="mr-2"> Origen de
+                            pago
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('destinoPago', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('destinoPago')" class="mr-2"> Destino de
+                            pago
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('referencia', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('referencia')" class="mr-2"> Referencia
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('vigenciaDesde', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('vigenciaDesde')" class="mr-2"> Vigencia
+                            Desde
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('vigenciaHasta', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('vigenciaHasta')" class="mr-2"> Vigencia
+                            hasta
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('diasVigencia', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('diasVigencia')" class="mr-2"> Dias de
+                            vigencia
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('activo', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('activo')" class="mr-2"> Estado
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            (click)="toggleColumn('operacion', $event)">
+                            <input type="checkbox" [checked]="isColumnSelected('operacion')" class="mr-2" disabled>
+                            Operación
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-margin">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Usuario
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Tipo de plan
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('valorPago')">
+                    Valor de pago
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('fechaPago')">
+                    Fecha de pago
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('origenPago')">
+                    Origen de pago
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('destinoPago')">
+                    Destino de pago
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('referencia')">
+                    Referencia
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('vigenciaDesde')">
+                    Vigencia desde
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('vigenciaHasta')">
+                    Vigencia hasta
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('diasVigencia')">
+                    Dias de vigencia
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('activo')">
+                    Estado
+                </th>
+                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('operacion')">
+                    Operación
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payments of filteredPayments; index as i; first as isFirst; last as isLast"
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4">
+                    {{ payments.persona.nombre }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ payments.tipoPlan.nombre }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('valorPago')">
+                    {{ payments.valorPago | currency:'$':'symbol':'1.0-0' }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('fechaPago')">
+                    {{ payments.fechaPago }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('origenPago')">
+                    {{ payments.origenPago.nombre }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('destinoPago')">
+                    {{ payments.destinoPago.nombre }}
+                </td>
+
+                <td class="px-6 py-4" *ngIf="isColumnSelected('referencia')">
+                    {{ payments.referencia }}
+                </td>
+
+                <td class="px-6 py-4" *ngIf="isColumnSelected('vigenciaDesde')">
+                    {{ payments.vigenciaDesde }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('vigenciaHasta')">
+                    {{ payments.vigenciaHasta }}
+                </td>
+                <td class="px-6 py-4" *ngIf="isColumnSelected('diasVigencia')">
+                    {{ payments.diasVigencia }}
+                </td>
+
+                <td class="px-6 py-4" *ngIf="isColumnSelected('activo')">
+                    {{ payments.activo ? 'Activo' : 'Inactivo' }}
+                </td>
+
+                <td class="px-6 py-4 text-center">
+                  
+                    <a [routerLink]="['/payments/edit-pay', payments.id]" class="text-blue-600 hover:underline mr-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+
+                    <a class="text-green-600 cursor-pointer mr-2">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+
+                    <a class="text-red-600 hover:underline">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="flex justify-end items-center">
+        <button style="cursor: pointer; margin-top: 20px;"
+            class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center"
+            (click)="exportToExcel()">
+            <i class="fas fa-file-excel mr-2"></i> Descargar Excel
+        </button>
+    </div>
+
+
+
+
+    <app-footer></app-footer>
