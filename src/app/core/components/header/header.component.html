@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between p-4 bg-[#05eaab] text-white">
+<header class="sticky top-0 z-50 flex items-center justify-between p-4 bg-[#05eaab] text-white">
     <div class="left-container flex items-center">
         <div class="menu-container cursor-pointer mr-4" (click)="toggleSidebar()">
             <span class="menu-icon text-2xl">&#9776;</span>
@@ -8,41 +8,39 @@
         </div>
     </div>
 
-
     <form class="flex items-center max-w-md mx-auto w-full">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative w-full">
             <input type="search" id="default-search" class="block w-full p-4 pr-16 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search Gestión Plus..." required />
             <button type="submit" style="cursor: pointer;" class="absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center gap-2">
-        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 20 20" >
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-      </button>
+                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+            </button>
         </div>
     </form>
-
 
     <div class="flex items-center space-x-4">
         <div class="notification">
             <button type="button" (click)="openNotificationModal()" style="cursor: pointer;">
-        <img src="notifi.png" class="h-6">
-      </button>
+                <img src="notifi.png" class="h-6">
+            </button>
         </div>
 
         <div class="perfil flex items-center">
-            <button type="button" (click)="openProfileModal()" class="flex items-center" style="cursor: pointer;"> 
-        <img [src]="userImage" alt="Icono de Perfil" class="h-8 rounded-full mr-2">
-        <span>{{ userName }}</span>
-      </button>
+            <button type="button" (click)="openProfileModal()" class="flex items-center" style="cursor: pointer;">
+                <img [src]="userImage" alt="Icono de Perfil" class="h-8 rounded-full mr-2">
+                <span>{{ userName }}</span>
+            </button>
         </div>
 
         <div class="close">
             <button type="button" (click)="logout()" style="cursor: pointer;">
-        <img src="close.png" alt="Cerrar sesión" class="h-6">
-      </button>
+                <img src="close.png" alt="Cerrar sesión" class="h-6">
+            </button>
         </div>
     </div>
 </header>
@@ -88,6 +86,10 @@
         <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')">
             <i class="fa-solid fa-sack-dollar text-2xl"></i>
             <span class="ml-2">Portal de pagos</span>
+        </li>
+        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')">
+            <i class="fa-solid fa-message text-2xl"></i>
+            <span class="ml-2">Mensajes</span>
         </li>
     </ul>
 </div>

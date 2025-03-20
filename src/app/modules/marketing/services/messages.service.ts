@@ -36,4 +36,12 @@ export class MensajeService {
     };
     return this.http.post<ApiResponse<MessageNotifications>>(`http://localhost:8080/api/v1/Mensaje/send`, body);
   }
+
+  sendMessage(mensaje: any) {
+    return this.http.post(`${this.apiUrl}/send`,mensaje)
+  }
+
+  sendMessageAll(mensaje: any) {
+    return this.http.post(`${this.apiUrl}/sendAll`,mensaje)
+  }
 }

@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+    <div class="space-y-4 flex flex-col h-full">
+        <div>
+            <p class="font-semibold mb-2">Enviar a:</p>
+            <div class="flex justify-center space-x-4">
+                <button 
+                    class="p-2 border rounded-full hover:bg-gray-100" 
+                    (click)="selectIcon('single')"
+                    [ngClass]="{'bg-blue-200': selectedIcon === 'single'}"
+                >
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <button 
+                    class="p-2 border rounded-full hover:bg-gray-100" 
+                    (click)="selectIcon('multiple')"
+                    [ngClass]="{'bg-blue-200': selectedIcon === 'multiple'}"
+                >
+                    <i class="fa-solid fa-users"></i>
+                </button>
+            </div>
+            <div *ngIf="showSelect" class="mt-4">
+                <label for="user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccionar Usuario:</label>
+                <select (change)="onUserSelected($event)">
+                    <option value="">Seleccione un usuario</option>
+                    <option *ngFor="let person of persons" [value]="person.id">{{ person.nombre }}</option>
+                  </select>
+            </div>
+        </div>
+
+        <form class="flex flex-col h-full">
+            <div class="flex flex-col h-1/2">
+                <label for="floating_titulo" class="font-semibold mb-2">Título:</label>
+                <div class="relative z-0 w-full mb-5 group h-full">
+                    <input type="text" name="titulo" id="floating_titulo" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer h-full" placeholder=" " required [(ngModel)]="title" />
+                    <label for="floating_titulo" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Título</label>
+                </div>
+            </div>
+
+            <div class="flex flex-col h-1/2">
+                <label for="message" class="font-semibold mb-2">Descripción:</label>
+                <textarea name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-full" placeholder="Leave a comment..." [(ngModel)]="description"></textarea>
+            </div>
+        </form>
+    </div>
+
+    <div class="flex flex-col justify-between">
+        <div class="flex justify-end">
+            <button (click)="sendMessage()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Enviar Mensaje
+            </button>
+        </div>
+    </div>
+</div>
