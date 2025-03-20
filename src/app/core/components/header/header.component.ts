@@ -290,25 +290,37 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   markNotificationAsInactive(notification: MessageNotifications) {
     const userId = this.authService.getUserId();
-    const mensaje: MessageNotifications = {
-      id: notification.id,
-      usuario: userId,
-      titulo: notification.titulo,
-      descripcion: notification.descripcion,
-      usuarioCreacion: notification.usuarioCreacion,
-      fechaEnvio: notification.fechaEnvio,
-      fechaCreacion: notification.fechaCreacion,
-      usuarioModificacion: userId ? userId.toString() : null,
-      fechaModificacion: new Date().toISOString(),
-      activo: false
-    };
-    console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
-    this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
-      this.notifications = this.notifications.filter(n => n.id !== notification.id);
-      console.log('Notification status updated successfully', mensaje);
-    }, error => {
-      console.error('Error updating notification status:', error);
-    });
+  
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(user => {
+        const userName = user.response.persona.nombre;
+  
+        const mensaje: MessageNotifications = {
+          id: notification.id,
+          usuario: { id: userId },
+          titulo: notification.titulo,
+          descripcion: notification.descripcion,
+          usuarioCreacion: notification.usuarioCreacion,
+          fechaEnvio: notification.fechaEnvio,
+          fechaCreacion: notification.fechaCreacion,
+          usuarioModificacion: userName,
+          fechaModificacion: new Date().toISOString(),
+          activo: false
+        };
+  
+        console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
+        this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
+          this.notifications = this.notifications.filter(n => n.id !== notification.id);
+          console.log('Notification status updated successfully', mensaje);
+        }, error => {
+          console.error('Error updating notification status:', error);
+        });
+      }, error => {
+        console.error('Error getting user name:', error);
+      });
+    } else {
+      console.error('User ID not found');
+    }
   }
 
   toggleSidebar() {

@@ -24,7 +24,7 @@ export class MensajeService {
   updateNotificationStatus(notification: MessageNotifications): Observable<ApiResponse<MessageNotifications>> {
     const body = {
       id: notification.id,
-      usuario: { id: notification.usuario },
+      usuario: notification.usuario,
       titulo: notification.titulo,
       descripcion: notification.descripcion,
       usuarioCreacion: notification.usuarioCreacion,

@@ -1,6 +1,6 @@
 export interface MessageNotifications {
   id: number;
-  usuario: number | null;
+  usuario: { id: number | null };
   titulo: string;
   descripcion: string;
   fechaEnvio: string;

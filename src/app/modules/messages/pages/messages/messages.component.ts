@@ -2,20 +2,28 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '@components/header/header.component';
+import { NavigationComponent } from '@components/navigation/navigation.component';
 import { ApiResponse } from '@core/interfaces/Iresponse';
 import { IPersona } from '@core/interfaces/IuserById';
 import { UserService } from '@modules/auth/service/user.service';
 import { MensajeService } from '@modules/marketing/services/messages.service';
 import { PersonService } from '@modules/users/services/person.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule],
+  imports: [HeaderComponent, CommonModule, FormsModule, NavigationComponent],
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  styleUrls: ['./messages.component.css'],
 })
 export class MessagesComponent implements OnInit {
+
+  navigationItems = [
+    { label: 'Inicio', url: '/' },
+    { label: 'Mensajes', url: '/messages' }
+  ];
+
   showSelect = false;
   selectedIcon: 'single' | 'multiple' | null = null;
   persons: IPersona[] = [];
@@ -23,9 +31,13 @@ export class MessagesComponent implements OnInit {
   title: string = '';
   description: string = '';
 
-  constructor(private personService: PersonService, private userService: UserService, private messageService: MensajeService) { }
+  constructor(
+    private personService: PersonService,
+    private userService: UserService,
+    private messageService: MensajeService
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   showUserSelect(show: boolean) {
     this.showSelect = show;
@@ -57,75 +69,107 @@ export class MessagesComponent implements OnInit {
 
   sendMessage() {
     if (!this.title || !this.description) {
-        alert('Por favor, completa el título y la descripción.');
-        return;
-    }
-
-    if (!this.selectedIcon) {
-      alert('Por favor, selecciona un icono antes de enviar el mensaje.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos Incompletos',
+        text: 'Por favor, completa el título y la descripción.'
+      });
       return;
     }
-
-    const userId: number | null = localStorage.getItem("userId")
-        ? Number(localStorage.getItem("userId"))
-        : null;
-
-    if (userId) {
-        this.userService.getUserById(userId).subscribe(user => {
-            const usuarioCreacion = user.response.persona.nombre;
-            const personId = user.response.id;
-
-            console.log('Valor de this.selectedIcon:', this.selectedIcon);
-
-            if (this.selectedIcon === 'single') {
-                if (this.selectedUserId) {
-                    const mensaje = {
-                        usuario: {
-                            id: personId // Usar personId obtenido aquí
-                        },
-                        titulo: this.title,
-                        descripcion: this.description,
-                        usuarioCreacion: usuarioCreacion
-                    };
-
-                    this.messageService.sendMessage(mensaje).subscribe(
-                        response => {
-                            console.log('Mensaje enviado con éxito:', response);
-                            alert('Mensaje enviado con éxito.');
-                            this.title = '';
-                            this.description = '';
-                        },
-                        error => {
-                            console.error('Error al enviar mensaje:', error);
-                            alert('Error al enviar mensaje.');
-                        }
-                    );
-                } else {
-                    alert('Por favor, selecciona un usuario.');
-                }
-            } else if (this.selectedIcon === 'multiple') {
-                const mensaje = {
-                    titulo: this.title,
-                    descripcion: this.description,
-                    usuarioCreacion: usuarioCreacion
-                };
-
-                this.messageService.sendMessageAll(mensaje).subscribe(
-                    response => {
-                        console.log('Mensaje enviado a múltiples usuarios con éxito:', response);
-                        alert('Mensaje enviado a múltiples usuarios con éxito.');
-                        this.title = '';
-                        this.description = '';
-                    },
-                    error => {
-                        console.error('Error al enviar mensaje a múltiples usuarios:', error);
-                        alert('Error al enviar mensaje a múltiples usuarios.');
-                    }
-                );
-            }
-        });
-    } else {
-        alert('No se encontró el ID del usuario en el almacenamiento local.');
+  
+    if (!this.selectedIcon) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Icono No Seleccionado',
+        text: 'Por favor, selecciona un icono antes de enviar el mensaje.'
+      });
+      return;
     }
-}
+  
+    const userId: number | null = localStorage.getItem("userId")
+      ? Number(localStorage.getItem("userId"))
+      : null;
+  
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(user => {
+        const usuarioCreacion = user.response.persona.nombre;
+        const personId = user.response.id;
+  
+        console.log('Valor de this.selectedIcon:', this.selectedIcon);
+  
+        if (this.selectedIcon === 'single') {
+          if (this.selectedUserId) {
+            const mensaje = {
+              usuario: {
+                id: personId
+              },
+              titulo: this.title,
+              descripcion: this.description,
+              usuarioCreacion: usuarioCreacion
+            };
+  
+            this.messageService.sendMessage(mensaje).subscribe(
+              response => {
+                console.log('Mensaje enviado con éxito:', response);
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Mensaje Enviado',
+                  text: 'Mensaje enviado con éxito.'
+                });
+                this.title = '';
+                this.description = '';
+              },
+              error => {
+                console.error('Error al enviar mensaje:', error);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error al Enviar Mensaje',
+                  text: 'Error al enviar mensaje.'
+                });
+              }
+            );
+          } else {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Usuario No Seleccionado',
+              text: 'Por favor, selecciona un usuario.'
+            });
+          }
+        } else if (this.selectedIcon === 'multiple') {
+          const mensaje = {
+            titulo: this.title,
+            descripcion: this.description,
+            usuarioCreacion: usuarioCreacion
+          };
+  
+          this.messageService.sendMessageAll(mensaje).subscribe(
+            response => {
+              console.log('Mensaje enviado a múltiples usuarios con éxito:', response);
+              Swal.fire({
+                icon: 'success',
+                title: 'Mensaje Masivo Enviado',
+                text: 'Mensaje enviado a múltiples usuarios con éxito.'
+              });
+              this.title = '';
+              this.description = '';
+            },
+            error => {
+              console.error('Error al enviar mensaje a múltiples usuarios:', error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Error al Enviar Mensaje Masivo',
+                text: 'Error al enviar mensaje a múltiples usuarios.'
+              });
+            }
+          );
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Usuario No Encontrado',
+        text: 'No se encontró el ID del usuario en el almacenamiento local.'
+      });
+    }
+  }
 }
