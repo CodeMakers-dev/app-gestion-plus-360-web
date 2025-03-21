@@ -31,5 +31,4 @@ export class PaymentService {
     deletePayment(id: string): Observable<ApiResponse<void>> {
       return this.http.delete<ApiResponse<void>>(`${this.apiUrl}/delete/${id}`);
     }
-
 }

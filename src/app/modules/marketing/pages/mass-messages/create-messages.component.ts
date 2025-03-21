@@ -6,11 +6,12 @@ import { FooterComponent } from "../../../../core/components/footer/footer.compo
 import { CreateMessageService } from '@modules/marketing/services/create-message.service';
 import Swal from 'sweetalert2';
 import { error } from 'console';
+import { NavigationComponent } from '@components/navigation/navigation.component';
 
 @Component({
   selector: 'app-create-messages',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, FooterComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, FooterComponent,NavigationComponent],
   templateUrl: './create-messages.component.html',
   styleUrl: './create-messages.component.css'
 })
@@ -21,6 +22,14 @@ export class CreateMessagesComponent implements OnInit{
   messageForm: FormGroup;
   buttons: string[] = [];
   filePreviews: { name: string; url: string; type: string }[] = [];
+
+
+  navigationItems = [
+    { label: 'Home', url: '/' },
+    { label: 'Marketing', url: '/marketing' },
+    { label: 'Mensajes masivos', url: '/marketing/mensajes-masivos' },
+    { label: 'Crear mensaje', url: '/create-message' }
+  ];
 
   constructor(private fb: FormBuilder, private createMessageService: CreateMessageService) {
     this.messageForm = this.fb.group({
