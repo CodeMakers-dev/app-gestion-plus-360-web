@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { MarketingComponent } from "./pages/marketing/marketing.component";
 import { CommonModule } from "@angular/common";
 import { MarketingRoutingModule } from "./marketing-routing.module";
-import { MensajesMasivosComponent } from "./components/mensajes-masivos/mensajes-masivos.component";
+import { MensajesMasivosComponent } from "./pages/mensajes-masivos/mensajes-masivos.component";
 import { RouterModule } from "@angular/router";
 import { routes } from "src/app/app.routes";
 
