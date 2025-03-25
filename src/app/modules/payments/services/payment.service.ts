@@ -20,11 +20,11 @@ export class PaymentService {
       return this.http.get<ApiResponse<IPagos[]>>(`${"http://localhost:8080/api/v1/Pago"}/all`);
     }
 
-    getPaymentById(id: string): Observable<ApiResponse<IPagos>> {
+    getPaymentById(id: number): Observable<ApiResponse<IPagos>> {
       return this.http.get<ApiResponse<IPagos>>(`${this.apiUrl}/unique/${id}`);
     }
   
-    updatePayment(id: string, paymentData: Partial<IPagos>): Observable<ApiResponse<IPagos>> {
+    updatePayment(id: number, paymentData: Partial<IPagos>): Observable<ApiResponse<IPagos>> {
       return this.http.put<ApiResponse<IPagos>>(`${this.apiUrl}/update/${id}`, paymentData);
     }
 

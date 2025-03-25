@@ -43,3 +43,22 @@ export interface IUsuario {
     fechaModificacion: string | null;
     activo: boolean;
   }
+
+  export interface IPagosCreate {
+    id?:number;
+    persona: IPersona;
+    tipoPlan: { id: number };
+    origenPago: { id: number };
+    destinoPago: { id: number };
+    valorPago: number;
+    referencia: string;
+    fechaPago: Date;
+    vigenciaDesde:Date;
+    vigenciaHasta:Date;
+    diasVigencia:string;
+    usuarioCreacion: string;
+    fechaCreacion: string;
+    usuarioModificacion: string | null;
+    fechaModificacion: string | null;
+    activo: boolean;
+  }
