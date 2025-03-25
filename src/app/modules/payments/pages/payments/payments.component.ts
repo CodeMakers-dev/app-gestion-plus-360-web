@@ -27,6 +27,7 @@ import Swal from 'sweetalert2';
 })
 export class PaymentsComponent implements OnInit {
   navigationItems = [
+    { label: 'Inicio', url: '/' },
     { label: 'Portal de pagos', url: '/payments' },
   ];
   constructor(private paymentsService: PaymentService) {}
