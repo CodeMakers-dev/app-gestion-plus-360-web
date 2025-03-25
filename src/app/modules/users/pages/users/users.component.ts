@@ -1,6 +1,7 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from '@components/footer/footer.component';
 import { HeaderComponent } from '@components/header/header.component';
 import { NavigationComponent } from '@components/navigation/navigation.component';
 import { IPersona } from '@core/interfaces/IuserById';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, RouterModule, NavigationComponent],
+  imports: [HeaderComponent, FooterComponent, CommonModule, RouterModule, NavigationComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
@@ -24,8 +25,46 @@ export class UsersComponent implements OnInit{
   users: IPersona[] = [];
   filteredUsers: IPersona[] = [];
   selectedColumns: string[] = ['numeroDocumento', 'nombre', 'telefono', 'correo', 'operacion'];
+  paginaActual = 1;
+  itemsPorPagina = 5;
+  columnFilters: { [key: string]: string } = {};
+  activeFilters: { [key: string]: boolean } = {};
 
   constructor(private personService: PersonService) {}
+
+  get datosPaginados() {
+    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
+    const fin = Math.min(
+      inicio + this.itemsPorPagina,
+      this.filteredUsers.length
+    );
+    return this.filteredUsers.slice(inicio, fin);
+  }
+
+  totalPaginas(): number {
+    return Math.ceil(this.filteredUsers.length / this.itemsPorPagina);
+  }
+
+  cambiarPagina(nuevaPagina: number) {
+    if (nuevaPagina >= 1 && nuevaPagina <= this.totalPaginas()) {
+      this.paginaActual = nuevaPagina;
+    }
+  }
+
+  applyColumnFilter(event: Event, column: string) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.columnFilters[column] = filterValue;
+    this.applyAllFilters();
+  }
+
+  applyAllFilters() {
+    this.filteredUsers = this.users.filter((payment) => {
+      return Object.keys(this.columnFilters).every((column) => {
+        const value = this.getColumnValue(payment, column);
+        return value.includes(this.columnFilters[column]);
+      });
+    });
+  }
 
   ngOnInit(): void {
     this.loadPerson();
@@ -57,6 +96,35 @@ export class UsersComponent implements OnInit{
     );
   }
 
+  getColumnValue(user: IPersona, column: string): string {
+    switch (column) {
+        case 'numeroDocumento':
+            return user.numeroDocumento?.toString().toLowerCase() || '';
+        case 'nombre':
+            return user.nombre?.toLowerCase() || '';
+        case 'tipoDocumento':
+            return user.tipoDocumento?.descripcion?.toLowerCase() || '';
+        case 'tipoPersona':
+            return user.tipoPersona?.nombre?.toLowerCase() || '';
+        case 'pais':
+            return user.pais?.nombre?.toLowerCase() || '';
+        case 'departamento':
+            return user.departamento?.nombre?.toLowerCase() || '';
+        case 'ciudad':
+            return user.ciudad?.nombre?.toLowerCase() || '';
+        case 'direccion':
+            return user.direccion?.toLowerCase() || '';
+        case 'actividadEconomica':
+            return user.actividadEconomica?.toLowerCase() || '';
+        case 'telefono':
+            return user.telefono?.toLowerCase() || '';
+        case 'correo':
+            return user.correo?.toLowerCase() || '';
+        default:
+            return '';
+    }
+}
+
   toggleColumn(column: string, event: Event) {
     event.preventDefault();
     const index = this.selectedColumns.indexOf(column);
@@ -65,6 +133,10 @@ export class UsersComponent implements OnInit{
     } else {
       this.selectedColumns.push(column);
     }
+  }
+
+  toggleFilter(column: string) {
+    this.activeFilters[column] = !this.activeFilters[column];
   }
 
   isColumnSelected(column: string): boolean {
