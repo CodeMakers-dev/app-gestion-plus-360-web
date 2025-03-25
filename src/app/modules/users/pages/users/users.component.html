@@ -107,36 +107,69 @@
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Nº Documento
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('numeroDocumento')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['numeroDocumento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'numeroDocumento')">
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Nombre
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('nombre')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['nombre']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'nombre')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoDocumento')">
                     Tipo de Documento
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoDocumento')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['tipoDocumento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'tipoDocumento')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoPersona')">
                     Tipo Persona
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoPersona')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['tipoPersona']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'tipoPersona')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('pais')">
                     Pais
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('pais')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['pais']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'pais')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('departamento')">
                     Departamento
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('departamento')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['departamento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'departamento')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('ciudad')">
                     Ciudad
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('ciudad')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['ciudad']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'ciudad')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('direccion')">
                     Dirección
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('direccion')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['direccion']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'direccion')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('actividadEconomica')">
                     Actividad Económica
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('actividadEconomica')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['actividadEconomica']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'actividadEconomica')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('telefono')">
                     Teléfono
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('telefono')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['telefono']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'telefono')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('correo')">
                     Correo
+                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('correo')"></i>
+                    <br>
+                    <input *ngIf="activeFilters['correo']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'correo')">
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('operacion')">
                     Operación
@@ -190,3 +223,19 @@
         </tbody>
     </table>
 </div>
+<div class="flex justify-center items-center space-x-4 mt-4">
+    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1"
+        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+        Anterior
+    </button>
+
+    <span class="text-lg font-semibold">
+        Página {{ paginaActual }} de {{ totalPaginas() }}
+    </span>
+
+    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas()"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">
+        Siguiente
+    </button>
+</div>
+<app-footer></app-footer>

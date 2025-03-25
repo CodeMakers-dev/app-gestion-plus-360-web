@@ -44,8 +44,13 @@ export class MessagesComponent implements OnInit {
   }
 
   selectIcon(icon: 'single' | 'multiple') {
-    this.selectedIcon = icon;
-    this.showSelect = icon === 'single';
+    if (this.selectedIcon === icon) {
+      this.selectedIcon = null;
+      this.showSelect = false;
+    } else {
+      this.selectedIcon = icon;
+      this.showSelect = icon === 'single';
+    }
 
     console.log('Icono seleccionado en selectIcon:', this.selectedIcon);
     if (this.showSelect) {
