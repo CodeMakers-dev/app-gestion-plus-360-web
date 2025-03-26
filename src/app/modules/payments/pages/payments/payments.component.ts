@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Input, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../../core/components/header/header.component';
 import { FooterComponent } from '../../../../core/components/footer/footer.component';
 import { RouterModule } from '@angular/router';
@@ -10,6 +10,11 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { CommentPayService } from '@modules/payments/services/commentPay.service';
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '@modules/auth/service/user.service';
+import { ICommentPay } from '@core/interfaces/IcommentPay';
+import { ApiResponse } from '@core/interfaces/Iresponse';
 
 @Component({
   selector: 'app-payments',
@@ -30,8 +35,72 @@ export class PaymentsComponent implements OnInit {
     { label: 'Inicio', url: '/' },
     { label: 'Portal de pagos', url: '/payments' },
   ];
-  constructor(private paymentsService: PaymentService) {}
+  commentsList: any[] = [];
+  newComment: string = '';
+  showPopover: number | null = null; 
 
+  constructor(private paymentsService: PaymentService, private commentService: CommentPayService,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+  ) { }
+
+  togglePopover(idPago: number) {
+    if (this.showPopover === idPago) {
+      this.showPopover = null;
+    } else {
+      this.showPopover = idPago;
+      this.loadComments(idPago); 
+    }
+  }
+
+  loadComments(idPago: number) {
+    this.commentService.getCommmentByPay(idPago).subscribe((comments: ApiResponse<ICommentPay[]>[]) => {
+      console.log("Comentarios recibidos desde la API:", comments);
+
+      if (Array.isArray(comments) && comments.length > 0 && Array.isArray(comments[0].response)) {
+        this.commentsList = comments[0].response.map((comment: ICommentPay) => comment.descripcion);
+      } else {
+        this.commentsList = [];
+      }
+
+      console.log("Lista de descripciones después de asignar:", this.commentsList);
+      this.cdr.detectChanges();
+    });
+  }
+  saveComment(idPago: number) {
+    const userId: number | null = localStorage.getItem("userId")
+      ? Number(localStorage.getItem("userId"))
+      : null;
+
+    if (userId === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo obtener el usuario autenticado.",
+      });
+      return;
+    }
+
+    this.userService.getUserById(userId).subscribe(user => {
+      const usuarioCreacion = user.response.persona.nombre; 
+
+      if (this.newComment.trim() !== '') {
+        const comentarioData = {
+          pagos: { id: idPago },
+          descripcion: this.newComment,
+          usuarioCreacion: usuarioCreacion,
+          activo: true
+        };
+
+        console.log("Enviando comentario:", comentarioData);
+
+        this.commentService.saveComment(comentarioData).subscribe(() => {
+          this.loadComments(idPago);
+          this.newComment = '';
+        });
+      }
+    });
+  }
   payments: IPagos[] = [];
   filteredPayments: IPagos[] = [];
   selectedColumns: string[] = [
@@ -41,6 +110,7 @@ export class PaymentsComponent implements OnInit {
     'fechaPago',
     'operacion',
   ];
+
   filterCriteria: { [key: string]: string } = {};
   activeFilters: { [key: string]: boolean } = {};
   columnFilters: { [key: string]: string } = {};
@@ -223,6 +293,16 @@ export class PaymentsComponent implements OnInit {
         return payment.activo ? 'activo' : 'inactivo';
       default:
         return '';
+    }
+  }
+
+  // Detectar clics fuera del popover
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const popoverElement = document.getElementById('popover');
+    if (popoverElement && !popoverElement.contains(event.target as Node)) {
+      this.showPopover = null;
+      this.cdr.detectChanges();
     }
   }
 }
