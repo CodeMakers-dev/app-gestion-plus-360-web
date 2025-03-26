@@ -9,19 +9,44 @@ import { MarketingComponent } from '@modules/marketing/pages/marketing/marketing
 import { PasswordComponent } from '@modules/auth/pages/password/password.component';
 import { UsersComponent } from './modules/users/pages/users/users.component';
 import { CreatePasswordComponent } from '@modules/auth/pages/create-password/create-password.component';
+import { HasRoleGuard } from '@core/guards/has-role.guard';
 
 
 export const routes: Routes = [
-  { path: 'create-password', component: CreatePasswordComponent},
+  { path: 'create-password', component: CreatePasswordComponent },
   { path: 'password', component: PasswordComponent },
   { path: 'recover-password', component: RecoverPasswordComponent },
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'marketing', loadChildren: () => import('./modules/marketing/marketing.module').then(m => m.MarketingModule), canActivate: [AuthGuard] },
-  {path: 'payments', loadChildren: () => import('./modules/payments/payments.module').then(m => m.PaymentsModule) },
-  { path: 'users', loadChildren: () => import('./modules/users/user.module').then(m => m.UsersModule) },
-  { path: 'messages', loadChildren: () => import('./modules/messages/messages.module').then(m => m.MessagesModule) },
+  {
+    path: 'marketing',
+    loadChildren: () => import('./modules/marketing/marketing.module').then(m => m.MarketingModule),
+    canActivate: [AuthGuard],
+    canMatch: [HasRoleGuard],
+    data: { roles: ['ADMIN', 'CONSULTA'] }
+  },
+  {
+    path: 'payments',
+    loadChildren: () => import('./modules/payments/payments.module').then(m => m.PaymentsModule),
+    canActivate: [AuthGuard],
+    canMatch: [HasRoleGuard],
+    data: { roles: ['ADMIN'] }
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./modules/users/user.module').then(m => m.UsersModule),
+    canActivate: [AuthGuard],
+    canMatch: [HasRoleGuard],
+    data: { roles: ['ADMIN'] }
+  },
+  {
+    path: 'messages',
+    loadChildren: () => import('./modules/messages/messages.module').then(m => m.MessagesModule),
+    canActivate: [AuthGuard],
+    canMatch: [HasRoleGuard],
+    data: { roles: ['ADMIN'] }
+  },
   { path: '**', redirectTo: 'login' },
 ];
 

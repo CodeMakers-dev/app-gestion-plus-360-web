@@ -34,8 +34,8 @@ export class CreatePayComponent {
   
   navigationItems = [
     { label: 'Inicio', url: '/' },
-    { label: 'Portal de pagos', url: '/payments' },
-    { label: 'crear pago', url: '/create-pay'}
+    { label: 'Portal de Pagos', url: '/payments' },
+    { label: 'Crear Pago', url: '/create-pay'}
   ];
 
   constructor(

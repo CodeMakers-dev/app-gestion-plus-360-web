@@ -71,27 +71,27 @@
         <img src="log.png" alt="Logo" class="h-10 mx-auto">
     </div>
     <ul class="space-y-2">
-        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')">
-            <i class="fa-solid fa-house text-2xl"></i>
-            <span class="ml-2">Inicio</span>
+        <li *ngIf="hasAccess('/home')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')">
+          <i class="fa-solid fa-house text-2xl"></i>
+          <span class="ml-2">Inicio</span>
         </li>
-        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')">
-            <i class="fa-solid fa-lightbulb text-2xl"></i>
-            <span class="ml-2">Marketing</span>
+        <li *ngIf="hasAccess('/marketing')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')">
+          <i class="fa-solid fa-lightbulb text-2xl"></i>
+          <span class="ml-2">Marketing</span>
         </li>
-        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')">
-            <i class="fa-solid fa-user text-2xl"></i>
-            <span class="ml-2">Usuarios</span>
+        <li *ngIf="hasAccess('/users')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')">
+          <i class="fa-solid fa-user text-2xl"></i>
+          <span class="ml-2">Usuarios</span>
         </li>
-        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')">
-            <i class="fa-solid fa-sack-dollar text-2xl"></i>
-            <span class="ml-2">Portal de pagos</span>
+        <li *ngIf="hasAccess('/payments')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')">
+          <i class="fa-solid fa-sack-dollar text-2xl"></i>
+          <span class="ml-2">Portal de pagos</span>
         </li>
-        <li class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')">
-            <i class="fa-solid fa-message text-2xl"></i>
-            <span class="ml-2">Mensajes</span>
+        <li *ngIf="hasAccess('/messages')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')">
+          <i class="fa-solid fa-message text-2xl"></i>
+          <span class="ml-2">Mensajes</span>
         </li>
-    </ul>
+      </ul>
 </div>
 
 <!-- MODAL DE PERFIL -->

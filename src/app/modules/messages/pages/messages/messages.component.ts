@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from '@components/footer/footer.component';
 import { HeaderComponent } from '@components/header/header.component';
 import { NavigationComponent } from '@components/navigation/navigation.component';
 import { ApiResponse } from '@core/interfaces/Iresponse';
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule, NavigationComponent],
+  imports: [HeaderComponent, CommonModule, FormsModule, NavigationComponent, FooterComponent],
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
 })

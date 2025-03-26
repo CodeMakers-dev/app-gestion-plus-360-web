@@ -2,8 +2,8 @@ import { ApiResponse } from '@core/interfaces/Iresponse';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { Iuser } from '@core/interfaces/Iuser';
 
 @Injectable({
@@ -12,25 +12,34 @@ import { Iuser } from '@core/interfaces/Iuser';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/v1/Usuario/validar';
   private profileImageUrl: string | null = null;
+  private roleUrl = 'http://localhost:8080/api/v1/UsuarioRol/usuario/';
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(usuario: string, password: string): Observable<ApiResponse<Iuser>> {
     return this.http.post<ApiResponse<Iuser>>(this.apiUrl, { usuario, password }).pipe(
-      tap((response: ApiResponse<Iuser>) => {
-        console.log('Response:', response.response.id);
+      mergeMap((response: ApiResponse<Iuser>) => {
         if (response.code === 200) {
-          console.log('Ingreso a el sucess')
           localStorage.setItem('token', response.response.token);
-          localStorage.setItem('userId', response.response.id);
-          this.router.navigate(['/home']);
+          localStorage.setItem('userId', response.response.id.toString());
+          return this.getRole(Number(response.response.id)).pipe(
+            tap(role => {
+              localStorage.setItem('userRole', role);
+              this.router.navigate(['/home']);
+            }),
+            mergeMap(() => of(response))
+          );
+        } else {
+          return of(response);
         }
-      }));
+      })
+    );
   }
 
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
@@ -51,6 +60,16 @@ export class AuthService {
   getUserId(): number | null {
     const userId = localStorage.getItem('userId');
     return userId ? parseInt(userId, 10) : null;
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem('userRole');
+  }
+
+  getRole(userId: number): Observable<string> {
+    return this.http.get<ApiResponse<any>>(`${this.roleUrl}${userId}`).pipe(
+      map(response => response.response.rol.nombre)
+    );
   }
 
   recoverPassword(usuario: string): Observable<ApiResponse<any>> {
