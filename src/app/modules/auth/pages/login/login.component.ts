@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 
@@ -29,15 +30,19 @@ export class LoginComponent{
   onSubmit() {
     if (this.loginForm.valid) {
       const { usuario, password } = this.loginForm.value;
-      console.log({usuario, password});
+      console.log({ usuario, password });
       this.authService.login(usuario, password).subscribe(
         (response) => {
           localStorage.setItem('token', response.response.token);
-          this.router.navigate(['/home']);
         },
         (error) => {
           console.error('Error de autenticación', error);
-          alert('Usuario o contraseña incorrectos');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error de autenticación',
+            text: error.error.message,
+            confirmButtonText: 'Intentar de nuevo'
+          });
         }
       );
     }

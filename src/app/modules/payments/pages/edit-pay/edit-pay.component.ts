@@ -21,8 +21,8 @@ import Swal from 'sweetalert2';
 export class EditPayComponent implements OnInit {
   navigationItems = [
     { label: 'Inicio', url: '/' },
-    { label: 'Portal de pagos', url: '/payments' },
-    { label: 'Editar pago', url: '/payments/edit-pay' }
+    { label: 'Portal de Pagos', url: '/payments' },
+    { label: 'Editar Pago', url: '/payments/edit-pay' }
   ];
   editPaymentForm: FormGroup;
   id!: number;

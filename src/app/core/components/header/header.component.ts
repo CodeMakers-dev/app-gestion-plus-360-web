@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   selectedFile: File | null = null;
   showConfirmModal = false;
+  userRole: string | null = null;
 
   // ViewChild para acceder al input de archivo
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -47,6 +48,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private messageService: MensajeService, private personService: PersonService) { }
 
   ngOnInit(): void {
+    this.userRole = this.authService.getUserRole();
     const userId = this.authService.getUserId();
     console.log('UserId:', userId);
     if (userId !== null) {
@@ -357,5 +359,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   goTo(route: string) {
     this.router.navigate([route]);
+  }
+
+  hasAccess(route: string): boolean {
+    if (!this.userRole) {
+      return false;
+    }
+
+    switch (route) {
+      case '/home':
+        return true;
+      case '/marketing':
+        return this.userRole === 'ADMIN' || this.userRole === 'CONSULTA';
+      case '/users':
+      case '/payments':
+      case '/messages':
+        return this.userRole === 'ADMIN';
+      default:
+        return false;
+    }
   }
 }
