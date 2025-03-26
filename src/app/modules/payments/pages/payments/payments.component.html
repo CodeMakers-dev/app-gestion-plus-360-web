@@ -259,9 +259,10 @@
                     {{ payments.activo ? 'Activo' : 'Inactivo' }}
                 </td>
 
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-center" relative>
 
-                    <a class="text-green-600 cursor-pointer mr-2">
+                    <!-- Botón para abrir el popover -->
+                    <a class="text-green-600 cursor-pointer mr-2" (click)="togglePopover(payments.id)">
                         <i class="fa-solid fa-comment"></i>
                     </a>
 
@@ -273,6 +274,23 @@
                         (click)="deletePayment(payments.id.toString(),payments.persona.nombre)">
                         <i class="fa-solid fa-trash"></i>
                     </a>
+
+                   <!-- Popover -->
+    <div  id="popover" *ngIf="showPopover === payments.id"
+    class="absolute z-50 bg-white border shadow-lg p-3 w-64 top-8 right-0 rounded-md">
+    
+    <!-- Input para escribir un comentario -->
+    <div class="flex items-center space-x-2 mb-2">
+        <input type="text" [(ngModel)]="newComment" class="w-full p-2 border rounded" placeholder="Comentario...">
+        <button class="bg-blue-500 text-white px-3 py-1 rounded" (click)="saveComment(payments.id)">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+
+    <div *ngFor="let comment of commentsList" class="p-2 bg-gray-100 rounded mb-1 text-black">
+        {{ comment }} 
+    </div>
+</div>
                 </td>
             </tr>
         </tbody>
