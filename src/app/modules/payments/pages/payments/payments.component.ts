@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 import { HeaderComponent } from '../../../../core/components/header/header.component';
 import { FooterComponent } from '../../../../core/components/footer/footer.component';
 import { RouterModule } from '@angular/router';
@@ -35,72 +35,10 @@ export class PaymentsComponent implements OnInit {
     { label: 'Inicio', url: '/' },
     { label: 'Portal de Pagos', url: '/payments' },
   ];
+  
   commentsList: any[] = [];
   newComment: string = '';
-  showPopover: number | null = null; 
-
-  constructor(private paymentsService: PaymentService, private commentService: CommentPayService,
-    private userService: UserService,
-    private cdr: ChangeDetectorRef,
-  ) { }
-
-  togglePopover(idPago: number) {
-    if (this.showPopover === idPago) {
-      this.showPopover = null;
-    } else {
-      this.showPopover = idPago;
-      this.loadComments(idPago); 
-    }
-  }
-
-  loadComments(idPago: number) {
-    this.commentService.getCommmentByPay(idPago).subscribe((comments: ApiResponse<ICommentPay[]>[]) => {
-      console.log("Comentarios recibidos desde la API:", comments);
-
-      if (Array.isArray(comments) && comments.length > 0 && Array.isArray(comments[0].response)) {
-        this.commentsList = comments[0].response.map((comment: ICommentPay) => comment.descripcion);
-      } else {
-        this.commentsList = [];
-      }
-
-      console.log("Lista de descripciones después de asignar:", this.commentsList);
-      this.cdr.detectChanges();
-    });
-  }
-  saveComment(idPago: number) {
-    const userId: number | null = localStorage.getItem("userId")
-      ? Number(localStorage.getItem("userId"))
-      : null;
-
-    if (userId === null) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudo obtener el usuario autenticado.",
-      });
-      return;
-    }
-
-    this.userService.getUserById(userId).subscribe(user => {
-      const usuarioCreacion = user.response.persona.nombre; 
-
-      if (this.newComment.trim() !== '') {
-        const comentarioData = {
-          pagos: { id: idPago },
-          descripcion: this.newComment,
-          usuarioCreacion: usuarioCreacion,
-          activo: true
-        };
-
-        console.log("Enviando comentario:", comentarioData);
-
-        this.commentService.saveComment(comentarioData).subscribe(() => {
-          this.loadComments(idPago);
-          this.newComment = '';
-        });
-      }
-    });
-  }
+  showPopover: number | null = null;
   payments: IPagos[] = [];
   filteredPayments: IPagos[] = [];
   selectedColumns: string[] = [
@@ -125,6 +63,84 @@ export class PaymentsComponent implements OnInit {
     );
     return this.filteredPayments.slice(inicio, fin);
   }
+
+  constructor(private paymentsService: PaymentService, private commentService: CommentPayService,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+  ) { }
+ 
+  togglePopover(idPago: number) {
+    if (this.showPopover === idPago) {
+      this.showPopover = null;
+    } else {
+      this.showPopover = idPago;
+      this.loadComments(idPago);
+    }
+  }
+
+  loadComments(idPago: number) {
+    this.commentService.getCommmentByPay(idPago).subscribe((comments: ApiResponse<ICommentPay[]>[]) => {
+      console.log("Comentarios recibidos desde la API:", comments);
+
+      if (Array.isArray(comments) && comments.length > 0 && Array.isArray(comments[0].response)) {
+        this.commentsList = comments[0].response;
+      } else {
+        this.commentsList = [];
+      }
+
+      console.log("Lista de comentarios después de asignar:", this.commentsList);
+      this.cdr.detectChanges();
+    });
+  }
+  deleteComment(id: number, index: number): void {
+    if (id === undefined || id === null) {
+      console.error('ID de comentario no válido:', id);
+      return;
+    }
+
+    this.commentService.deleteComment(id).subscribe({
+      next: () => {
+        this.commentsList.splice(index, 1);
+        console.log(`Comentario con ID ${id} eliminado correctamente.`);
+      },
+      error: (error) => console.error('Error al eliminar el comentario:', error)
+    });
+  }
+  saveComment(idPago: number) {
+    const userId: number | null = localStorage.getItem("userId")
+      ? Number(localStorage.getItem("userId"))
+      : null;
+
+    if (userId === null) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo obtener el usuario autenticado.",
+      });
+      return;
+    }
+
+    this.userService.getUserById(userId).subscribe(user => {
+      const usuarioCreacion = user.response.persona.nombre;
+
+      if (this.newComment.trim() !== '') {
+        const comentarioData = {
+          pagos: { id: idPago },
+          descripcion: this.newComment,
+          usuarioCreacion: usuarioCreacion,
+          activo: true
+        };
+
+        console.log("Enviando comentario:", comentarioData);
+
+        this.commentService.saveComment(comentarioData).subscribe(() => {
+          this.loadComments(idPago);
+          this.newComment = '';
+        });
+      }
+    });
+  }
+
 
   totalPaginas(): number {
     return Math.ceil(this.filteredPayments.length / this.itemsPorPagina);

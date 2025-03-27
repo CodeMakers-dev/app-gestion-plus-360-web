@@ -4,29 +4,28 @@
             <span class="menu-icon text-2xl">&#9776;</span>
         </div>
         <div class="logo">
-            <img src="log.png" alt="Logo" class="h-10">
+            <img src="log.png" alt="Logo" class="h-10" >
         </div>
     </div>
 
     <form class="flex items-center max-w-md mx-auto w-full">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <label for="default-search" class="sr-only">Buscar</label>
         <div class="relative w-full">
-            <input type="search" id="default-search" class="block w-full p-4 pr-16 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search Gestión Plus..." required />
-            <button type="submit" style="cursor: pointer;" class="absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center gap-2">
-                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
+            <input type="search" id="default-search"
+                class="block w-full p-3 pr-14 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Buscar en Gestión Plus..." required />
+            <button type="submit"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
+                <i class="fa-solid fa-magnifying-glass text-white"></i>
             </button>
         </div>
     </form>
+    
 
     <div class="flex items-center space-x-4">
         <div class="notification">
             <button type="button" (click)="openNotificationModal()" style="cursor: pointer;">
-                <img src="notifi.png" class="h-6">
+                <i class="fa-solid fa-bell" style="font-size: 25px; color: black;"></i>
             </button>
         </div>
 
@@ -39,7 +38,7 @@
 
         <div class="close">
             <button type="button" (click)="logout()" style="cursor: pointer;">
-                <img src="close.png" alt="Cerrar sesión" class="h-6">
+                <i class="fas fa-sign-out-alt" style="font-size: 25px; color: black;"></i>
             </button>
         </div>
     </div>

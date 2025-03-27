@@ -5,10 +5,12 @@
         <app-navigation [navigationItems]="navigationItems"></app-navigation>
     </div>
 
-    <div class="flex justify-between items-center " style="margin-top:-80px; margin-left: 10px;">
-        <img src="port.png" alt="Logo" class="logo">
-        <button style="cursor: pointer;" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-            routerLink="/payments/create-pay">Crear Pago</button>
+    <div class="flex justify-between items-center" style="margin-top: -80px; margin-left: 10px">
+        <img src="port.png" alt="Logo" class="logo" />
+        <button style="cursor: pointer" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+            routerLink="/payments/create-pay">
+            Crear Pago
+        </button>
     </div>
 </div>
 
@@ -26,7 +28,7 @@
             </div>
             <input type="text" id="table-search-payments"
                 class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for payments" (input)="applyFilter($event)">
+                placeholder="Search for payments" (input)="applyFilter($event)" />
         </div>
         <div class="relative">
             <button id="dropdownActionButton" (click)="toggleDropdown()"
@@ -47,89 +49,94 @@
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             disabled>
-                            <input type="checkbox" checked class="mr-2" disabled> Usuario
+                            <input type="checkbox" checked class="mr-2" disabled /> Usuario
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             disabled>
-                            <input type="checkbox" checked class="mr-2" disabled> Tipo de plan
+                            <input type="checkbox" checked class="mr-2" disabled /> Tipo de
+                            plan
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('valorPago', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('valorPago')" class="mr-2"> Valor de pago
+                            <input type="checkbox" [checked]="isColumnSelected('valorPago')" class="mr-2" />
+                            Valor de pago
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('fechaPago', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('fechaPago')" class="mr-2"> Fecha de pago
+                            <input type="checkbox" [checked]="isColumnSelected('fechaPago')" class="mr-2" />
+                            Fecha de pago
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('origenPago', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('origenPago')" class="mr-2"> Origen de
-                            pago
+                            <input type="checkbox" [checked]="isColumnSelected('origenPago')" class="mr-2" />
+                            Origen de pago
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('destinoPago', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('destinoPago')" class="mr-2"> Destino de
-                            pago
+                            <input type="checkbox" [checked]="isColumnSelected('destinoPago')" class="mr-2" />
+                            Destino de pago
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('referencia', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('referencia')" class="mr-2"> Referencia
+                            <input type="checkbox" [checked]="isColumnSelected('referencia')" class="mr-2" />
+                            Referencia
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('vigenciaDesde', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('vigenciaDesde')" class="mr-2"> Vigencia
-                            Desde
+                            <input type="checkbox" [checked]="isColumnSelected('vigenciaDesde')" class="mr-2" />
+                            Vigencia Desde
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('vigenciaHasta', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('vigenciaHasta')" class="mr-2"> Vigencia
-                            hasta
+                            <input type="checkbox" [checked]="isColumnSelected('vigenciaHasta')" class="mr-2" />
+                            Vigencia hasta
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('diasVigencia', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('diasVigencia')" class="mr-2"> Dias de
-                            vigencia
+                            <input type="checkbox" [checked]="isColumnSelected('diasVigencia')" class="mr-2" />
+                            Dias de vigencia
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('activo', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('activo')" class="mr-2"> Estado
+                            <input type="checkbox" [checked]="isColumnSelected('activo')" class="mr-2" />
+                            Estado
                         </button>
                     </li>
                     <li>
                         <button
                             class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             (click)="toggleColumn('operacion', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('operacion')" class="mr-2" disabled>
+                            <input type="checkbox" [checked]="isColumnSelected('operacion')" class="mr-2" disabled />
                             Operación
                         </button>
                     </li>
@@ -143,72 +150,72 @@
                 <th scope="col" class="px-6 py-3">
                     Usuario
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('persona')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['persona']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'persona')">
+                        (input)="applyColumnFilter($event, 'persona')" />
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Tipo de plan
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoPlan')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['tipoPlan']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'tipoPlan')">
+                        (input)="applyColumnFilter($event, 'tipoPlan')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('valorPago')">
                     Valor de pago
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('valorPago')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['valorPago']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'valorPago')">
+                        (input)="applyColumnFilter($event, 'valorPago')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('fechaPago')">
                     Fecha de pago
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('fechaPago')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['fechaPago']" type="date" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'fechaPago')">
+                        (input)="applyColumnFilter($event, 'fechaPago')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('origenPago')">
                     Origen de pago
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('origenPago')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['origenPago']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'origenPago')">
+                        (input)="applyColumnFilter($event, 'origenPago')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('destinoPago')">
                     Destino de pago
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('destinoPago')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['destinoPago']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'destinoPago')">
+                        (input)="applyColumnFilter($event, 'destinoPago')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('referencia')">
                     Referencia
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('referencia')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['referencia']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'referencia')">
+                        (input)="applyColumnFilter($event, 'referencia')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('vigenciaDesde')">
                     Vigencia desde
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('vigenciaDesde')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['vigenciaDesde']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'vigenciaDesde')">
+                        (input)="applyColumnFilter($event, 'vigenciaDesde')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('vigenciaHasta')">
                     Vigencia hasta
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('vigenciaHasta')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['vigenciaHasta']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'vigenciaHasta')">
+                        (input)="applyColumnFilter($event, 'vigenciaHasta')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('diasVigencia')">
                     Dias de vigencia
                     <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('diasVigencia')"></i>
-                    <br>
+                    <br />
                     <input *ngIf="activeFilters['diasVigencia']" type="text" class="mt-2 p-1 border rounded"
-                        (input)="applyColumnFilter($event, 'diasVigencia')">
+                        (input)="applyColumnFilter($event, 'diasVigencia')" />
                 </th>
                 <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('activo')">
                     Estado
@@ -220,8 +227,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let payments of datosPaginados; index as i; first as isFirst; last as isLast"
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr *ngFor="
+          let payments of datosPaginados;
+          index as i;
+          first as isFirst;
+          last as isLast
+        " class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
                     {{ payments.persona.nombre }}
                 </td>
@@ -229,7 +240,7 @@
                     {{ payments.tipoPlan.nombre }}
                 </td>
                 <td class="px-6 py-4" *ngIf="isColumnSelected('valorPago')">
-                    {{ payments.valorPago | currency:'$':'symbol':'1.0-0' }}
+                    {{ payments.valorPago | currency : "$" : "symbol" : "1.0-0" }}
                 </td>
                 <td class="px-6 py-4" *ngIf="isColumnSelected('fechaPago')">
                     {{ payments.fechaPago }}
@@ -256,12 +267,11 @@
                 </td>
 
                 <td class="px-6 py-4" *ngIf="isColumnSelected('activo')">
-                    {{ payments.activo ? 'Activo' : 'Inactivo' }}
+                    {{ payments.activo ? "Activo" : "Inactivo" }}
                 </td>
 
                 <td class="px-6 py-4 text-center" relative>
 
-                    <!-- Botón para abrir el popover -->
                     <a class="text-green-600 cursor-pointer mr-2" (click)="togglePopover(payments.id)">
                         <i class="fa-solid fa-comment"></i>
                     </a>
@@ -270,27 +280,35 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 
-                    <a class="text-red-600 hover:underline cursor-pointer"
-                        (click)="deletePayment(payments.id.toString(),payments.persona.nombre)">
+                    <a class="text-red-600 hover:underline cursor-pointer" (click)="
+              deletePayment(payments.id.toString(), payments.persona.nombre)
+            ">
                         <i class="fa-solid fa-trash"></i>
                     </a>
 
-                   <!-- Popover -->
-    <div  id="popover" *ngIf="showPopover === payments.id"
-    class="absolute z-50 bg-white border shadow-lg p-3 w-64 top-8 right-0 rounded-md">
-    
-    <!-- Input para escribir un comentario -->
-    <div class="flex items-center space-x-2 mb-2">
-        <input type="text" [(ngModel)]="newComment" class="w-full p-2 border rounded" placeholder="Comentario...">
-        <button class="bg-blue-500 text-white px-3 py-1 rounded" (click)="saveComment(payments.id)">
-            <i class="fa-solid fa-paper-plane"></i>
-        </button>
-    </div>
+                    <!-- Popover -->
+                    <div id="popover" *ngIf="showPopover === payments.id"
+                        class="absolute z-50 bg-white border shadow-lg p-3 w-64 top-8 right-0 rounded-md">
+                        <!-- Input para escribir un comentario -->
+                        <div class="flex items-center space-x-2 mb-2">
+                            <input type="text" [(ngModel)]="newComment" class="w-full p-2 border rounded"
+                                placeholder="Comentario..." />
+                            <button style="cursor: pointer" class="bg-blue-500 text-white px-3 py-1 rounded"
+                                (click)="saveComment(payments.id)">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
 
-    <div *ngFor="let comment of commentsList" class="p-2 bg-gray-100 rounded mb-1 text-black">
-        {{ comment }} 
-    </div>
-</div>
+                        <div *ngFor="let comment of commentsList; let i = index"
+                            class="p-2 bg-gray-100 rounded mb-1 text-black relative">
+                            {{ comment.descripcion }}
+                            <button *ngIf="comment.id !== undefined && comment.id !== null"
+                                (click)="deleteComment(comment.id, i)"
+                                class="absolute top-0 right-0 p-1 text-red-500 hover:text-red-700">
+                                <i style="cursor: pointer" class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -312,10 +330,11 @@
     </div>
 
     <div class="flex justify-end items-center">
-        <button style="cursor: pointer; margin-top: 20px;"
+        <button style="cursor: pointer; margin-top: 20px"
             class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center"
             (click)="exportToExcel()">
             <i class="fas fa-file-excel mr-2"></i> Descargar Excel
         </button>
     </div>
     <app-footer></app-footer>
+</div>
