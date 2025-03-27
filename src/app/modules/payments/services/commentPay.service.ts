@@ -19,4 +19,8 @@ export class CommentPayService {
       map(response => Array.isArray(response) ? response : [response]) 
     );
 }
+
+deleteComment(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/eliminar/${id}`);
+  }
 }
