@@ -2,19 +2,17 @@ import { UserService } from './../../../modules/auth/service/user.service';
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '@services/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { response } from 'express';
 import { ApiResponse } from '@core/interfaces/Iresponse';
 import { MensajeService } from '@modules/marketing/services/messages.service';
 import { MessageNotifications } from '@core/interfaces/ImessageNotifications';
 import { initFlowbite } from 'flowbite';
-import { parse } from 'path';
-import { title } from 'process';
 import { PersonService } from '@modules/users/services/person.service';
 import Swal from 'sweetalert2';
 import { IPersona } from '@core/interfaces/IuserById';
 import { NotificationService } from './services/notification.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -25,6 +23,7 @@ import { NotificationService } from './services/notification.service';
 export class HeaderComponent implements OnInit, AfterViewInit {
   searchTerm: string = '';
   sidebarOpen = false;
+  activeRoute: string = '';
   searchQuery = '';
   userImage: string = 'perfil.png';
   userName: string = '';
@@ -62,7 +61,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.updateUnreadNotificationsCount();
     this.notificationService.notificationCreated$.subscribe(() => {
       this.updateUnreadNotificationsCount();
-  });
+    });
+    this.activeRoute = this.router.url;
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.activeRoute = event.url;
+    });
     const userId = this.authService.getUserId();
     console.log('UserId:', userId);
     if (userId !== null) {
@@ -411,6 +416,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   goTo(route: string) {
     this.router.navigate([route]);
+    this.sidebarOpen = false;
   }
 
   hasAccess(route: string): boolean {
