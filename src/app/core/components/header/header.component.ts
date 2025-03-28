@@ -255,20 +255,31 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   saveUserChanges() {
     const userId = this.authService.getUserId();
     if (userId !== null) {
-      this.userService.updatePassword(userId, this.userPassword).subscribe((response: ApiResponse<null>) => {
-        console.log('Password updated successfully:', response);
-        this.alertTitle = 'Éxito';
-        this.alertMessage = response.message;
-        this.isAlertModalOpen = true;
-        this.closeEditUserModal();
-      }, error => {
-        console.error('Error updating password:', error);
-        this.alertTitle = 'Error';
-        this.alertMessage = error.error.message;
-        this.isAlertModalOpen = true;
-      });
+        this.userService.updatePassword(userId, this.userPassword).subscribe(
+            (response: ApiResponse<null>) => {
+                console.log('Password updated successfully:', response);
+                Swal.fire({
+                    title: 'Éxito',
+                    text: response.message,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                this.closeEditUserModal();
+            },
+            (error) => {
+                console.error('Error updating password:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: error.error.message,
+                    icon: 'error',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            }
+        );
     }
-  }
+}
 
   closeAlertModal() {
     this.isAlertModalOpen = false;
