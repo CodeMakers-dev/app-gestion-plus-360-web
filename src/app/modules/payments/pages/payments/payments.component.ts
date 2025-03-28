@@ -35,6 +35,7 @@ export class PaymentsComponent implements OnInit {
     { label: 'Inicio', url: '/' },
     { label: 'Portal de Pagos', url: '/payments' },
   ];
+
   
   commentsList: any[] = [];
   newComment: string = '';
@@ -66,7 +67,7 @@ export class PaymentsComponent implements OnInit {
 
   constructor(private paymentsService: PaymentService, private commentService: CommentPayService,
     private userService: UserService,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) { }
  
   togglePopover(idPago: number) {
@@ -151,9 +152,11 @@ export class PaymentsComponent implements OnInit {
       this.paginaActual = nuevaPagina;
     }
   }
+ 
 
   ngOnInit(): void {
     this.loadPayments();
+  
   }
 
   loadPayments(): void {
