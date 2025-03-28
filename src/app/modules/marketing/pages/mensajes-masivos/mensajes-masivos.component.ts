@@ -43,6 +43,8 @@ export class MensajesMasivosComponent implements OnInit {
   activeFilters: { [key: string]: boolean } = {};
   columnFilters: { [key: string]: string } = {};
 
+  previousFilterColumn: string | null = null;
+
   constructor(private router: Router, private mensajeService: MensajeService) {}
 
   ngOnInit(): void {}
@@ -63,7 +65,12 @@ export class MensajesMasivosComponent implements OnInit {
   }
 
   toggleFilter(column: string) {
+    if (this.previousFilterColumn && this.previousFilterColumn !== column && this.activeFilters[this.previousFilterColumn]) {
+      this.activeFilters[this.previousFilterColumn] = false;
+    }
+
     this.activeFilters[column] = !this.activeFilters[column];
+    this.previousFilterColumn = column;
   }
 
   applyColumnFilter(event: any, column: string) {

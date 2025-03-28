@@ -18,11 +18,12 @@ import { AuthService } from '@modules/auth/service/auth.service';
 import Swal from 'sweetalert2';
 import { NavigationComponent } from '@components/navigation/navigation.component';
 import { Router } from '@angular/router';
+import { FooterComponent } from '@components/footer/footer.component';
 
 @Component({
   selector: 'app-create-user',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule, NavigationComponent],
+  imports: [HeaderComponent, FooterComponent, CommonModule, FormsModule, NavigationComponent],
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
 })

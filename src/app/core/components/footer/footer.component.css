@@ -13,12 +13,13 @@
     color: #fff;
     padding: 20px 0;
     text-align: center;
-    margin-top: 30px;
-    /* Separa el footer del contenido anterior */
+    margin-top: auto;
 }
 
 .footer .container {
-    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -28,10 +29,9 @@
 }
 
 .footer nav a {
-    color: #fff;
-    text-decoration: none;
     margin: 0 10px;
-    font-size: 0.9rem;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .footer nav a:hover {

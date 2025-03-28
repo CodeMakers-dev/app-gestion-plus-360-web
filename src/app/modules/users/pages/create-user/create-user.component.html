@@ -1,91 +1,96 @@
 <app-header></app-header>
 
+<div class="min-h-screen flex flex-col">
     <div>
         <div class="mt-8 mx-8">
             <app-navigation [navigationItems]="navigationItems"></app-navigation>
         </div>
     </div>
 
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-6">
-    <h2 class="text-3xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-6">
-        Crear Usuario
-    </h2>
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" #form="ngForm" (ngSubmit)="onSubmit(form)" #userForm="ngForm">
+    <div class="flex-grow">
+        <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 mt-6">
+            <h2 class="text-3xl font-semibold text-center text-gray-800 dark:text-gray-200 mb-6">
+                Crear Usuario
+            </h2>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6" #form="ngForm" (ngSubmit)="onSubmit(form)" #userForm="ngForm">
 
-        <div class="mb-4">
-            <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre</label>
-            <input type="text" name="nombre" id="nombre" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre</label>
+                    <input type="text" name="nombre" id="nombre" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="mb-4">
-            <label for="tipoPersona" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Persona</label>
-            <select name="tipoPersona" id="tipoPersona" [(ngModel)]="selectedTipoPersonaId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-                <option value="" disabled selected>Selecciona un tipo de persona</option>
-                <option *ngFor="let tipo of tiposPerson" [value]="tipo.id">{{ tipo.nombre }}</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label for="tipoPersona" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Persona</label>
+                    <select name="tipoPersona" id="tipoPersona" [(ngModel)]="selectedTipoPersonaId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                        <option value="" disabled selected>Selecciona un tipo de persona</option>
+                        <option *ngFor="let tipo of tiposPerson" [value]="tipo.id">{{ tipo.nombre }}</option>
+                    </select>
+                </div>
 
-        <div class="mb-4">
-            <label for="tipoDocumento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Documento</label>
-            <select name="tipoDocumento" id="tipoDocumento" [(ngModel)]="selectedTipoDocumentoId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-                <option value="" disabled selected>Selecciona un tipo de documento</option>
-                <option *ngFor="let tipo of typeDocument" [value]="tipo.id">{{ tipo.nombre }}</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label for="tipoDocumento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Documento</label>
+                    <select name="tipoDocumento" id="tipoDocumento" [(ngModel)]="selectedTipoDocumentoId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                        <option value="" disabled selected>Selecciona un tipo de documento</option>
+                        <option *ngFor="let tipo of typeDocument" [value]="tipo.id">{{ tipo.nombre }}</option>
+                    </select>
+                </div>
 
-        <div class="mb-4">
-            <label for="numeroDocumento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Número de Documento</label>
-            <input type="text" name="numeroDocumento" id="numeroDocumento" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="numeroDocumento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Número de Documento</label>
+                    <input type="text" name="numeroDocumento" id="numeroDocumento" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="mb-4">
-            <label for="pais" class="block text-sm font-medium text-gray-700 dark:text-gray-300">País</label>
-            <select name="pais" id="pais" [(ngModel)]="selectedPaisId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-                <option value="" disabled selected>Selecciona un país</option>
-                <option *ngFor="let pais of country" [value]="pais.id">{{ pais.nombre }}</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label for="pais" class="block text-sm font-medium text-gray-700 dark:text-gray-300">País</label>
+                    <select name="pais" id="pais" [(ngModel)]="selectedPaisId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                        <option value="" disabled selected>Selecciona un país</option>
+                        <option *ngFor="let pais of country" [value]="pais.id">{{ pais.nombre }}</option>
+                    </select>
+                </div>
 
-        <div class="mb-4">
-            <label for="departamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Departamento</label>
-            <select name="departamento" id="departamento" [(ngModel)]="selectDepartamentoId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-                <option value="" disabled selected>Selecciona un departamento</option>
-                <option *ngFor="let departamento of departamento" [value]="departamento.id">{{ departamento.nombre }}</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label for="departamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Departamento</label>
+                    <select name="departamento" id="departamento" [(ngModel)]="selectDepartamentoId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                        <option value="" disabled selected>Selecciona un departamento</option>
+                        <option *ngFor="let departamento of departamento" [value]="departamento.id">{{ departamento.nombre }}</option>
+                    </select>
+                </div>
 
-        <div class="mb-4">
-            <label for="ciudad" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ciudad</label>
-            <select name="ciudad" id="ciudad" [(ngModel)]="selectCiudadId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-                <option value="" disabled selected>Selecciona una ciudad</option>
-                <option *ngFor="let ciudad of ciudad" [value]="ciudad.id">{{ ciudad.nombre }}</option>
-            </select>
-        </div>
+                <div class="mb-4">
+                    <label for="ciudad" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ciudad</label>
+                    <select name="ciudad" id="ciudad" [(ngModel)]="selectCiudadId" class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                        <option value="" disabled selected>Selecciona una ciudad</option>
+                        <option *ngFor="let ciudad of ciudad" [value]="ciudad.id">{{ ciudad.nombre }}</option>
+                    </select>
+                </div>
 
-        <div class="mb-4">
-            <label for="direccion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dirección</label>
-            <input type="text" name="direccion" id="direccion" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="direccion" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Dirección</label>
+                    <input type="text" name="direccion" id="direccion" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="mb-4">
-            <label for="actividadEconomica" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Actividad Económica</label>
-            <input type="text" name="actividadEconomica" id="actividadEconomica" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="actividadEconomica" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Actividad Económica</label>
+                    <input type="text" name="actividadEconomica" id="actividadEconomica" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="mb-4">
-            <label for="telefono" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Teléfono</label>
-            <input type="tel" name="telefono" id="telefono" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="telefono" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Teléfono</label>
+                    <input type="tel" name="telefono" id="telefono" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="mb-4">
-            <label for="correo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Correo</label>
-            <input type="email" name="correo" id="correo" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
-        </div>
+                <div class="mb-4">
+                    <label for="correo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Correo</label>
+                    <input type="email" name="correo" id="correo" ngModel class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+                </div>
 
-        <div class="col-span-2 text-center mt-6">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md focus:ring focus:ring-blue-200 cursor-pointer">
-                GUARDAR
-            </button>
-        </div>
-    </form>
+                <div class="col-span-2 text-center mt-6">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md focus:ring focus:ring-blue-200 cursor-pointer">
+                        GUARDAR
+                    </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<app-footer></app-footer>
