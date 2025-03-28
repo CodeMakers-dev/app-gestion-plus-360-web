@@ -4,7 +4,12 @@
   top: -20px; /* Ajusta la posición vertical del logo */
   left: 80px;
 }
-
+.highlight {
+  background-color: rgb(255, 0, 0);
+  font-weight: bold;
+  padding: 2px;
+  border-radius: 4px;
+}
 .sidebar-logo {
   position: relative; /* Asegura que el logo esté posicionado relativamente */
   height: 0;

@@ -45,8 +45,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   // ViewChild para acceder al input de archivo
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private authService: AuthService, private router: Router, private userService: UserService, private messageService: MensajeService, private personService: PersonService) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private userService: UserService, 
+    private messageService: MensajeService, 
+    private personService: PersonService) { }
 
+   
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
     const userId = this.authService.getUserId();
