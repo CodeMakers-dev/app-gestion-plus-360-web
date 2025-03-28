@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   alertMessage: string = '';
   isNotificationModalOpen: boolean = false;
   notifications: MessageNotifications[] = [];
+  unreadNotificationsCount = 0;
 
   selectedFile: File | null = null;
   showConfirmModal = false;
@@ -56,6 +57,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
    
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
+    this.updateUnreadNotificationsCount();
     const userId = this.authService.getUserId();
     console.log('UserId:', userId);
     if (userId !== null) {
@@ -328,6 +330,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
             this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
               this.notifications = this.notifications.filter(n => n.id !== notification.id);
+              this.updateUnreadNotificationsCount();
               console.log('Notification status updated successfully', mensaje);
             }, error => {
               console.error('Error updating notification status:', error);
@@ -341,6 +344,21 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  updateUnreadNotificationsCount() {
+    const userId = this.authService.getUserId();
+    if (userId !== null) {
+        this.messageService.getMessagesByUserId(userId).subscribe((response: ApiResponse<MessageNotifications[]>) => {
+            this.unreadNotificationsCount = response.response.filter(notification => notification.activo).length;
+            console.log("Numero de notificaciones------------", this.unreadNotificationsCount)
+        }, error => {
+            console.error('Error fetching notifications for count:', error);
+            if (error.status === 401 || error.status === 403) {
+                this.router.navigate(['/login']);
+            }
+        });
+    }
+}
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;

@@ -15,9 +15,12 @@
     </div>
 
     <div class="flex items-center space-x-4">
-        <div class="notification">
+        <div class="notification relative">
             <button type="button" (click)="openNotificationModal()" style="cursor: pointer;">
                 <i class="fa-solid fa-bell" style="font-size: 25px; color: black;"></i>
+                <span *ngIf="unreadNotificationsCount > 0" class="absolute top-0 right-0 bg-red-500 text-white rounded-full px-1 py-0.5 text-xs" style="transform: translate(50%, -50%); font-size: 10px;">
+                    {{ unreadNotificationsCount }}
+                </span>
             </button>
         </div>
 

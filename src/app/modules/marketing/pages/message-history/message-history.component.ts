@@ -38,13 +38,20 @@ export class MessageHistoryComponent implements OnInit{
   activeFilters: { [key: string]: boolean } = {};
   columnFilters: { [key: string]: string } = {};
 
+  previousFilterColumn: string | null = null;
+
   paginaActual = 1;
   itemsPorPagina = 5;
 
   ngOnInit(): void {}
 
   toggleFilter(column: string) {
+    if (this.previousFilterColumn && this.previousFilterColumn !== column && this.activeFilters[this.previousFilterColumn]) {
+      this.activeFilters[this.previousFilterColumn] = false;
+    }
+
     this.activeFilters[column] = !this.activeFilters[column];
+    this.previousFilterColumn = column;
   }
 
   applyColumnFilter(event: any, column: string) {

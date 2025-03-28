@@ -1,71 +1,77 @@
 <app-header></app-header>
-<div>
-    <div class="mt-8 mx-8">
-        <app-navigation [navigationItems]="navigationItems"></app-navigation>
+
+<div class="min-h-screen flex flex-col">
+    <div>
+        <div class="mt-8 mx-8">
+            <app-navigation [navigationItems]="navigationItems"></app-navigation>
+        </div>
+    </div>
+
+    <div class="flex-grow">
+        <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-6">
+            <h2 class="text-2xl font-semibold text-center text-gray-700">
+                Editar Pago
+            </h2>
+            <form [formGroup]="editPaymentForm" (ngSubmit)="onSubmit(editPaymentForm)" class="grid grid-cols-2 gap-4 mt-4">
+
+                <div>
+                    <label class="block text-gray-600">Usuario:</label>
+                    <input type="text" id="usuario" formControlName="usuario" required class="border p-2 w-full rounded bg-gray-100" readonly />
+                </div>
+                <div class="mb-4">
+                    <label for="tipoPlan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Plan: </label>
+                    <select id="tipoPlan" formControlName="tipoPlan" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                        <option value="" disabled>Selecciona un tipo de plan</option>
+                        <option *ngFor="let tipo of typePlan" [value]="tipo.id">{{ tipo.nombre }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-600">Valor de pago:</label>
+                    <input type="number" formControlName="valorPago" class="border p-2 w-full rounded" />
+                </div>
+                <div class="mb-4">
+                    <label for="origenPago" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Origen de pago: </label>
+                    <select id="origenPago" formControlName="origenPago" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                        <option value="" disabled>Selecciona origen de pago</option>
+                        <option *ngFor="let origen of originPayment" [value]="origen.id">{{ origen.nombre }}</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="destinoPago" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Destino de pago: </label>
+                    <select id="destinoPago" formControlName="destinoPago" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                        <option value="" disabled>Selecciona destino de pago</option>
+                        <option *ngFor="let destino of destinationPayment" [value]="destino.id">{{ destino.nombre }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-600">Referencia:</label>
+                    <input type="text" formControlName="referencia" class="border p-2 w-full rounded" />
+                </div>
+                <div>
+                    <label class="block text-gray-600">Fecha de pago:</label>
+                    <input type="date" formControlName="fechaPago" class="border p-2 w-full rounded" />
+                </div>
+                <div class="col-span-2 text-center font-semibold text-gray-700">VIGENCIA</div>
+                <div>
+                    <label class="block text-gray-600">Desde:</label>
+                    <input type="date" formControlName="vigenciaDesde" class="border p-2 w-full rounded">
+                </div>
+                <div>
+                    <label class="block text-gray-600">Hasta:</label>
+                    <input type="date" formControlName="vigenciaHasta" class="border p-2 w-full rounded">
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-gray-600">Días de vigencia:</label>
+                    <input type="text" formControlName="diasVigencia" class="border p-2 w-full rounded bg-gray-100" readonly>
+                </div>
+                <div class="col-span-2 text-center mt-4">
+                    <button style="cursor: pointer;" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        GUARDAR CAMBIO
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
- <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-6">
-    <h2 class="text-2xl font-semibold text-center text-gray-700">
-        Editar Pago
-    </h2>
-    <form [formGroup]="editPaymentForm" (ngSubmit)="onSubmit(editPaymentForm)" class="grid grid-cols-2 gap-4 mt-4">
 
-      
-        <div>
-            <label class="block text-gray-600">Usuario:</label>
-            <input type="text" id="usuario" formControlName="usuario" required class="border p-2 w-full rounded bg-gray-100" readonly />
-        </div>
-        <div class="mb-4">
-            <label for="tipoPlan" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo de Plan: </label>
-            <select id="tipoPlan" formControlName="tipoPlan" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
-                <option value="" disabled>Selecciona un tipo de plan</option>
-                <option *ngFor="let tipo of typePlan" [value]="tipo.id">{{ tipo.nombre }}</option>
-            </select>
-        </div>
-        <div>   
-            <label class="block text-gray-600">Valor de pago:</label>
-            <input type="number" formControlName="valorPago" class="border p-2 w-full rounded" />
-        </div>
-        <div class="mb-4">
-            <label for="origenPago" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Origen de pago: </label>
-            <select id="origenPago" formControlName="origenPago" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
-                <option value="" disabled>Selecciona origen de pago</option>
-                <option *ngFor="let origen of originPayment" [value]="origen.id">{{ origen.nombre }}</option>
-            </select>
-        </div>
-        <div class="mb-4">
-            <label for="destinoPago" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Destino de pago: </label>
-            <select id="destinoPago" formControlName="destinoPago" required class="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
-                <option value="" disabled>Selecciona destino de pago</option>
-                <option *ngFor="let destino of destinationPayment" [value]="destino.id">{{ destino.nombre }}</option>
-            </select>
-        </div>
-        <div>
-            <label class="block text-gray-600">Referencia:</label>
-            <input type="text" formControlName="referencia" class="border p-2 w-full rounded" />
-        </div>
-        <div>
-            <label class="block text-gray-600">Fecha de pago:</label>
-            <input type="date" formControlName="fechaPago" class="border p-2 w-full rounded" />
-        </div>
-        <div class="col-span-2 text-center font-semibold text-gray-700">VIGENCIA</div>
-        <div>
-            <label class="block text-gray-600">Desde:</label>
-            <input type="date" formControlName="vigenciaDesde" class="border p-2 w-full rounded">
-        </div>
-        <div>
-            <label class="block text-gray-600">Hasta:</label>
-            <input type="date" formControlName="vigenciaHasta" class="border p-2 w-full rounded">
-        </div>
-        <div class="col-span-2">
-            <label class="block text-gray-600">Días de vigencia:</label>
-            <input type="text" formControlName="diasVigencia" class="border p-2 w-full rounded bg-gray-100" readonly>
-        </div>
-        <div class="col-span-2 text-center mt-4">
-            <button style="cursor: pointer;" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-                GUARDAR CAMBIO 
-            </button>
-        </div>
-    </form>
-</div>
 <app-footer></app-footer>

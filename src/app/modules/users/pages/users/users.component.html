@@ -1,241 +1,290 @@
 <app-header></app-header>
 
-<div class="relative">
-    <div class="mt-8 px-4 absolute top-[-65px] left-0 w-full z-10 mb-4">
-        <app-navigation [navigationItems]="navigationItems"></app-navigation>
-    </div>
-
-    <div class="flex justify-between items-center mb-4 relative z-0 mt-16">
-        <img src="log.png" alt="Logo" class="logo">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 cursor-pointer" routerLink="/users/create-user">Crear Usuario</button>
-    </div>
-</div>
-
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
-        <div class="relative">
-            <label for="table-search" class="sr-only">Search</label>
-            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-            </div>
-            <input type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search for users" (input)="applyFilter($event)">
+<div class="min-h-screen flex flex-col relative">
+    <div class="relative">
+        <div class="mt-8 px-4 absolute top-[-65px] left-0 w-full z-10 mb-4">
+            <app-navigation [navigationItems]="navigationItems"></app-navigation>
         </div>
-        <div class="relative">
-            <button id="dropdownActionButton" (click)="toggleDropdown()"
-                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                type="button">
-                <span class="sr-only">Action button</span>
-                Select Columns
-                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 4 4 4-4" />
-                </svg>
+
+        <div class="flex justify-between items-center mb-4 relative z-0 mt-16">
+            <img src="log.png" alt="Logo" class="logo">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 cursor-pointer"
+                routerLink="/users/create-user">Crear Usuario</button>
+        </div>
+    </div>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex-grow">
+        <div
+            class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+            <div class="relative">
+                <label for="table-search" class="sr-only">Search</label>
+                <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="text" id="table-search-users"
+                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search for users" (input)="applyFilter($event)">
+            </div>
+            <div class="relative">
+                <button id="dropdownActionButton" (click)="toggleDropdown()"
+                    class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    type="button">
+                    <span class="sr-only">Action button</span>
+                    Select Columns
+                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <div id="dropdownAction"
+                    class="fixed z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                disabled>
+                                <input type="checkbox" checked class="mr-2" disabled> Nº Documento
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                disabled>
+                                <input type="checkbox" checked class="mr-2" disabled> Nombre
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('tipoDocumento', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('tipoDocumento')" class="mr-2"> Tipo de
+                                Documento
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('tipoPersona', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('tipoPersona')" class="mr-2"> Tipo
+                                Persona
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('pais', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('pais')" class="mr-2"> Pais
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('departamento', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('departamento')" class="mr-2">
+                                Departamento
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('ciudad', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('ciudad')" class="mr-2"> Ciudad
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('direccion', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('direccion')" class="mr-2"> Dirección
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('actividadEconomica', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('actividadEconomica')"
+                                    class="mr-2"> Actividad Económica
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('telefono', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('telefono')" class="mr-2">
+                                Teléfono
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('correo', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('correo')" class="mr-2"> Correo
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                (click)="toggleColumn('operacion', $event)">
+                                <input type="checkbox" [checked]="isColumnSelected('operacion')" class="mr-2">
+                                Operación
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-margin">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Nº Documento
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('numeroDocumento')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['numeroDocumento']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'numeroDocumento')">
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Nombre
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('nombre')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['nombre']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'nombre')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoDocumento')">
+                        Tipo de Documento
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoDocumento')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['tipoDocumento']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'tipoDocumento')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoPersona')">
+                        Tipo Persona
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoPersona')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['tipoPersona']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'tipoPersona')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('pais')">
+                        Pais
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('pais')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['pais']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'pais')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('departamento')">
+                        Departamento
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('departamento')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['departamento']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'departamento')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('ciudad')">
+                        Ciudad
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('ciudad')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['ciudad']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'ciudad')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('direccion')">
+                        Dirección
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('direccion')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['direccion']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'direccion')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('actividadEconomica')">
+                        Actividad Económica
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('actividadEconomica')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['actividadEconomica']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'actividadEconomica')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('telefono')">
+                        Teléfono
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('telefono')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['telefono']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'telefono')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('correo')">
+                        Correo
+                        <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('correo')"></i>
+                        <br>
+                        <input *ngIf="activeFilters['correo']" type="text" class="mt-2 p-1 border rounded"
+                            (input)="applyColumnFilter($event, 'correo')">
+                    </th>
+                    <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('operacion')">
+                        Operación
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of datosPaginados; index as i; first as isFirst; last as isLast"
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4">
+                        {{ user.numeroDocumento }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.nombre }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('tipoDocumento')">
+                        {{ user.tipoDocumento.descripcion }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('tipoPersona')">
+                        {{ user.tipoPersona.nombre }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('pais')">
+                        {{ user.pais.nombre }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('departamento')">
+                        {{ user.departamento.nombre }}
+                    </td><td class="px-6 py-4" *ngIf="isColumnSelected('ciudad')">
+                        {{ user.ciudad.nombre }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('direccion')">
+                        {{ user.direccion }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('actividadEconomica')">
+                        {{ user.actividadEconomica }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('telefono')">
+                        {{ user.telefono }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('correo')">
+                        {{ user.correo }}
+                    </td>
+                    <td class="px-6 py-4" *ngIf="isColumnSelected('operacion')">
+                        <div class="flex items-center space-x-4">
+                            <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                                routerLink="/users/edit-user/{{ user.id }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer"
+                                (click)="confirmBlockUser(user)"><i class="fa-solid fa-lock"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex justify-center items-center space-x-4 mt-4">
+            <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1"
+              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+              Anterior
             </button>
-            <!-- Dropdown menu -->
-            <div id="dropdownAction" class="fixed z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" disabled>
-                            <input type="checkbox" checked class="mr-2" disabled> Nº Documento
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" disabled>
-                            <input type="checkbox" checked class="mr-2" disabled> Nombre
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('tipoDocumento', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('tipoDocumento')" class="mr-2"> Tipo de Documento
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('tipoPersona', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('tipoPersona')" class="mr-2"> Tipo Persona
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('pais', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('pais')" class="mr-2"> Pais
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('departamento', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('departamento')" class="mr-2"> Departamento
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('ciudad', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('ciudad')" class="mr-2"> Ciudad
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('direccion', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('direccion')" class="mr-2"> Dirección
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('actividadEconomica', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('actividadEconomica')" class="mr-2"> Actividad Económica
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('telefono', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('telefono')" class="mr-2"> Teléfono
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('correo', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('correo')" class="mr-2"> Correo
-                        </button>
-                    </li>
-                    <li>
-                        <button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleColumn('operacion', $event)">
-                            <input type="checkbox" [checked]="isColumnSelected('operacion')" class="mr-2"> Operación
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
+      
+            <span class="text-lg font-semibold">
+              Página {{ paginaActual }} de {{ totalPaginas() }}
+            </span>
+      
+            <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas()"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">
+              Siguiente
+            </button>
+          </div>
     </div>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-margin">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Nº Documento
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('numeroDocumento')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['numeroDocumento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'numeroDocumento')">
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nombre
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('nombre')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['nombre']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'nombre')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoDocumento')">
-                    Tipo de Documento
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoDocumento')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['tipoDocumento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'tipoDocumento')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('tipoPersona')">
-                    Tipo Persona
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('tipoPersona')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['tipoPersona']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'tipoPersona')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('pais')">
-                    Pais
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('pais')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['pais']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'pais')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('departamento')">
-                    Departamento
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('departamento')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['departamento']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'departamento')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('ciudad')">
-                    Ciudad
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('ciudad')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['ciudad']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'ciudad')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('direccion')">
-                    Dirección
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('direccion')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['direccion']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'direccion')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('actividadEconomica')">
-                    Actividad Económica
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('actividadEconomica')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['actividadEconomica']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'actividadEconomica')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('telefono')">
-                    Teléfono
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('telefono')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['telefono']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'telefono')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('correo')">
-                    Correo
-                    <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('correo')"></i>
-                    <br>
-                    <input *ngIf="activeFilters['correo']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'correo')">
-                </th>
-                <th scope="col" class="px-6 py-3" *ngIf="isColumnSelected('operacion')">
-                    Operación
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of filteredUsers; index as i; first as isFirst; last as isLast" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="px-6 py-4">
-                    {{ user.numeroDocumento }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ user.nombre }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('tipoDocumento')">
-                    {{ user.tipoDocumento.descripcion }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('tipoPersona')">
-                    {{ user.tipoPersona.nombre }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('pais')">
-                    {{ user.pais.nombre }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('departamento')">
-                    {{ user.departamento.nombre }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('ciudad')">
-                    {{ user.ciudad.nombre }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('direccion')">
-                    {{ user.direccion }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('actividadEconomica')">
-                    {{ user.actividadEconomica }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('telefono')">
-                    {{ user.telefono }}
-                </td>
-                <td class="px-6 py-4" *ngIf="isColumnSelected('correo')">
-                    {{ user.correo }}
-                </td>
-                <td class="px-6 py-4 text-center" *ngIf="isColumnSelected('operacion')">
-                    <a [routerLink]="['/users/edit-user', user.id]" class="text-blue-600 hover:underline mr-2">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <button class="text-red-600 hover:underline cursor-pointer" (click)="confirmBlockUser(user)">
-                        <i class="fa-solid fa-lock"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
-<div class="flex justify-center items-center space-x-4 mt-4">
-    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1"
-        class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-        Anterior
-    </button>
 
-    <span class="text-lg font-semibold">
-        Página {{ paginaActual }} de {{ totalPaginas() }}
-    </span>
-
-    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas()"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">
-        Siguiente
-    </button>
-</div>
 <app-footer></app-footer>
