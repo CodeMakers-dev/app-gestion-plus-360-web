@@ -14,6 +14,7 @@ import { title } from 'process';
 import { PersonService } from '@modules/users/services/person.service';
 import Swal from 'sweetalert2';
 import { IPersona } from '@core/interfaces/IuserById';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -52,12 +53,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private router: Router, 
     private userService: UserService, 
     private messageService: MensajeService, 
-    private personService: PersonService) { }
+    private personService: PersonService, 
+    private notificationService: NotificationService) { }
 
    
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
     this.updateUnreadNotificationsCount();
+    this.notificationService.notificationCreated$.subscribe(() => {
+      this.updateUnreadNotificationsCount();
+  });
     const userId = this.authService.getUserId();
     console.log('UserId:', userId);
     if (userId !== null) {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '@components/footer/footer.component';
 import { HeaderComponent } from '@components/header/header.component';
+import { NotificationService } from '@components/header/services/notification.service';
 import { NavigationComponent } from '@components/navigation/navigation.component';
 import { ApiResponse } from '@core/interfaces/Iresponse';
 import { IPersona } from '@core/interfaces/IuserById';
@@ -35,7 +36,8 @@ export class MessagesComponent implements OnInit {
   constructor(
     private personService: PersonService,
     private userService: UserService,
-    private messageService: MensajeService
+    private messageService: MensajeService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {}
@@ -117,6 +119,7 @@ export class MessagesComponent implements OnInit {
   
             this.messageService.sendMessage(mensaje).subscribe(
               response => {
+                this.notificationService.notifyNotificationCreated();
                 console.log('Mensaje enviado con éxito:', response);
                 Swal.fire({
                   icon: 'success',
