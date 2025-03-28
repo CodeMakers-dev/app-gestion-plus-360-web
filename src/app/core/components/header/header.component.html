@@ -70,23 +70,28 @@
         <img src="log.png" alt="Logo" class="h-10 mx-auto">
     </div>
     <ul class="space-y-2">
-        <li *ngIf="hasAccess('/home')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')">
+        <li *ngIf="hasAccess('/home')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')"
+            [ngClass]="{'bg-gray-700': activeRoute === '/home' && hasAccess('/home')}">
             <i class="fa-solid fa-house text-2xl"></i>
             <span class="ml-2">Inicio</span>
         </li>
-        <li *ngIf="hasAccess('/marketing')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')">
+        <li *ngIf="hasAccess('/marketing')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')"
+            [ngClass]="{'bg-gray-700': activeRoute === '/marketing' && hasAccess('/marketing')}">
             <i class="fa-solid fa-lightbulb text-2xl"></i>
             <span class="ml-2">Marketing</span>
         </li>
-        <li *ngIf="hasAccess('/users')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')">
+        <li *ngIf="hasAccess('/users')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')"
+            [ngClass]="{'bg-gray-700': activeRoute === '/users' && hasAccess('/users')}">
             <i class="fa-solid fa-user text-2xl"></i>
             <span class="ml-2">Usuarios</span>
         </li>
-        <li *ngIf="hasAccess('/payments')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')">
+        <li *ngIf="hasAccess('/payments')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')"
+            [ngClass]="{'bg-gray-700': activeRoute === '/payments' && hasAccess('/payments')}">
             <i class="fa-solid fa-sack-dollar text-2xl"></i>
             <span class="ml-2">Portal de pagos</span>
         </li>
-        <li *ngIf="hasAccess('/messages')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')">
+        <li *ngIf="hasAccess('/messages')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')"
+            [ngClass]="{'bg-gray-700': activeRoute === '/messages' && hasAccess('/messages')}">
             <i class="fa-solid fa-message text-2xl"></i>
             <span class="ml-2">Mensajes</span>
         </li>

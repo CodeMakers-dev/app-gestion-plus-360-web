@@ -19,7 +19,7 @@ export class UserService {
 
   updatePassword(id: number, password: string): Observable<ApiResponse<null>> {
     const body = { id, password };
-    return this.http.put<ApiResponse<null>>(`${this.apiUrl}/password`, body);
+    return this.http.put<ApiResponse<null>>(`${this.apiUrl}/edit-password`, body);
   }
 
    getUsers(): Observable<ApiResponse<IUsuario[]>> {
