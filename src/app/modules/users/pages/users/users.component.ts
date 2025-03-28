@@ -30,6 +30,8 @@ export class UsersComponent implements OnInit{
   columnFilters: { [key: string]: string } = {};
   activeFilters: { [key: string]: boolean } = {};
 
+  previousFilterColumn: string | null = null;
+
   constructor(private personService: PersonService) {}
 
   get datosPaginados() {
@@ -136,7 +138,12 @@ export class UsersComponent implements OnInit{
   }
 
   toggleFilter(column: string) {
+    if (this.previousFilterColumn && this.previousFilterColumn !== column && this.activeFilters[this.previousFilterColumn]) {
+      this.activeFilters[this.previousFilterColumn] = false;
+    }
+
     this.activeFilters[column] = !this.activeFilters[column];
+    this.previousFilterColumn = column;
   }
 
   isColumnSelected(column: string): boolean {

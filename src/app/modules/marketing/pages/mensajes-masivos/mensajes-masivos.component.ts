@@ -40,6 +40,8 @@ export class MensajesMasivosComponent implements OnInit {
     },
   ];
   filteredData: MensajesMasivos[] = [...this.data];
+  activeFilters: { [key: string]: boolean } = {};
+  columnFilters: { [key: string]: string } = {};
 
   constructor(private router: Router, private mensajeService: MensajeService) {}
 
@@ -58,5 +60,34 @@ export class MensajesMasivosComponent implements OnInit {
 
   navegarHistorial() {
     this.router.navigate(['marketing/message-history']);
+  }
+
+  toggleFilter(column: string) {
+    this.activeFilters[column] = !this.activeFilters[column];
+  }
+
+  applyColumnFilter(event: any, column: string) {
+    this.columnFilters[column] = event.target.value;
+    this.filterData();
+  }
+
+  filterData() {
+    this.filteredData = this.data.filter(item => {
+      let matchesAllFilters = true;
+
+      for (const column in this.columnFilters) {
+        if (this.columnFilters[column]) {
+          const filterValue = this.columnFilters[column].toLowerCase();
+          const itemValue = String(item[column as keyof MensajesMasivos]).toLowerCase(); // Utilizar keyof
+
+          if (!itemValue.includes(filterValue)) {
+            matchesAllFilters = false;
+            break;
+          }
+        }
+      }
+
+      return matchesAllFilters;
+    });
   }
 }

@@ -1,115 +1,69 @@
 <app-header></app-header>
 <div class="mensajes-masivos-container min-h-screen flex flex-col relative">
 
-    <div class="mt-8 mx-8">
-        <app-navigation [navigationItems]="navigationItems"></app-navigation>
-    </div>
+  <div class="mt-8 mx-8">
+    <app-navigation [navigationItems]="navigationItems"></app-navigation>
+  </div>
 
-    <div class="flex flex-row items-start p-4">
-        <button (click)="navegarCrearMensajes()" class="custom-btn">
+  <div class="flex flex-row items-start p-4">
+    <button (click)="navegarCrearMensajes()" class="custom-btn">
       <img src="sms.png" alt="Mensajes Masivos" class="icon-sms" />
-      <span
-        class="mt-1 text-xs md:text-sm lg:text-base text-gray-700 font-semibold"
-        >Crear Mensajes</span
-      >
+      <span class="mt-1 text-xs md:text-sm lg:text-base text-gray-700 font-semibold">Crear Mensajes</span>
     </button>
 
-        <button (click)="navegarHistorial()" class="custom-btn">
+    <button (click)="navegarHistorial()" class="custom-btn">
       <img src="history.png" alt="Historial" class="icon-his" />
-      <span
-        class="mt-1 text-xs md:text-sm lg:text-base text-gray-700 font-semibold"
-        >Historial</span
-      >
+      <span class="mt-1 text-xs md:text-sm lg:text-base text-gray-700 font-semibold">Historial</span>
     </button>
-    </div>
+  </div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8 w-full flex-grow">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 z-10">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Título
-                        <div class="flex items-center justify-center">
-                            <input type="text" class="mt-1 block w-full" placeholder="Filtrar" (input)="applyFilter($event, 'titulo')" />
-                            <svg class="w-4 h-4 ml-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-5.414 5.414a1 1 0 00-.293.707v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-4.586a1 1 0 00-.293-.707L5.293 7.414A1 1 0 015 6V4z"
-                ></path>
-              </svg>
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Descripción
-                        <div class="flex items-center justify-center">
-                            <input type="text" class="mt-1 block w-full" placeholder="Filtrar" (input)="applyFilter($event, 'descripcion')" />
-                            <svg class="w-4 h-4 ml-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-5.414 5.414a1 1 0 00-.293.707v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-4.586a1 1 0 00-.293-.707L5.293 7.414A1 1 0 015 6V4z"
-                ></path>
-              </svg>
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Fecha Creación
-                        <div class="flex items-center justify-center">
-                            <input type="text" class="mt-1 block w-full" placeholder="Filtrar" (input)="applyFilter($event, 'fechaCreacion')" />
-                            <svg class="w-4 h-4 ml-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-5.414 5.414a1 1 0 00-.293.707v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-4.586a1 1 0 00-.293-.707L5.293 7.414A1 1 0 015 6V4z"
-                ></path>
-              </svg>
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Archivo
-                        <div class="flex items-center justify-center">
-                            <input type="text" class="mt-1 block w-full" placeholder="Filtrar" (input)="applyFilter($event, 'archivo')" />
-                            <svg class="w-4 h-4 ml-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707l-5.414 5.414a1 1 0 00-.293.707v4.586a1 1 0 01-.293.707l-2 2A1 1 0 0111 20v-4.586a1 1 0 00-.293-.707L5.293 7.414A1 1 0 015 6V4z"
-                ></path>
-              </svg>
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of filteredData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ item.titulo }}
-                    </th>
-                    <td class="px-6 py-4">{{ item.descripcion }}</td>
-                    <td class="px-6 py-4">{{ item.fechaCreacion }}</td>
-                    <td class="px-6 py-4">{{ item.archivo }}</td>
-                    <td class="px-6 py-4 text-center">
-                        <div class="flex flex-wrap justify-center gap-2">
-                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
-                Eliminar
-              </button>
-                            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">
-                Editar
-              </button>
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">
-                Enviar
-              </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-8 w-full flex-grow">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-margin">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Título
+            <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('titulo')"></i>
+            <br>
+            <input *ngIf="activeFilters['titulo']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'titulo')">
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Descripción
+            <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('descripcion')"></i>
+            <br>
+            <input *ngIf="activeFilters['descripcion']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'descripcion')">
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Fecha Creación
+            <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('fechaCreacion')"></i>
+            <br>
+            <input *ngIf="activeFilters['fechaCreacion']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'fechaCreacion')">
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Archivo
+            <i class="fas fa-filter cursor-pointer ml-2" (click)="toggleFilter('archivo')"></i>
+            <br>
+            <input *ngIf="activeFilters['archivo']" type="text" class="mt-2 p-1 border rounded" (input)="applyColumnFilter($event, 'archivo')">
+          </th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredData" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+          <td class="px-6 py-4">{{ item.titulo }}</td>
+          <td class="px-6 py-4">{{ item.descripcion }}</td>
+          <td class="px-6 py-4">{{ item.fechaCreacion }}</td>
+          <td class="px-6 py-4">{{ item.archivo }}</td>
+          <td class="px-6 py-4 text-center">
+            <div class="flex flex-wrap justify-center gap-2">
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded cursor-pointer">Eliminar</button>
+              <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded cursor-pointer">Editar</button>
+              <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded cursor-pointer">Enviar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <app-footer></app-footer>

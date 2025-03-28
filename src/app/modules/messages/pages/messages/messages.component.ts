@@ -112,7 +112,7 @@ export class MessagesComponent implements OnInit {
               titulo: this.title,
               descripcion: this.description,
               usuarioCreacion: usuarioCreacion,
-              
+              activo: true
             };
   
             this.messageService.sendMessage(mensaje).subscribe(
