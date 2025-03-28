@@ -4,23 +4,15 @@
             <span class="menu-icon text-2xl">&#9776;</span>
         </div>
         <div class="logo">
-            <img src="log.png" alt="Logo" class="h-10" >
+            <img src="log.png" alt="Logo" class="h-10">
         </div>
     </div>
 
-    <form class="flex items-center max-w-md mx-auto w-full">
-        <label for="default-search" class="sr-only">Buscar</label>
-        <div class="relative w-full">
-            <input type="search" id="default-search"
-                class="block w-full p-3 pr-14 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Buscar en Gestión Plus..." required />
-            <button type="submit"
-                class="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
-                <i class="fa-solid fa-magnifying-glass text-white"></i>
-            </button>
-        </div>
-    </form>
-    
+    <div class="relative w-80">
+        <input type="text" placeholder="Buscar..." [(ngModel)]="searchTerm" 
+            class="w-full px-9 py-2 pl-10 border border-black text-black rounded-lg focus:ring-2 focus:ring-black focus:outline-none" />
+        <i class="fas fa-search absolute left-3 top-3 text-black"></i>
+    </div>
 
     <div class="flex items-center space-x-4">
         <div class="notification relative">
@@ -48,14 +40,17 @@
 </header>
 
 <!-- MODAL DE NOTIFICACIONES -->
-<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isNotificationModalOpen">
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+    *ngIf="isNotificationModalOpen">
     <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
-        <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeNotificationModal()">&times;</span>
+        <span class="absolute top-2 right-2 cursor-pointer text-gray-500"
+            (click)="closeNotificationModal()">&times;</span>
         <h2 class="text-xl font-semibold mb-4 text-center">Notificaciones</h2>
         <div class="notification-list space-y-4 max-h-96 overflow-y-auto">
             <ng-container *ngFor="let notification of notifications">
                 <div class="notification-item p-4 border rounded-lg shadow-sm relative">
-                    <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="markNotificationAsInactive(notification)">&times;</span>
+                    <span class="absolute top-2 right-2 cursor-pointer text-gray-500"
+                        (click)="markNotificationAsInactive(notification)">&times;</span>
                     <h3 class="font-semibold">{{ notification.titulo }}</h3>
                     <p>{{ notification.descripcion }}</p>
                     <small class="text-gray-500">{{ notification.fechaEnvio | date:'short' }}</small>
@@ -63,56 +58,63 @@
             </ng-container>
         </div>
         <div class="flex justify-center mt-4">
-            <button (click)="closeNotificationModal()" class="bg-red-500 text-white p-2 rounded" style="cursor: pointer;">Cerrar</button>
+            <button (click)="closeNotificationModal()" class="bg-red-500 text-white p-2 rounded"
+                style="cursor: pointer;">Cerrar</button>
         </div>
     </div>
 </div>
 
-<div class="sidebar fixed top-0 left-0 w-64 h-full bg-[#05eaab] text-white transform -translate-x-full transition-transform duration-300 shadow-2xl shadow-gray-950 z-50" [class.translate-x-0]="sidebarOpen">
+<div class="sidebar fixed top-0 left-0 w-64 h-full bg-[#05eaab] text-white transform -translate-x-full transition-transform duration-300 shadow-2xl shadow-gray-950 z-50"
+    [class.translate-x-0]="sidebarOpen">
     <div class="sidebar-logo p-4">
         <img src="log.png" alt="Logo" class="h-10 mx-auto">
     </div>
     <ul class="space-y-2">
         <li *ngIf="hasAccess('/home')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')">
-          <i class="fa-solid fa-house text-2xl"></i>
-          <span class="ml-2">Inicio</span>
+            <i class="fa-solid fa-house text-2xl"></i>
+            <span class="ml-2">Inicio</span>
         </li>
         <li *ngIf="hasAccess('/marketing')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')">
-          <i class="fa-solid fa-lightbulb text-2xl"></i>
-          <span class="ml-2">Marketing</span>
+            <i class="fa-solid fa-lightbulb text-2xl"></i>
+            <span class="ml-2">Marketing</span>
         </li>
         <li *ngIf="hasAccess('/users')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')">
-          <i class="fa-solid fa-user text-2xl"></i>
-          <span class="ml-2">Usuarios</span>
+            <i class="fa-solid fa-user text-2xl"></i>
+            <span class="ml-2">Usuarios</span>
         </li>
         <li *ngIf="hasAccess('/payments')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')">
-          <i class="fa-solid fa-sack-dollar text-2xl"></i>
-          <span class="ml-2">Portal de pagos</span>
+            <i class="fa-solid fa-sack-dollar text-2xl"></i>
+            <span class="ml-2">Portal de pagos</span>
         </li>
         <li *ngIf="hasAccess('/messages')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')">
-          <i class="fa-solid fa-message text-2xl"></i>
-          <span class="ml-2">Mensajes</span>
+            <i class="fa-solid fa-message text-2xl"></i>
+            <span class="ml-2">Mensajes</span>
         </li>
-      </ul>
+    </ul>
 </div>
 
 <!-- MODAL DE PERFIL -->
-<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isProfileModalOpen">
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+    *ngIf="isProfileModalOpen">
     <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
         <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeProfileModal()">&times;</span>
         <div class="flex flex-col items-center">
             <div class="relative">
-                <img [src]="userImage" alt="Imagen de Perfil" class="h-24 w-24 rounded-full cursor-pointer" (click)="openImagePreview()" />
-                <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer" (click)="onFileInputClick($event)">
+                <img [src]="userImage" alt="Imagen de Perfil" class="h-24 w-24 rounded-full cursor-pointer"
+                    (click)="openImagePreview()" />
+                <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer"
+                    (click)="onFileInputClick($event)">
                     <img src="pencil.png" alt="Editar" class="h-4 w-4" />
                 </div>
                 <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*">
             </div>
-            <div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="showConfirmModal">
+            <div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+                *ngIf="showConfirmModal">
                 <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
                     <p class="text-lg font-semibold mb-4">¿Desea establecer esta imagen como su imagen de perfil?</p>
                     <div class="flex justify-center">
-                        <button class="bg-gray-400 text-white p-2 rounded mr-2" (click)="closeConfirmModal()">Cancelar</button>
+                        <button class="bg-gray-400 text-white p-2 rounded mr-2"
+                            (click)="closeConfirmModal()">Cancelar</button>
                         <button class="bg-blue-500 text-white p-2 rounded" (click)="confirmUpload()">Confirmar</button>
                     </div>
                 </div>
@@ -121,15 +123,18 @@
         <p class="mt-4 text-lg font-semibold text-center">{{ userName }}</p>
         <p class="mt-2 text-sm text-gray-600 text-center">{{ userEmail }}</p>
         <div class="flex justify-center w-full">
-            <button (click)="openEditUserModal()" class="mt-4 bg-blue-500 text-white p-2 rounded" style="cursor: pointer;">Editar Usuario</button>
+            <button (click)="openEditUserModal()" class="mt-4 bg-blue-500 text-white p-2 rounded"
+                style="cursor: pointer;">Editar Usuario</button>
         </div>
     </div>
 </div>
 
 <!-- Image Preview Modal -->
-<div class="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
+<div class="modal-overlay fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+    *ngIf="isImagePreviewOpen" (click)="closeImagePreview()">
     <div class="modal-content bg-white p-4 rounded-lg relative max-w-4xl mx-auto" (click)="$event.stopPropagation()">
-        <span class="absolute top-2 right-2 text-2xl cursor-pointer text-gray-500" (click)="closeImagePreview()">&times;</span>
+        <span class="absolute top-2 right-2 text-2xl cursor-pointer text-gray-500"
+            (click)="closeImagePreview()">&times;</span>
         <div class="flex justify-center">
             <img [src]="userImage" alt="Imagen de Perfil Ampliada" class="max-h-[80vh] max-w-full object-contain">
         </div>
@@ -137,31 +142,38 @@
 </div>
 
 <!-- MODAL DE EDITAR USUARIO -->
-<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isEditUserModalOpen">
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+    *ngIf="isEditUserModalOpen">
     <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
         <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeEditUserModal()">&times;</span>
         <h2 class="text-xl font-semibold mb-4 text-center">Editar Usuario</h2>
         <div class="flex flex-col items-center">
             <label for="userEmail" class="self-start mt-4">Usuario</label>
-            <input id="userEmail" type="email" [(ngModel)]="userEmail" placeholder="Nombre de usuario" class="mt-1 p-2 border rounded w-full">
+            <input id="userEmail" type="email" [(ngModel)]="userEmail" placeholder="Nombre de usuario"
+                class="mt-1 p-2 border rounded w-full">
 
             <label for="userPassword" class="self-start mt-4">Contraseña</label>
             <div class="relative w-full">
-                <input id="userPassword" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userPassword" placeholder="Contraseña" class="mt-1 p-2 border rounded w-full">
-                <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="togglePasswordVisibility()">
-          <i [ngClass]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
-        </span>
+                <input id="userPassword" [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userPassword"
+                    placeholder="Contraseña" class="mt-1 p-2 border rounded w-full">
+                <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                    (click)="togglePasswordVisibility()">
+                    <i [ngClass]="showPassword ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
+                </span>
             </div>
 
             <div class="flex space-x-4 mt-4">
-                <button (click)="saveUserChanges()" class="bg-blue-500 text-white p-2 rounded" style="cursor: pointer;">Guardar</button>
-                <button (click)="cancelEditUser()" class="bg-red-500 text-white p-2 rounded" style="cursor: pointer;">Cancelar</button>
+                <button (click)="saveUserChanges()" class="bg-blue-500 text-white p-2 rounded"
+                    style="cursor: pointer;">Guardar</button>
+                <button (click)="cancelEditUser()" class="bg-red-500 text-white p-2 rounded"
+                    style="cursor: pointer;">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50" *ngIf="isAlertModalOpen">
+<div class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+    *ngIf="isAlertModalOpen">
     <div class="modal-content bg-white p-6 rounded-lg relative w-11/12 max-w-lg mx-auto">
         <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeAlertModal()">&times;</span>
         <h2 class="text-xl font-semibold mb-4 text-center">{{ alertTitle }}</h2>

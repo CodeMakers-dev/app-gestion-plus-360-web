@@ -22,6 +22,7 @@ import { IPersona } from '@core/interfaces/IuserById';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  searchTerm: string = '';
   sidebarOpen = false;
   searchQuery = '';
   userImage: string = 'perfil.png';
@@ -68,7 +69,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
     this.loadProfileImage();
   }
-
   ngAfterViewInit() {
     initFlowbite();
   }
