@@ -115,3 +115,15 @@ export interface ApiResponse<T> {
   code: number;
   response: T;
 }
+
+
+export interface IRol{
+  id: number;
+  nombre: string;
+  descripcion:string;
+  usuarioCreacion: string;
+  fechaCreacion: string;
+  usuarioModificacion: string | null;
+  fechaModificacion: string | null;
+  activo: boolean;
+}
