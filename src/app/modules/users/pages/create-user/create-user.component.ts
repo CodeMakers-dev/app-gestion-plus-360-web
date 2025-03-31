@@ -6,7 +6,7 @@ import { HeaderComponent } from '@components/header/header.component';
 import { CityService } from '@modules/users/services/city.service';
 import { ApiResponse } from '@core/interfaces/Iresponse';
 import { response } from 'express';
-import { ICiudad, IDepartamento, IPais, IPersonCreate, ITipoDocumento, ITipoPersona } from '@core/interfaces/IuserById';
+import { ICiudad, IDepartamento, IPais, IPersonCreate, IRol, ITipoDocumento, ITipoPersona } from '@core/interfaces/IuserById';
 import { TypePersonService } from '@modules/users/services/typePerson.service';
 import { TypeDocumentService } from '@modules/users/services/typeDocument.service';
 import { DepartamentService } from '@modules/users/services/departament.service';
@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { NavigationComponent } from '@components/navigation/navigation.component';
 import { Router } from '@angular/router';
 import { FooterComponent } from '@components/footer/footer.component';
+import { RolService } from '@modules/users/services/rol.service';
 
 @Component({
   selector: 'app-create-user',
@@ -46,11 +47,16 @@ export class CreateUserComponent implements OnInit {
   ciudadName: string[] = [];
   ciudad: ICiudad[] = [];
 
+  rol:IRol[] = [];
+  rolName:string[] = [];
+
   selectedTipoPersonaId: number | null = null;
   selectedTipoDocumentoId: number | null = null;
   selectedPaisId: number | null = null;
   selectDepartamentoId: number | null = null;
   selectCiudadId: number | null = null;
+
+  selectRolId:number | null = null;
 
   constructor(
     private http: HttpClient,
@@ -60,6 +66,7 @@ export class CreateUserComponent implements OnInit {
     private departamentService: DepartamentService,
     private countryService: CountryService,
     private personService: PersonService,
+    private rolService: RolService,
     private userService: UserService,
     private router: Router,
   ) { }
@@ -70,8 +77,14 @@ export class CreateUserComponent implements OnInit {
     this.loadPaises();
     this.loadDepartamentos();
     this.loadCiudades();
+    this.loadRol();
   }
-
+  loadRol(): void {
+    this.rolService.getRol().subscribe((response) => {
+      this.rol = response.response;
+      this.rolName = response.response.map((tipoRol) => tipoRol.nombre)
+    })
+  }
   loadTiposPersona(): void {
     this.typePersonService.getTypePerson().subscribe((response) => {
       this.tiposPerson = response.response;
