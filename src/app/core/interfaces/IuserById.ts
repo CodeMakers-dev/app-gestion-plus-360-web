@@ -88,6 +88,7 @@ export interface IPersonCreate {
   telefono: string;
   correo: string;
   imagen: string | null;
+  rol?: { id: number };
   usuarioCreacion: string;
   fechaCreacion: string;
   usuarioModificacion: string | null;

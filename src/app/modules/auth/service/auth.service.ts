@@ -12,7 +12,7 @@ import { Iuser } from '@core/interfaces/Iuser';
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/v1/Usuario/validar';
   private profileImageUrl: string | null = null;
-  private roleUrl = 'http://localhost:8080/api/v1/UsuarioRol/usuario/';
+  private roleUrl = 'http://localhost:8080/api/v1/Usuario/';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -22,9 +22,11 @@ export class AuthService {
         if (response.code === 200) {
           localStorage.setItem('token', response.response.token);
           localStorage.setItem('userId', response.response.id.toString());
+          //localStorage.setItem('profileImageUrl', response.response.persona?.imagen || '');
           return this.getRole(Number(response.response.id)).pipe(
             tap(role => {
-              localStorage.setItem('userRole', role);
+              console.log('User role:', role);
+              localStorage.setItem('userRole', role.trim());
               this.router.navigate(['/home']);
             }),
             mergeMap(() => of(response))
@@ -40,8 +42,12 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('profileImageUrl');
     sessionStorage.clear();
-    this.router.navigate(['/login']);
+  
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
   }
 
 

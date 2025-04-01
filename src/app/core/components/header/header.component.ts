@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   sidebarOpen = false;
   activeRoute: string = '';
   searchQuery = '';
-  userImage: string = 'perfil.png';
+  userImage: string | null = null;
   userName: string = '';
   userEmail: string = '';
   showPassword: boolean = false;
@@ -190,49 +190,51 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadProfileImage() {
+  loadProfileImage(): void {
+    // Intenta obtener la URL de la imagen almacenada en localStorage
     const storedImageUrl = this.authService.getProfileImageUrl();
     console.log('Retrieved Image URL:', storedImageUrl);
-
+  
     if (storedImageUrl) {
       this.userImage = storedImageUrl;
       console.log('Image URL from AuthService:', this.userImage);
       return;
     }
-
+  
+    // Obtén el ID del usuario
     const userId = this.authService.getUserId();
-
     if (userId === null) {
       console.error('No se pudo obtener el ID del usuario.');
+      this.userImage = null; // No asigna una imagen por defecto
       return;
     }
-
+  
+    // Llama al servicio para obtener los datos del usuario
     this.userService.getUserById(userId).subscribe({
       next: (user) => {
         const persona: IPersona = user.response.persona;
-
+  
         if (persona && persona.imagen) {
           try {
+            // Convierte la imagen Base64 a Blob y genera una URL
             const byteArray = new Uint8Array(this.base64ToArrayBuffer(persona.imagen));
             const blob = new Blob([byteArray], { type: 'image/jpeg' });
             this.userImage = URL.createObjectURL(blob);
-            console.log();
+            console.log('Generated Image URL:', this.userImage);
+  
+            // Almacena la URL en localStorage
+            this.authService.setProfileImageUrl(this.userImage);
           } catch (error) {
             console.error('Error al convertir la imagen:', error);
-            this.userImage = 'public/perfil.png';
+            this.userImage = null; // No asigna una imagen por defecto
           }
-          if (this.userImage) {
-            console.log('Stored Image URL:', this.userImage);
-            this.authService.setProfileImageUrl(this.userImage);
-          }
-
         } else {
-          this.userImage = 'public/perfil.png';
+          this.userImage = null; // No asigna una imagen por defecto
         }
       },
       error: (error) => {
-        console.error('Error al obtener la información del usuario', error);
-        this.userImage = 'public/perfil.png';
+        console.error('Error al obtener la información del usuario:', error);
+        this.userImage = null; // No asigna una imagen por defecto
       }
     });
   }
