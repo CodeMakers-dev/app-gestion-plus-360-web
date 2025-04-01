@@ -2,7 +2,7 @@
 
 <div class="min-h-screen flex flex-col relative">
     <div class="relative">
-        <div class="mt-8 px-4 absolute top-[-65px] left-0 w-full z-10 mb-4">
+        <div class="mt-8 px-4 relative w-full z-10 mb-4">
             <app-navigation [navigationItems]="navigationItems"></app-navigation>
         </div>
 
@@ -13,9 +13,8 @@
         </div>
     </div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex-grow">
-        <div
-            class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
+    <div class="sticky top-0 z-30 bg-white dark:bg-gray-900 px-4 py-2 shadow-md">
+        <div class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
             <div class="relative">
                 <label for="table-search" class="sr-only">Search</label>
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -31,18 +30,18 @@
             </div>
             <div class="relative">
                 <button id="dropdownActionButton" (click)="toggleDropdown()"
-                    class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                    type="button">
-                    <span class="sr-only">Action button</span>
-                    Select Columns
-                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
+                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 cursor-pointer" type="button">
+                <span class="sr-only">Action button</span>
+                Select Columns
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4" />
+                </svg>
                 </button>
+            
                 <div id="dropdownAction"
-                    class="fixed z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
+                    class="absolute z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownActionButton">
                         <li>
                             <button
@@ -137,7 +136,9 @@
                     </ul>
                 </div>
             </div>
+            </div>
         </div>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex-grow">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-margin">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -269,21 +270,23 @@
                 </tr>
             </tbody>
         </table>
-        <div class="flex justify-center items-center space-x-4 mt-4">
+    </div>
+    <div class="sticky bottom-0 z-20 bg-white dark:bg-gray-900 px-4 py-2 shadow-md mb-8">
+        <div class="flex justify-center items-center space-x-4">
             <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1"
-              class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-              Anterior
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                Anterior
             </button>
-      
+
             <span class="text-lg font-semibold">
-              Página {{ paginaActual }} de {{ totalPaginas() }}
+                Página {{ paginaActual }} de {{ totalPaginas() }}
             </span>
-      
+
             <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas()"
-              class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed">
-              Siguiente
+                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                Siguiente
             </button>
-          </div>
+        </div>
     </div>
 </div>
 

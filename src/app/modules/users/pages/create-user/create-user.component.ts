@@ -156,6 +156,7 @@ export class CreateUserComponent implements OnInit {
           usuarioCreacion: usuarioCreacion, 
           activo: false,
           imagen: "",
+          rol: { id: Number(this.selectRolId) },
           fechaCreacion: new Date().toISOString(),
           usuarioModificacion: null,
           fechaModificacion: null

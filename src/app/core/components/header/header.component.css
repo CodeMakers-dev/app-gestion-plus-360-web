@@ -35,53 +35,38 @@
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%; /* Ajusta el ancho del sidebar en pantallas pequeñas */
-  }
-
-  .sidebar-logo img {
-    height: 80px; /* Ajusta el tamaño del logo en pantallas pequeñas */
-  }
-
-  .sidebar ul {
-    margin-top: 100px; /* Ajusta el margen superior en pantallas pequeñas */
-  }
-
   header {
-    flex-direction: column; /* Cambia la dirección del flex en pantallas pequeñas */
-    align-items: center; /* Centra los elementos en pantallas pequeñas */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    text-align: center;
   }
 
-  .left-container {
-    justify-content: center; /* Centra el contenido en pantallas pequeñas */
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    text-align: center; /* Centra el contenido horizontalmente */
+  header .left-container,
+  header .perfil,
+  header .close {
+    margin-bottom: 1rem; /* Agrega espacio entre los elementos */
   }
 
-  .menu-container {
-    margin-right: 0; /* Elimina el margen derecho en pantallas pequeñas */
+  .modal-content {
+    width: 95%; /* Ocupa casi todo el ancho de la pantalla */
+    padding: 1rem;
   }
 
-  .logo {
-    position: relative; /* Cambia a relative para evitar problemas de posicionamiento */
-    top: 0; /* Restablece la posición vertical */
-    left: 0; /* Restablece la posición horizontal */
-    margin-top: 10px; /* Agrega un margen superior */
+  .sidebar {
+    width: 80%; /* Reduce el ancho de la barra lateral en móviles */
   }
 
-  .flex.items-center.space-x-4 {
-    justify-content: center; /* Centra el contenido en pantallas pequeñas */
-    width: 100%; /* Asegura que ocupe todo el ancho */
-    text-align: center; /* Centra el contenido horizontalmente */
+  .notification-list {
+    max-height: 60vh; /* Limita la altura de la lista de notificaciones */
+    overflow-y: auto; /* Permite el desplazamiento si es necesario */
   }
 
-  .flex.items-center.space-x-4 > div {
-    margin: 0 10px; /* Agrega un margen horizontal a los íconos */
+  .perfil img {
+    width: 50px; /* Reduce el tamaño de la imagen de perfil */
+    height: 50px;
   }
 
-  .relative.w-full {
-    width: 90%; /* Ajusta el ancho del campo de búsqueda en pantallas pequeñas */
-    margin-top: 10px; /* Agrega un margen superior */
+  .perfil i {
+    font-size: 1.5rem; /* Ajusta el tamaño del ícono */
   }
 }
 
@@ -91,17 +76,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(17, 24, 39, 0.75); /* Tailwind's bg-gray-900 with 75% opacity */
-  z-index: 1000; /* Asegúrate de que el z-index sea alto */
+  background-color: rgba(17, 24, 39, 0.75);
+  z-index: 1000;
+  padding: 1rem;
 }
 
 .modal-content {
   position: relative;
-  margin: auto;
+  margin: 0 auto;
   padding: 20px;
   background: white;
   border-radius: 4px;
-  width: 80%;
-  max-width: 600px;
-  z-index: 1001; /* Asegúrate de que el z-index sea alto */
+  width: 90%;
+  max-width: 400px;
+  z-index: 1001;
+}
+
+.modal-content img {
+  max-width: 100%;
+  height: auto;
 }
