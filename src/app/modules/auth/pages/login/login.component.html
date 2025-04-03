@@ -1,28 +1,60 @@
-<body class="w-screen h-screen bg-cover bg-center bg-no-repeat"
- style="background-image: url('/12345.jpg');">
-<div class="container">
-    <div class="img1">
-        <img src="logoblanco.png" alt="logo">
+<body class="w-screen min-h-screen bg-white flex items-center justify-center overflow-auto">
+  <div class="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl px-4 space-y-8 md:space-y-0 md:space-x-8">
+    <!-- Logo -->
+    <div class="flex justify-center md:justify-start w-full md:w-1/2">
+      <img class="h-auto max-w-xs md:max-w-sm ml-4 md:ml-8" src="/log.png" alt="Logo de Gestion Plus">
     </div>
-    <div class="box">
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="input-box">
-                <h2 class="text-cyan-400 text-4xl">BIENVENIDO</h2>
-                <br>
-                <input type="text" formControlName="usuario" required >
-                <span>Usuario</span>
-                <i ></i>
-            </div>
-            <div class="input-box">
-                <input type="password" formControlName="password" required>
-                <span>Contraseña</span>
-                <i></i>
-            </div>
-            <input type="submit" value="Ingresar" [disabled]="loginForm.invalid">
-            <div class="links">
-                <a (click)="goTo('/recover-password')">¿Olvidaste tu contraseña?</a>
-              </div>
-        </form>
+
+    <!-- Formulario -->
+    <div class="rounded-lg box-border border-sky-500 w-full max-w-xs bg-[#2CC6F0] p-8 shadow-lg min-h-[500px] flex flex-col justify-center">
+      <h2 class="text-center text-white text-3xl font-bold mb-6">BIENVENIDO</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Campo Usuario -->
+        <div class="mb-6">
+          <input
+            type="text"
+            formControlName="usuario"
+            class="bg-white border border-gray-300 text-sky-400 text-lg rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-3"
+            placeholder="Ingrese su correo electrónico"
+            required
+          />
+          <div *ngIf="loginForm.get('usuario')?.invalid && loginForm.get('usuario')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="loginForm.get('usuario')?.errors?.['required']">El correo es obligatorio.</span>
+            <span *ngIf="loginForm.get('usuario')?.errors?.['email']">Debe ingresar un correo válido.</span>
+          </div>
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="mb-10">
+          <input
+            type="password"
+            formControlName="password"
+            class="bg-white border border-gray-300 text-sky-400 text-lg rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full h-12 p-3"
+            placeholder="•••••••••"
+            required
+          />
+        </div>
+
+        <!-- Botón Ingresar -->
+        <div class="text-center mb-4">
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid"
+            class="text-sky-700 hover:text-white border border-blue-700 hover:bg-sky-800 focus:ring-1 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-lg px-10 py-2.5 cursor-pointer"
+          >
+            Acceder
+          </button>
+        </div>
+
+        <div class="text-center">
+          <a
+            (click)="goTo('/recover-password')"
+            class="font-sans hover:underline text-center text-white text-sm cursor-pointer"
+          >
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+      </form>
     </div>
-</div>
+  </div>
 </body>

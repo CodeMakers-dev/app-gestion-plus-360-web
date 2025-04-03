@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '@components/header/header.component';
 import { Router } from '@angular/router';
 import { NavigationComponent } from '@components/navigation/navigation.component';
+import { FooterComponent } from '@components/footer/footer.component';
 
 @Component({
   selector: 'app-marketing',
   standalone: true,
-  imports: [HeaderComponent, NavigationComponent],
+  imports: [HeaderComponent, NavigationComponent, FooterComponent],
   templateUrl: './marketing.component.html',
   styleUrls: ['./marketing.component.css']
 })

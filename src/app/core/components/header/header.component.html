@@ -1,10 +1,10 @@
 <header class="sticky top-0 z-50 flex items-center justify-between p-6 bg-[#05eaab] text-white">
-    <div class="left-container flex items-center">
-        <div class="menu-container cursor-pointer mr-4" (click)="toggleSidebar()">
+    <div class="left-container flex items-center space-x-2 md:space-x-4">
+        <div class="menu-container cursor-pointer ml-[-4px] md:ml-0" (click)="toggleSidebar()">
             <i class="fa-solid fa-bars fa-2x"></i>
         </div>
         <div class="logo">
-            <img src="log.png" alt="Logo" class="h-10">
+            <img src="log.png" alt="Logo" class="h-10 md:h-16">
         </div>
     </div>
 
@@ -50,10 +50,11 @@
             (click)="closeNotificationModal()">&times;</span>
         <h2 class="text-xl font-semibold mb-4 text-center">Notificaciones</h2>
         <div class="notification-list space-y-4 max-h-96 overflow-y-auto">
-            <ng-container *ngFor="let notification of notifications">
-                <div class="notification-item p-4 border rounded-lg shadow-sm relative">
-                    <span class="absolute top-2 right-2 cursor-pointer text-gray-500"
-                        (click)="markNotificationAsInactive(notification)">&times;</span>
+            <div *ngIf="notifications.length === 0" class="text-center text-gray-500">
+                No hay notificaciones disponibles.
+            </div>
+            <ng-container *ngIf="notifications.length > 0">
+                <div class="notification-item p-4 border rounded-lg shadow-sm relative" *ngFor="let notification of notifications">
                     <h3 class="font-semibold">{{ notification.titulo }}</h3>
                     <p>{{ notification.descripcion }}</p>
                     <small class="text-gray-500">{{ notification.fechaEnvio | date:'short' }}</small>
@@ -73,30 +74,30 @@
         <img src="log.png" alt="Logo" class="h-10 mx-auto">
     </div>
     <ul class="space-y-2">
-        <li *ngIf="hasAccess('/home')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/home')"
-            [ngClass]="{'bg-gray-700': activeRoute === '/home' && hasAccess('/home')}">
+        <li *ngIf="hasAccess('/home')" class="flex items-center p-4 hover:bg-gray-700 cursor-pointer"
+            (click)="goTo('/home')" [ngClass]="{'bg-gray-700': activeRoute === '/home' && hasAccess('/home')}">
             <i class="fa-solid fa-house text-2xl"></i>
-            <span class="ml-2">Inicio</span>
+            <span class="ml-4">Inicio</span>
         </li>
-        <li *ngIf="hasAccess('/marketing')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/marketing')"
-            [ngClass]="{'bg-gray-700': activeRoute === '/marketing' && hasAccess('/marketing')}">
+        <li *ngIf="hasAccess('/marketing')" class="flex items-center p-4 hover:bg-gray-700 cursor-pointer"
+            (click)="goTo('/marketing')" [ngClass]="{'bg-gray-700': activeRoute === '/marketing' && hasAccess('/marketing')}">
             <i class="fa-solid fa-lightbulb text-2xl"></i>
-            <span class="ml-2">Marketing</span>
+            <span class="ml-6">Marketing</span>
         </li>
-        <li *ngIf="hasAccess('/users')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/users')"
-            [ngClass]="{'bg-gray-700': activeRoute === '/users' && hasAccess('/users')}">
+        <li *ngIf="hasAccess('/users')" class="flex items-center p-4 hover:bg-gray-700 cursor-pointer"
+            (click)="goTo('/users')" [ngClass]="{'bg-gray-700': activeRoute === '/users' && hasAccess('/users')}">
             <i class="fa-solid fa-user text-2xl"></i>
-            <span class="ml-2">Usuarios</span>
+            <span class="ml-5">Usuarios</span>
         </li>
-        <li *ngIf="hasAccess('/payments')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/payments')"
-            [ngClass]="{'bg-gray-700': activeRoute === '/payments' && hasAccess('/payments')}">
+        <li *ngIf="hasAccess('/payments')" class="flex items-center p-4 hover:bg-gray-700 cursor-pointer"
+            (click)="goTo('/payments')" [ngClass]="{'bg-gray-700': activeRoute === '/payments' && hasAccess('/payments')}">
             <i class="fa-solid fa-sack-dollar text-2xl"></i>
-            <span class="ml-2">Portal de pagos</span>
+            <span class="ml-5">Portal de pagos</span>
         </li>
-        <li *ngIf="hasAccess('/messages')" class="p-4 hover:bg-gray-700 cursor-pointer" (click)="goTo('/messages')"
-            [ngClass]="{'bg-gray-700': activeRoute === '/messages' && hasAccess('/messages')}">
+        <li *ngIf="hasAccess('/messages')" class="flex items-center p-4 hover:bg-gray-700 cursor-pointer"
+            (click)="goTo('/messages')" [ngClass]="{'bg-gray-700': activeRoute === '/messages' && hasAccess('/messages')}">
             <i class="fa-solid fa-message text-2xl"></i>
-            <span class="ml-2">Mensajes</span>
+            <span class="ml-5">Mensajes</span>
         </li>
     </ul>
 </div>
@@ -108,10 +109,8 @@
         <span class="absolute top-2 right-2 cursor-pointer text-gray-500" (click)="closeProfileModal()">&times;</span>
         <div class="flex flex-col items-center">
             <div class="relative">
-                <!-- Verifica si hay una imagen de perfil -->
                 <img *ngIf="userImage; else defaultIcon" [src]="userImage" alt="Imagen de Perfil"
                     class="h-24 w-24 rounded-full cursor-pointer" (click)="openImagePreview()" />
-                <!-- Ícono predeterminado -->
                 <ng-template #defaultIcon>
                     <i class="fa-solid fa-circle-user fa-5x text-gray-400"></i>
                 </ng-template>
@@ -151,7 +150,7 @@
         <div class="flex flex-col items-center">
             <label for="userEmail" class="self-start mt-4">Usuario</label>
             <input id="userEmail" type="email" [(ngModel)]="userEmail" placeholder="Nombre de usuario"
-                class="mt-1 p-2 border rounded w-full">
+                class="mt-1 p-2 border rounded w-full" [disabled]="true">
 
             <label for="userPassword" class="self-start mt-4">Contraseña</label>
             <div class="relative w-full">

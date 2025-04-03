@@ -8,11 +8,34 @@
 }
 
 .logo {
-    height: 200px;
-    width: auto;
-    transform: scale(2);
-    transform-origin: left top;
-    position: relative;
-    top: -60px;
-    left: 50px;
+    width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+    max-width: 300px; /* Limita el ancho máximo de la imagen */
+    height: auto; /* Mantiene las proporciones de la imagen */
 }
+
+button {
+    max-width: 150px; /* Limita el ancho máximo del botón */
+    width: auto; /* Permite que el ancho se ajuste al contenido */
+    font-size: 14px; /* Fija el tamaño del texto */
+  }
+
+  button.export-excel {
+    max-width: 150px; /* Reduce el ancho máximo del botón */
+    width: auto; /* Permite que el ancho se ajuste al contenido */
+    font-size: 12px; /* Reduce el tamaño del texto */
+    padding: 6px 8px; /* Reduce el padding del botón */
+}
+
+@media (min-width: 768px) {
+    .logo {
+      max-width: 500px; /* Aumenta el ancho máximo en pantallas medianas o más grandes */
+    }
+
+    button {
+        font-size: 16px; /* Aumenta el tamaño del texto en pantallas medianas o más grandes */
+    }
+    
+    button.export-excel {
+        font-size: 16px; /* Aumenta el tamaño del texto en pantallas medianas o más grandes */
+    }
+  }
