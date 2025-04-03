@@ -1,8 +1,9 @@
 .logo img {
   height: 130px; /* Ajusta el tamaño del logo */
-  position: absolute; /* Posiciona el logo de manera absoluta */
-  top: -20px; /* Ajusta la posición vertical del logo */
-  left: 80px;
+  position: relative; /* Cambia a relative para que respete el flujo del diseño */
+  top: 0; /* Elimina el desplazamiento vertical */
+  left: 0; /* Elimina el desplazamiento horizontal */
+  max-width: 100%;
 }
 .highlight {
   background-color: rgb(255, 0, 0);
@@ -34,16 +35,48 @@
   align-items: center;
 }
 
+input:disabled {
+  background-color: #f5f5f5; /* Fondo gris claro */
+  color: #a1a1a1; /* Texto gris */
+  cursor: not-allowed; /* Cambia el cursor para indicar que no es editable */
+  border-color: #d1d1d1; /* Borde gris claro */
+}
+
+header {
+  height: 64px; /* Mantén la altura fija del header */
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+  justify-content: space-between; /* Espacia los elementos horizontalmente */
+  padding: 0 1rem; /* Agrega un padding horizontal */
+  background-color: #05eaab; /* Color de fondo */
+}
+
 @media (max-width: 768px) {
   header {
     flex-direction: column; /* Apila los elementos verticalmente */
-    text-align: center;
+    text-align: center; /* Centra el contenido */
+    height: auto; /* Permite que el header se ajuste automáticamente */
+    padding: 1rem; /* Agrega padding adicional */
   }
 
   header .left-container,
   header .perfil,
   header .close {
     margin-bottom: 1rem; /* Agrega espacio entre los elementos */
+  }
+
+  .notification i,
+  .close i {
+    font-size: 1.5rem; /* Reduce el tamaño de los íconos */
+  }
+
+  .perfil img {
+    width: 40px; /* Reduce el tamaño de la imagen de perfil */
+    height: 40px;
+  }
+
+  .perfil i {
+    font-size: 1.5rem; /* Ajusta el tamaño del ícono */
   }
 
   .modal-content {
@@ -60,13 +93,19 @@
     overflow-y: auto; /* Permite el desplazamiento si es necesario */
   }
 
-  .perfil img {
-    width: 50px; /* Reduce el tamaño de la imagen de perfil */
-    height: 50px;
+  .menu-container {
+    position: relative;
+    left: -25px; /* Mueve el ícono 15px hacia la izquierda */
   }
 
-  .perfil i {
-    font-size: 1.5rem; /* Ajusta el tamaño del ícono */
+  .notification {
+    position: relative;
+    top: -5px;
+  }
+
+  .close {
+    position: relative;
+    top: 1px;
   }
 }
 

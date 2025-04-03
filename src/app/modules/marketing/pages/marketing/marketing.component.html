@@ -1,10 +1,16 @@
 <app-header></app-header>
 
-<div class="mt-8 mx-8">
+<div class="min-h-screen flex flex-col relative">
+  <div class="mt-8 mx-8">
     <app-navigation [navigationItems]="navigationItems"></app-navigation>
+  </div>
+
+  <div class="flex flex-row items-start p-4">
+    <button (click)="navegarMensajesMasivos()" class="custom-btn">
+      <img src="mensajes-masivos.png" alt="Mensajes Masivos" class="icon-img" />
+      <span class="label-text">Mensajes masivos</span>
+    </button>
+  </div>
 </div>
 
-<button (click)="navegarMensajesMasivos()" class="btn custom-btn">
-  <img src="mensajes-masivos.png" alt="Mensajes Masivos" class="icon-img" />
-  <span class="label-text">Mensajes masivos</span>
-</button>
+<app-footer></app-footer>

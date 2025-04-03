@@ -222,19 +222,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             this.userImage = URL.createObjectURL(blob);
             console.log('Generated Image URL:', this.userImage);
   
-            // Almacena la URL en localStorage
             this.authService.setProfileImageUrl(this.userImage);
           } catch (error) {
             console.error('Error al convertir la imagen:', error);
-            this.userImage = null; // No asigna una imagen por defecto
+            this.userImage = null;
           }
         } else {
-          this.userImage = null; // No asigna una imagen por defecto
+          this.userImage = null;
         }
       },
       error: (error) => {
         console.error('Error al obtener la información del usuario:', error);
-        this.userImage = null; // No asigna una imagen por defecto
+        this.userImage = null;
       }
     });
   }
@@ -303,8 +302,41 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   closeNotificationModal() {
-    this.isNotificationModalOpen = false;
-  }
+    const userId = this.authService.getUserId();
+
+    if (userId) {
+        // Itera sobre todas las notificaciones activas y las inactiva
+        const inactivateRequests = this.notifications.map(notification => {
+            const mensaje: MessageNotifications = {
+                id: notification.id,
+                usuario: { id: userId },
+                titulo: notification.titulo,
+                descripcion: notification.descripcion,
+                usuarioCreacion: notification.usuarioCreacion,
+                fechaEnvio: notification.fechaEnvio,
+                fechaCreacion: notification.fechaCreacion,
+                usuarioModificacion: this.userName,
+                fechaModificacion: new Date().toISOString(),
+                activo: false
+            };
+
+            return this.messageService.updateNotificationStatus(mensaje);
+        });
+
+        // Ejecuta todas las solicitudes de inactivación
+        Promise.all(inactivateRequests.map(req => req.toPromise()))
+            .then(() => {
+                this.notifications = []; // Limpia la lista de notificaciones
+                this.updateUnreadNotificationsCount(); // Actualiza el contador de notificaciones no leídas
+                console.log('Todas las notificaciones han sido inactivadas.');
+            })
+            .catch(error => {
+                console.error('Error al inactivar las notificaciones:', error);
+            });
+    }
+
+    this.isNotificationModalOpen = false; // Cierra el modal
+}
 
   // markNotificationAsInactive(notification: MessageNotifications) {
   //   const updatedNotification = {
@@ -320,53 +352,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   //     console.error('Error updating notification status:', error);
   //   });
   // }
-
-  markNotificationAsInactive(notification: MessageNotifications) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¿Quieres eliminar esta notificación?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'No, cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const userId = this.authService.getUserId();
-
-        if (userId) {
-          this.userService.getUserById(userId).subscribe(user => {
-            const userName = user.response.persona.nombre;
-
-            const mensaje: MessageNotifications = {
-              id: notification.id,
-              usuario: { id: userId },
-              titulo: notification.titulo,
-              descripcion: notification.descripcion,
-              usuarioCreacion: notification.usuarioCreacion,
-              fechaEnvio: notification.fechaEnvio,
-              fechaCreacion: notification.fechaCreacion,
-              usuarioModificacion: userName,
-              fechaModificacion: new Date().toISOString(),
-              activo: false
-            };
-
-            console.log('Updating notification status______________________________:', JSON.stringify(mensaje));
-            this.messageService.updateNotificationStatus(mensaje).subscribe(() => {
-              this.notifications = this.notifications.filter(n => n.id !== notification.id);
-              this.updateUnreadNotificationsCount();
-              console.log('Notification status updated successfully', mensaje);
-            }, error => {
-              console.error('Error updating notification status:', error);
-            });
-          }, error => {
-            console.error('Error getting user name:', error);
-          });
-        } else {
-          console.error('User ID not found');
-        }
-      }
-    });
-  }
 
   updateUnreadNotificationsCount() {
     const userId = this.authService.getUserId();

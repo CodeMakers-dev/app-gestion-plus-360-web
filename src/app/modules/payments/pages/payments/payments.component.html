@@ -2,17 +2,21 @@
 
 <div class="mensajes-masivos-container min-h-screen flex flex-col relative">
   <div class="relative">
-    <div class="mt-8 mx-8">
+    <div class="mt-8 px-4 relative w-full z-10 mb-4">
       <app-navigation [navigationItems]="navigationItems"></app-navigation>
     </div>
 
-    <div class="flex justify-between items-center" style="margin-top: -80px; margin-left: 10px">
-      <img src="port.png" alt="Logo" class="logo" />
-      <button style="cursor: pointer" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        routerLink="/payments/create-pay">
+    <div class="flex justify-between items-center" style="margin-left: 10px">
+      <img src="port.png" alt="Logo" class="logo w-full max-w-[300px] h-auto md:max-w-[500px]" />
+      <button
+        style="cursor: pointer"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+        routerLink="/payments/create-pay"
+      >
         Crear Pago
       </button>
     </div>
+
   </div>
 
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg flex-grow">
@@ -48,29 +52,29 @@
       </div>
       <div class="relative">
         <button
-          id="dropdownActionButton"
-          (click)="toggleDropdown()"
-          class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 cursor-pointer"
-          type="button"
-        >
-          <span class="sr-only">Action button</span>
-          Select Columns
-          <svg
-            class="w-2.5 h-2.5 ms-2.5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 10 6"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 4 4 4-4"
-            />
-          </svg>
-        </button>
+  id="dropdownActionButton"
+  (click)="toggleDropdown()"
+  class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-xs px-2 py-1 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 cursor-pointer"
+  type="button"
+>
+  <span class="sr-only">Action button</span>
+  Select Columns
+  <svg
+    class="w-2 h-2 ms-2"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 10 6"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="m1 1 4 4 4-4"
+    />
+  </svg>
+</button>
         <div
           id="dropdownAction"
           class="absolute z-20 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 max-h-60 overflow-y-auto dark:bg-gray-700 dark:divide-gray-600">
@@ -367,11 +371,13 @@
       </div>
   
       <div class="flex justify-end items-center">
-        <button style="cursor: pointer; margin-top: 20px"
-          class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center"
-          (click)="exportToExcel()">
-          <i class="fas fa-file-excel mr-2"></i> Descargar Excel
-        </button>
+        <button
+  style="cursor: pointer; margin-top: 20px"
+  class="bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center export-excel"
+  (click)="exportToExcel()"
+>
+  <i class="fas fa-file-excel mr-2"></i> Descargar Excel
+</button>
       </div>
     </div>
   </div>
