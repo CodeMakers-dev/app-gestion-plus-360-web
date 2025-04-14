@@ -1,19 +1,73 @@
 <app-header></app-header>
-<div class="main-content min-h-screen flex flex-col relative">
-    <div class="flex-grow">
-        <div class="fondo-principal">
-            <img src="fondo-home.jpg" alt="fondo-principal">
-        </div>
-        <div class="logo-fondo">
-            <img src="log.png" alt="logo-fondo">
-        </div>
-        <p class="frace">"Servicios Que Simplifican Tu Vida"</p>
-        <div class="video">
-            <video autoplay loop muted playsinline>
+<div class="main-content min-h-screen flex flex-col relative bg-white">
+    <div class="relative flex flex-col items-center justify-center text-center w-full h-[60vh]">
+        <div class="relative z-10 w-full h-full">
+            <video class="w-full h-full object-cover shadow-lg" autoplay loop muted playsinline>
                 <source src="video.mp4" type="video/mp4">
-                Tu navegador no soporta la etiqueta de video.
             </video>
         </div>
     </div>
+<br>
+    <div class="relative z-10 flex justify-center items-center text-center">
+        <p class="text-4xl font-bold text-gray-900 italic">"Servicios Que Simplifican Tu Vida"</p>
+    </div>
+<section class="py-16 px-8">
+    <div class="flex items-center mb-8">
+        <div class="flex-grow border-t-2 border-black"></div>
+        <h2 class="text-4xl font-extrabold text-gray-900 ml-4">Acerca de nosotros</h2>
+    </div>
+    <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 flex justify-center">
+            <img src="servicio.jpg" alt="Sobre Nosotros" class="w-full max-w-lg rounded-lg shadow-lg">
+        </div>
+        <div class="md:w-1/2 text-center md:text-left md:pl-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Gestion plus 360</h2>
+            <p class="mt-4 text-gray-700 text-justify">
+                Somos una empresa comprometida con la transformación digital, brindando soluciones tecnológicas innovadoras para mejorar la eficiencia y calidad de diversos servicios. 
+                Nuestro enfoque se centra en el desarrollo de herramientas personalizadas que optimizan procesos, facilitan la conectividad y mejoran la experiencia de nuestros clientes.
+                Desde la automatización de tareas, nuestro equipo trabaja constantemente en ofrecer tecnología que impulse el crecimiento y la competitividad en distintos sectores.
+            </p>
+        </div>
+    </div>
+</section>
+<section class="min-h-screen flex flex-col justify-center items-center bg-gray-100 px-8 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 mb-8">Nuestros Servicios</h2>
+    
+    <div class="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-lg p-6 max-w-4xl">
+        <div class="md:w-1/2 flex justify-center">
+            <img src="men.jpg" alt="Envío Masivo de Mensajes por WhatsApp" class="w-full max-w-sm rounded-lg">
+        </div>
+        <div class="md:w-1/2 text-center md:text-left md:pl-8">
+            <h3 class="text-2xl font-semibold text-gray-900">Envío Masivo de Mensajes por WhatsApp</h3>
+            <p class="text-gray-600 mt-4 text-justify">
+                Nuestro servicio de envío masivo de mensajes por WhatsApp permite a las empresas comunicarse de manera efectiva con sus clientes, 
+                enviando notificaciones, promociones y recordatorios de forma rápida y personalizada. 
+                Aumenta la interacción y mejora la experiencia del usuario con un canal de comunicación directo y eficiente.
+            </p>
+        </div>
+        
+    </div>
+</section>
+    <section class="py-16 px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900">Nuestros Clientes</h2>
+        <div class="overflow-hidden relative w-full max-w-4xl mx-auto mt-8">
+            <div class="flex space-x-8 animate-marquee">
+                <img src="code.png" alt="Cliente 1" class="h-20 w-auto" >
+                <img src="juli.png" alt="Cliente 2" class="h-20 w-auto" >
+            </div>
+        </div>
+    </section>
+
 </div>
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        display: flex;
+        animation: marquee 15s linear infinite;
+    }
+</style>
+
 <app-footer></app-footer>
