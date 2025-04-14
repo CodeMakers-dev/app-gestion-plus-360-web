@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 flex items-center justify-between p-6 bg-[#05eaab] text-white">
+<header class="sticky top-0 z-50 flex items-center justify-between p-6 bg-gradient-to-r from-orange-300 via-sky-500 to-sky-400 text-black">
     <div class="left-container flex items-center space-x-2 md:space-x-4">
         <div class="menu-container cursor-pointer ml-[-4px] md:ml-0" (click)="toggleSidebar()">
             <i class="fa-solid fa-bars fa-2x"></i>
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="sidebar fixed top-0 left-0 w-64 h-full bg-[#05eaab] text-white transform -translate-x-full transition-transform duration-300 shadow-2xl shadow-gray-950 z-50"
+<div class="sidebar fixed top-0 left-0 w-64 h-full bg-gradient-to-b from-orange-300 via-sky-500 to-sky-400 text-white transform -translate-x-full transition-transform duration-300 shadow-2xl shadow-gray-950 z-50"
     [class.translate-x-0]="sidebarOpen">
     <div class="sidebar-logo p-4">
         <img src="log.png" alt="Logo" class="h-10 mx-auto">

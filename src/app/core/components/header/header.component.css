@@ -43,12 +43,11 @@ input:disabled {
 }
 
 header {
-  height: 64px; /* Mantén la altura fija del header */
+  height: 80px; /* Mantén la altura fija del header */
   display: flex;
   align-items: center; /* Centra verticalmente los elementos */
   justify-content: space-between; /* Espacia los elementos horizontalmente */
   padding: 0 1rem; /* Agrega un padding horizontal */
-  background-color: #05eaab; /* Color de fondo */
 }
 
 @media (max-width: 768px) {
